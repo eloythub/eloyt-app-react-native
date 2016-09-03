@@ -1,4 +1,5 @@
 
 export default {
-    ubuntuC: 'Ubuntu-L'
+    openSans: 'OpenSans',
+    sourceSansPro: 'SourceSansPro',
 };
