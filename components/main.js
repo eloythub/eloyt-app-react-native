@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { 
-    View, 
+import React, { PropTypes, Component } from 'react';
+import {
+    View,
     Text,
     Image,
     StyleSheet,
 } from 'react-native';
 
-import Button from 'react-native-button';
+import { FBLogin, FBLoginManager } from 'react-native-facebook-login';
 import Fonts from '../eloyt/fonts';
 import Common from '../eloyt/common';
 
@@ -17,18 +17,49 @@ export default class Main extends Component {
         console.log('pressed');
     }
     render() {
+        var _this = this;
+
         return (
             <View style={ style.wrapperLogo }>
                 <Image source={ logo } />
                 <Text style={ style.appName }>
                     Idea Studio
                 </Text>
-                <Button
-                    style={ style.facebookLoginButton }
-                    onPress={ () => this.buttonPress() }
-                    >
-                    Facebook Login
-                </Button>
+                <View style={ style.separator }/>
+                <FBLogin style={ style.facebookLoginButton }
+                ref={(fbLogin) => { this.fbLogin = fbLogin }}
+                permissions={["email","user_friends"]}
+                loginBehavior={FBLoginManager.LoginBehaviors.Native}
+                onLogin={function(data){
+                    console.log("Logged in!");
+                    console.log(data);
+                    _this.setState({ user : data.credentials });
+                }}
+                onLogout={function(){
+                    console.log("Logged out.");
+                    _this.setState({ user : null });
+                }}
+                onLoginFound={function(data){
+                    console.log("Existing login found.");
+                    console.log(data);
+                    _this.setState({ user : data.credentials });
+                }}
+                onLoginNotFound={function(){
+                    console.log("No user logged in.");
+                    _this.setState({ user : null });
+                }}
+                onError={function(data){
+                    console.log("ERROR");
+                    console.log(data);
+                }}
+                onCancel={function(){
+                    console.log("User cancelled.");
+                }}
+                onPermissionsMissing={function(data){
+                        console.log("Check permissions!");
+                        console.log(data);
+                    }}
+                />
             </View>
         );
     }
@@ -39,7 +70,7 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        paddingTop: -50
+        paddingTop: -50,
     },
     appName: {
         fontFamily: Fonts.openSans,
@@ -47,7 +78,9 @@ const style = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
     },
+    separator: {
+        marginTop: 70,
+    },
     facebookLoginButton: {
-        backgroundColor: 'red'
-    }
+    },
 });
