@@ -24,9 +24,10 @@ export default class Main extends Component {
                     Idea Studio
                 </Text>
                 <Button
+                    style={ style.facebookLoginButton }
                     onPress={ () => this.buttonPress() }
                     >
-                    Hello users
+                    Facebook Login
                 </Button>
             </View>
         );
@@ -46,4 +47,7 @@ const style = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
     },
+    facebookLoginButton: {
+        backgroundColor: 'red'
+    }
 });
