@@ -7,3 +7,8 @@ Share your Idea, make team, get funded
 keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
 
 ```
+
+```
+# install rnpm to link some modules to ur app like in IOS
+sudo npm install -g rnpm
+```
