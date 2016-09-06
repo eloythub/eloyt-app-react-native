@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  ToastAndroid
 } from 'react-native';
 
 import {
@@ -13,9 +14,9 @@ import {
   FBLoginManager,
 } from 'react-native-facebook-login';
 
-import Fonts from 'ideaStudio/eloyt/fonts';
 
-import logo from 'ideaStudio/assets/images/logo.png';
+import Fonts from 'ideaStudio/common/fonts';
+import logo from 'ideaStudio/app/assets/images/logo.png';
 
 export default class Main extends Component {
   render() {
@@ -24,7 +25,7 @@ export default class Main extends Component {
     return (
       <View style={style.wrapperLogo}>
       <Image source={logo}/>
-      <Text style={style.appName} >Idea Studio </Text>
+      <Text style={style.appName}>Idea Studio </Text>
       <View style={style.separator}/>
       <FBLogin style={style.facebookLoginButton}
         ref={
@@ -69,20 +70,30 @@ export default class Main extends Component {
           }
         }
         onError={
-          (data) => {
-            // console.log("ERROR");
-            // console.log(data);
+          () => {
+            ToastAndroid.showWithGravity(
+              'Something went wrong, please try again',
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            );
           }
         }
         onCancel={
           () => {
-            // console.log("User cancelled.");
+            ToastAndroid.showWithGravity(
+              'Request just canceled',
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            );
           }
         }
         onPermissionsMissing={
-          (data) => {
-            // console.log("Check permissions!");
-            // console.log(data);
+          () => {
+            ToastAndroid.showWithGravity(
+              'Permission failed!',
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            );
           }
         }
       />
