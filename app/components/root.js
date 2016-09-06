@@ -4,6 +4,7 @@ import { Scene, Router, ActionConst } from 'react-native-router-flux';
 
 import Splash from './intro/splash';
 import Login from './authentication/login';
+import Home from './home/home';
 
 export default class Root extends Component {
   render() {
@@ -22,6 +23,14 @@ export default class Root extends Component {
           component={Login}
           title="Login"
           tab={true}
+          type={ActionConst.REPLACE}
+          />
+        <Scene
+          unmountScenes
+          key="home"
+          component={Home}
+          title="Home"
+          hideNavBar={true}
           type={ActionConst.REPLACE}
           />
       </Router>

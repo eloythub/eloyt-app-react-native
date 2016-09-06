@@ -11,12 +11,11 @@ import {
   FBLogin,
   FBLoginManager,
 } from 'react-native-facebook-login';
+import { Actions } from 'react-native-router-flux';
 
 export default class Login extends Component {
   constructor (props) {
     super(props);
-
-    this.loginLoaded = true;
   }
 
   render() {
@@ -24,19 +23,21 @@ export default class Login extends Component {
 
     return (
       <View style={style.wrapperLogo}>
-        <FBLogin style={style.facebookLoginButton}
+        <FBLogin
           ref={
             (fbLogin) => {
               this.fbLogin = fbLogin
             }
           }
-          permissions={["email", "user_friends"]}
+          permissions={['email', 'user_friends', 'user_photos']}
           loginBehavior={FBLoginManager.LoginBehaviors.Native}
           onLogin={
             (data) => {
               base.setState({
                   user: data.credentials
               });
+
+              Actions.home(base);
             }
           }
           onLogout={
@@ -51,6 +52,8 @@ export default class Login extends Component {
               base.setState({
                   user: data.credentials
               });
+
+              Actions.home(base);
             }
           }
           onLoginNotFound={
