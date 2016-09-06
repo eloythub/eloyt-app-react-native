@@ -1,6 +1,6 @@
 
 import { AppRegistry } from 'react-native';
 
-import Main from 'ideaStudio/app/components/main';
+import Root from 'ideaStudio/app/components/root';
 
-AppRegistry.registerComponent('ideaStudio', () => Main);
+AppRegistry.registerComponent('ideaStudio', () => Root);
