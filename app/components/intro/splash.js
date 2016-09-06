@@ -12,7 +12,6 @@ import TimerMixin from 'react-timer-mixin';
 import { Actions } from 'react-native-router-flux';
 import {
   FBLogin,
-  FBLoginManager,
 } from 'react-native-facebook-login';
 
 import Fonts from 'ideaStudio/common/fonts';
@@ -21,12 +20,6 @@ import logo from 'ideaStudio/app/assets/images/logo.png';
 export default class Main extends Component {
   constructor (props) {
     super(props);
-
-    // if (this.state.user) {
-    //   Actions.home();
-    //
-    //   return;
-    // }
 
     TimerMixin.setTimeout(() => {
       Actions.login(); // change scene to login page where user can authenticate into the app
