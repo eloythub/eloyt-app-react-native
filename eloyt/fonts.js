@@ -1,5 +1,5 @@
 
 export default {
-    openSans: 'OpenSans',
-    sourceSansPro: 'SourceSansPro',
+  openSans: 'OpenSans',
+  sourceSansPro: 'SourceSansPro',
 };
