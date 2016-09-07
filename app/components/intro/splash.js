@@ -4,7 +4,6 @@ import React, {
 
 import {
   View,
-  Text,
   Image,
   StyleSheet,
 } from 'react-native';
@@ -14,7 +13,6 @@ import {
   FBLogin,
 } from 'react-native-facebook-login';
 
-import Fonts from 'ideaStudio/common/fonts';
 import logo from 'ideaStudio/app/assets/images/logo.png';
 
 export default class Main extends Component {

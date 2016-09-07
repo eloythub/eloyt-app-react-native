@@ -3,16 +3,10 @@ import React, {
 } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
-  TouchableHighlight,
   DrawerLayoutAndroid,
 } from 'react-native';
 
-import {
-  FBLoginManager,
-} from 'react-native-facebook-login';
-import { Actions } from 'react-native-router-flux';
 import { navigationView } from '../partials/drawerView';
 
 class HomeView extends Component {
