@@ -6,12 +6,23 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
+  DrawerLayoutAndroid,
 } from 'react-native';
 
 import {
   FBLoginManager,
 } from 'react-native-facebook-login';
 import { Actions } from 'react-native-router-flux';
+import { navigationView } from '../partials/drawerView';
+
+class HomeView extends Component {
+  render() {
+    return (
+      <View style={style.wrapperLogo}>
+      </View>
+    );
+  }
+}
 
 export default class Home extends Component {
   constructor (props) {
@@ -20,15 +31,12 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View style={style.wrapperLogo}>
-        <TouchableHighlight onPress={() => {
-            FBLoginManager.logout(() => {
-              Actions.login();
-            });
-          }}>
-          <Text>Logout</Text>
-        </TouchableHighlight>
-      </View>
+      <DrawerLayoutAndroid
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView={() => navigationView}>
+        <HomeView />
+      </DrawerLayoutAndroid>
     );
   }
 }

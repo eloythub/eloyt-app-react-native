@@ -3,7 +3,9 @@ import React, {
 } from 'react';
 import {
   View,
+  Text,
   StyleSheet,
+  ScrollView,
   ToastAndroid
 } from 'react-native';
 
@@ -23,74 +25,78 @@ export default class Login extends Component {
 
     return (
       <View style={style.wrapperLogo}>
-        <FBLogin
-          ref={
-            (fbLogin) => {
-              this.fbLogin = fbLogin
+        <ScrollView></ScrollView>
+        <View>
+          <FBLogin
+            style={style.facebookLoginButton}
+            ref={
+              (fbLogin) => {
+                this.fbLogin = fbLogin
+              }
             }
-          }
-          permissions={['email', 'user_friends', 'user_photos']}
-          loginBehavior={FBLoginManager.LoginBehaviors.Native}
-          onLogin={
-            (data) => {
-              base.setState({
-                  user: data.credentials
-              });
+            permissions={['email', 'user_friends', 'user_photos']}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
+            onLogin={
+              (data) => {
+                base.setState({
+                    user: data.credentials
+                });
 
-              Actions.home(base);
+                Actions.home(base);
+              }
             }
-          }
-          onLogout={
-            () => {
-              base.setState({
-                  user: null
-              });
+            onLogout={
+              () => {
+                base.setState({
+                    user: null
+                });
+              }
             }
-          }
-          onLoginFound={
-            (data) => {
-              base.setState({
-                  user: data.credentials
-              });
+            onLoginFound={
+              (data) => {
+                base.setState({
+                    user: data.credentials
+                });
 
-              Actions.home(base);
+                Actions.home(base);
+              }
             }
-          }
-          onLoginNotFound={
-            () => {
-              base.setState({
-                  user: null
-              });
+            onLoginNotFound={
+              () => {
+                base.setState({
+                    user: null
+                });
+              }
             }
-          }
-          onError={
-            () => {
-              ToastAndroid.showWithGravity(
-                'Something went wrong, please try again',
-                ToastAndroid.SHORT,
-                ToastAndroid.CENTER
-              );
+            onError={
+              () => {
+                ToastAndroid.showWithGravity(
+                  'Something went wrong, please try again',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.CENTER
+                );
+              }
             }
-          }
-          onCancel={
-            () => {
-              ToastAndroid.showWithGravity(
-                'Request just canceled',
-                ToastAndroid.SHORT,
-                ToastAndroid.CENTER
-              );
+            onCancel={
+              () => {
+                ToastAndroid.showWithGravity(
+                  'Request just canceled',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.CENTER
+                );
+              }
             }
-          }
-          onPermissionsMissing={
-            () => {
-              ToastAndroid.showWithGravity(
-                'Permission failed!',
-                ToastAndroid.SHORT,
-                ToastAndroid.CENTER
-              );
+            onPermissionsMissing={
+              () => {
+                ToastAndroid.showWithGravity(
+                  'Permission failed!',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.CENTER
+                );
+              }
             }
-          }
-        />
+          />
+        </View>
       </View>
     );
   }
@@ -98,9 +104,11 @@ export default class Login extends Component {
 
 const style = StyleSheet.create({
   wrapperLogo: {
-    justifyContent: 'center',
-    alignItems: 'center',
     flex: 1,
-    paddingTop: -50,
+    backgroundColor: '#fafafa',
+  },
+  facebookLoginButton: {
+    height: 60,
+    padding: 20,
   },
 });

@@ -31,7 +31,8 @@ export default class Main extends Component {
 
     return (
       <View style={style.wrapperLogo}>
-        <FBLogin style={style.facebookLoginButton}
+        <FBLogin
+          style={style.facebookLoginButton}
           ref={
             (fbLogin) => {
               this.fbLogin = fbLogin
@@ -48,8 +49,6 @@ export default class Main extends Component {
           }
         />
         <Image source={logo}/>
-        <View style={style.separator}/>
-        <Text style={style.appName}>Idea Studio</Text>
       </View>
     );
   }
@@ -61,15 +60,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     paddingTop: -50,
-  },
-  appName: {
-    fontFamily: Fonts.openSans,
-    fontSize: 40,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-  separator: {
-    marginTop: 50,
+    backgroundColor: '#fafafa',
   },
   facebookLoginButton: {
     opacity: 0,

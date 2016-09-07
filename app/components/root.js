@@ -12,7 +12,6 @@ export default class Root extends Component {
       <Router>
         <Scene
           initial={true}
-          unmountScenes
           key="splash"
           component={Splash}
           hideNavBar={true}
@@ -21,8 +20,7 @@ export default class Root extends Component {
           unmountScenes
           key="login"
           component={Login}
-          title="Login"
-          tab={true}
+          hideNavBar={true}
           type={ActionConst.REPLACE}
           />
         <Scene
