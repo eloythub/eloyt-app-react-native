@@ -43,16 +43,22 @@ const style = StyleSheet.create({
   },
 });
 
+const doLogOut = () => {
+  FBLoginManager.logout(() => {
+    Actions.login();
+  });
+};
+
 export const navigationView = (
   <View style={style.wrapper}>
     <ScrollView></ScrollView>
     <View style={style.footer}>
       <View style={style.signOutWrapper}>
-        <Icon.Button name="ios-exit-outline" style={style.signOut} onPress={() => {
-            FBLoginManager.logout(() => {
-              Actions.login();
-            });
-          }}>
+        <Icon.Button
+          name="ios-exit-outline"
+          style={style.signOut}
+          onPress={doLogOut}
+          >
           <Text style={style.signOutText}>Sign out</Text>
         </Icon.Button>
       </View>
