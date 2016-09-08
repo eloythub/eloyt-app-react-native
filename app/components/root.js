@@ -11,25 +11,25 @@ export default class Root extends Component {
     return (
       <Router>
         <Scene
-          initial={true}
           key="splash"
           component={Splash}
+          initial={true}
           hideNavBar={true}
+          panHandlers={null}
           />
         <Scene
-          unmountScenes
           key="login"
           component={Login}
-          hideNavBar={true}
           type={ActionConst.REPLACE}
+          hideNavBar={true}
+          panHandlers={null}
           />
         <Scene
-          unmountScenes
           key="home"
           component={Home}
-          title="Home"
-          hideNavBar={true}
           type={ActionConst.REPLACE}
+          hideNavBar={true}
+          panHandlers={null}
           />
       </Router>
     );
