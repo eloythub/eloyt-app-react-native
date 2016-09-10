@@ -2,7 +2,9 @@ import React, {
   Component,
 } from 'react';
 import {
+  Text,
   View,
+  Image,
   StyleSheet,
   ScrollView,
   ToastAndroid
@@ -14,6 +16,9 @@ import {
 } from 'react-native-facebook-login';
 import { Actions } from 'react-native-router-flux';
 
+import logo from 'ideaStudio/app/assets/images/logo.png';
+import background from 'ideaStudio/app/assets/images/login-cover.jpg';
+
 export default class Login extends Component {
   constructor (props) {
     super(props);
@@ -24,7 +29,21 @@ export default class Login extends Component {
 
     return (
       <View style={style.wrapperLogo}>
-        <ScrollView></ScrollView>
+        <View style={style.bgImageWrapper}>
+          <Image source={background} style={style.bgImage} />
+        </View>
+        <ScrollView style={style.quoteContainer}>
+          <View style={style.quoteView}>
+            <Image source={logo}/>
+            <Text style={style.quote}>
+              Idea Studio
+              {'\n'}
+              is
+              {'\n'}
+              Instant Success
+            </Text>
+          </View>
+        </ScrollView>
         <View>
           <FBLogin
             style={style.facebookLoginButton}
@@ -104,10 +123,32 @@ export default class Login extends Component {
 const style = StyleSheet.create({
   wrapperLogo: {
     flex: 1,
-    backgroundColor: '#fafafa',
+  },
+  bgImageWrapper: {
+    position: 'absolute',
+    top: 0, bottom: 0, left: 0, right: 0
+  },
+  bgImage: {
+    flex: 1,
+    resizeMode: "stretch"
   },
   facebookLoginButton: {
     height: 60,
     padding: 20,
+  },
+  quoteContainer: {
+    flex: 1,
+  },
+  quoteView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    paddingTop: 50,
+  },
+  quote: {
+    fontSize: 40,
+    textAlign: 'center',
+    margin: 10,
+    color: '#fff',
   },
 });
