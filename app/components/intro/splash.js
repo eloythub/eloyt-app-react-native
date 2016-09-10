@@ -16,17 +16,25 @@ import {
 import logo from 'ideaStudio/app/assets/images/logo.png';
 
 export default class Main extends Component {
-  constructor (props) {
-    super(props);
+  onLoginFound = data => {
+    this.setState({
+      user: data.credentials
+    });
+
+    Actions.home(this);
+  }
+
+  onLoginNotFound = data => {
+    this.setState({
+        user: null
+    });
 
     TimerMixin.setTimeout(() => {
       Actions.login(); // change scene to login page where user can authenticate into the app
-    }, 2000);
+    }, 3000);
   }
 
   render() {
-    const base = this;
-
     return (
       <View style={style.wrapperLogo}>
         <FBLogin
@@ -36,15 +44,8 @@ export default class Main extends Component {
               this.fbLogin = fbLogin
             }
           }
-          onLoginFound={
-            (data) => {
-              base.setState({
-                  user: data.credentials
-              });
-
-              Actions.home(base);
-            }
-          }
+          onLoginFound={this.onLoginFound}
+          onLoginNotFound={this.onLoginNotFound}
         />
         <Image source={logo}/>
       </View>
