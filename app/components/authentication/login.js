@@ -94,7 +94,7 @@ export default class Login extends Component {
         </ScrollView>
         <View>
           <Text style={style.desc}>
-            Get Start and Explore ur Ideas and passions
+            Get ready to Explore your Ideas and passion
           </Text>
           <FBLogin
             style={style.facebookLoginButton}
