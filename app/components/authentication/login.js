@@ -16,6 +16,8 @@ import {
 } from 'react-native-facebook-login';
 import { Actions } from 'react-native-router-flux';
 
+import Fonts from 'ideaStudio/common/fonts';
+
 import logo from 'ideaStudio/app/assets/images/logo.png';
 import background from 'ideaStudio/app/assets/images/login-cover.jpg';
 
@@ -82,15 +84,18 @@ export default class Login extends Component {
           <View style={style.quoteView}>
             <Image source={logo}/>
             <Text style={style.quote}>
-              Idea Studio
+              IDEA STUDIO
               {'\n'}
-              is
+              IS
               {'\n'}
-              Instant Success
+              INSTANT SUCCESS
             </Text>
           </View>
         </ScrollView>
         <View>
+          <Text style={style.desc}>
+            Get Start and Explore ur Ideas and passions
+          </Text>
           <FBLogin
             style={style.facebookLoginButton}
             ref={
@@ -141,9 +146,18 @@ const style = StyleSheet.create({
     paddingTop: 50,
   },
   quote: {
-    fontSize: 40,
+    fontSize: 35,
     textAlign: 'center',
-    margin: 10,
+    marginTop: 20,
+    color: '#e1e1e1',
+    fontFamily: Fonts.openSans,
+    fontWeight: 'bold',
+  },
+  desc: {
+    fontSize: 14,
+    textAlign: 'center',
     color: '#fff',
+    fontFamily: Fonts.openSans,
+    marginBottom: 10,
   },
 });
