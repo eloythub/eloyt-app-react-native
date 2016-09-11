@@ -2,17 +2,31 @@ import React, {
   Component,
 } from 'react';
 import {
+  Text,
   View,
   StyleSheet,
   DrawerLayoutAndroid,
+  ScrollView,
 } from 'react-native';
 
-import { navigationView } from '../partials/drawerView';
+import { MenuContainer, MenuItems } from '../fixtures/footer-menu';
+import { navigationView } from '../partials/drawer-view';
+
+const menuItems = [];
+menuItems.push(<MenuItems id={1} />);
+menuItems.push(<MenuItems  id={2} />);
+menuItems.push(<MenuItems  id={3}/>);
 
 class HomeView extends Component {
   render() {
     return (
       <View style={style.wrapperLogo}>
+        <ScrollView>
+          <MenuItems />
+        </ScrollView>
+        <View style={style.footerMenu}>
+          <MenuContainer items={menuItems} />
+        </View>
       </View>
     );
   }
@@ -37,9 +51,12 @@ export default class Home extends Component {
 
 const style = StyleSheet.create({
   wrapperLogo: {
-    justifyContent: 'center',
-    alignItems: 'center',
     flex: 1,
-    paddingTop: -50,
+  },
+  footerMenu: {
+    backgroundColor: '#000',
+  },
+  footerText: {
+    color: '#fff',
   },
 });
