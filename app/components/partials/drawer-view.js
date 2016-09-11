@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {
+  Component,
+} from 'react';
 
 import {
   View,
@@ -49,19 +51,27 @@ const doLogOut = () => {
   });
 };
 
-export const navigationView = (
-  <View style={style.wrapper}>
-    <ScrollView></ScrollView>
-    <View style={style.footer}>
-      <View style={style.signOutWrapper}>
-        <Icon.Button
-          name="ios-exit-outline"
-          style={style.signOut}
-          onPress={doLogOut}
-          >
-          <Text style={style.signOutText}>Sign out</Text>
-        </Icon.Button>
+export class NavigationView extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <View style={style.wrapper}>
+        <ScrollView></ScrollView>
+        <View style={style.footer}>
+          <View style={style.signOutWrapper}>
+            <Icon.Button
+              name="ios-exit-outline"
+              style={style.signOut}
+              onPress={doLogOut}
+              >
+              <Text style={style.signOutText}>Sign out</Text>
+            </Icon.Button>
+          </View>
+        </View>
       </View>
-    </View>
-  </View>
-);
+    );
+  }
+}

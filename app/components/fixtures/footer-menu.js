@@ -17,6 +17,8 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderColor: '#e8e8e8',
+    borderTopWidth: 1,
   },
   menuItemContainer: {
     height: 40,

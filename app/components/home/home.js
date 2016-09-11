@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
-import { navigationView } from '../partials/drawer-view';
+import { NavigationView } from '../partials/drawer-view';
 
 class HomeView extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ export default class Home extends Component {
         ref={'drawerLayout'}
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
-        renderNavigationView={() => navigationView}>
+        renderNavigationView={() => <NavigationView /> }>
         <HomeView root={this}/>
       </DrawerLayoutAndroid>
     );
