@@ -19,7 +19,7 @@ const style = StyleSheet.create({
     justifyContent: 'space-between',
   },
   menuItemContainer: {
-    height: 50,
+    height: 40,
     width: 50,
     backgroundColor: '#eee',
     alignItems: 'center',
@@ -50,7 +50,7 @@ export class MenuItem extends Component {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
         <View style={style.menuItemContainer}>
-          <Icon name={this.props.icon} size={50} />
+          <Icon name={this.props.icon} size={40} />
         </View>
       </TouchableOpacity>
     );
