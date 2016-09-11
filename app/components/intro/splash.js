@@ -16,6 +16,10 @@ import {
 import logo from 'ideaStudio/app/assets/images/logo.png';
 
 export default class Main extends Component {
+  constructor (props) {
+    super(props);
+  }
+
   onLoginFound = data => {
     this.setState({
       user: data.credentials

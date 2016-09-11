@@ -15,9 +15,12 @@ import { navigationView } from '../partials/drawer-view';
 class HomeView extends Component {
   constructor(props) {
     super(props);
+
+    this.root = props.root;
   }
 
   render() {
+    let base = this;
     return (
       <View style={style.wrapperLogo}>
         <ScrollView>
@@ -25,7 +28,7 @@ class HomeView extends Component {
         <View style={style.footerMenu}>
           <MenuContainer>
             <MenuItem name="menu" icon="ios-more" onPress={() => {
-                console.log('menu');
+                base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-camera"  onPress={() => {
                 console.log('record');
@@ -48,10 +51,11 @@ export default class Home extends Component {
   render() {
     return (
       <DrawerLayoutAndroid
+        ref={'drawerLayout'}
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => navigationView}>
-        <HomeView />
+        <HomeView root={this}/>
       </DrawerLayoutAndroid>
     );
   }
