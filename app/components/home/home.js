@@ -9,23 +9,31 @@ import {
   ScrollView,
 } from 'react-native';
 
-import { MenuContainer, MenuItems } from '../fixtures/footer-menu';
+import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { navigationView } from '../partials/drawer-view';
 
-const menuItems = [];
-menuItems.push(<MenuItems id={1} />);
-menuItems.push(<MenuItems  id={2} />);
-menuItems.push(<MenuItems  id={3}/>);
-
 class HomeView extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <View style={style.wrapperLogo}>
         <ScrollView>
-          <MenuItems />
         </ScrollView>
         <View style={style.footerMenu}>
-          <MenuContainer items={menuItems} />
+          <MenuContainer>
+            <MenuItem name="menu" icon="ios-more" onPress={() => {
+                console.log('menu');
+              }} />
+            <MenuItem name="record" icon="ios-camera"  onPress={() => {
+                console.log('record');
+              }} />
+            <MenuItem name="profile" icon="ios-people" onPress={() => {
+                console.log('profile');
+              }} />
+          </MenuContainer>
         </View>
       </View>
     );

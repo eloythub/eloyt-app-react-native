@@ -84,10 +84,6 @@ export default class Login extends Component {
           <View style={style.quoteView}>
             <Image source={logo}/>
             <Text style={style.quote}>
-              IDEA STUDIO
-              {'\n'}
-              IS
-              {'\n'}
               INSTANT SUCCESS
             </Text>
           </View>
@@ -148,16 +144,16 @@ const style = StyleSheet.create({
   quote: {
     fontSize: 35,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 50,
     color: '#e1e1e1',
     fontFamily: Fonts.openSans,
     fontWeight: 'bold',
   },
   desc: {
-    fontSize: 14,
+    fontSize: 12,
     textAlign: 'center',
     color: '#fff',
     fontFamily: Fonts.openSans,
-    marginBottom: 10,
+    marginBottom: 20,
   },
 });
