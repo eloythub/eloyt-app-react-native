@@ -20,7 +20,7 @@ export default class Main extends Component {
     super(props);
   }
 
-  onLoginFound = user => {
+  onLoginFound(user) {
     this.setState({
       user: user
     });
@@ -28,7 +28,7 @@ export default class Main extends Component {
     Actions.home(this);
   }
 
-  onLoginNotFound = data => {
+  onLoginNotFound() {
     this.setState({
         user: null
     });

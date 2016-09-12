@@ -1,8 +1,8 @@
 import React, {
   Component,
+  PropTypes,
 } from 'react';
 import {
-  Text,
   View,
   StyleSheet,
   DrawerLayoutAndroid,
@@ -31,10 +31,8 @@ class HomeView extends Component {
                 base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-camera"  onPress={() => {
-                console.log('record');
               }} />
             <MenuItem name="profile" icon="ios-people" onPress={() => {
-                console.log('profile');
               }} />
           </MenuContainer>
         </View>
@@ -42,6 +40,10 @@ class HomeView extends Component {
     );
   }
 }
+
+HomeView.propTypes = {
+  root: PropTypes.any.isRequired
+};
 
 export default class Home extends Component {
   constructor (props) {
@@ -67,8 +69,5 @@ const style = StyleSheet.create({
   },
   footerMenu: {
     backgroundColor: '#000',
-  },
-  footerText: {
-    color: '#fff',
   },
 });

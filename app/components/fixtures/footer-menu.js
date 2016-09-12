@@ -1,5 +1,6 @@
 import React, {
   Component,
+  PropTypes,
 } from 'react';
 
 import {
@@ -41,6 +42,10 @@ export class MenuContainer extends Component {
   }
 }
 
+MenuContainer.propTypes = {
+  children: PropTypes.any.isRequired,
+};
+
 export class MenuItem extends Component {
   constructor(props) {
     super(props);
@@ -57,3 +62,8 @@ export class MenuItem extends Component {
     );
   }
 }
+
+MenuItem.propTypes = {
+  icon: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+};
