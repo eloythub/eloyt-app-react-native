@@ -22,7 +22,7 @@ import logo from 'ideaStudio/app/assets/images/logo.png';
 import background from 'ideaStudio/app/assets/images/login-cover.jpg';
 
 export default class Login extends Component {
-  onLogin = user => {
+  onLogin(user) {
     this.setState({
       user: user
     });
@@ -30,13 +30,13 @@ export default class Login extends Component {
     Actions.home(this);
   }
 
-  onLogout = () => {
+  onLogout() {
     this.setState({
       user: null
     });
   }
 
-  onLoginFound = user => {
+  onLoginFound(user) {
     this.setState({
       user: user
     });
@@ -44,13 +44,13 @@ export default class Login extends Component {
     Actions.home(this);
   }
 
-  onLoginNotFound = () => {
+  onLoginNotFound() {
     this.setState({
       user: null
     });
   }
 
-  onError = () => {
+  onError() {
     ToastAndroid.showWithGravity(
       'Something went wrong, please try again',
       ToastAndroid.SHORT,
@@ -58,7 +58,7 @@ export default class Login extends Component {
     );
   }
 
-  onCancel = () => {
+  onCancel() {
     ToastAndroid.showWithGravity(
       'Request just canceled',
       ToastAndroid.SHORT,
@@ -66,7 +66,7 @@ export default class Login extends Component {
     );
   }
 
-  onPermissionsMissing = () => {
+  onPermissionsMissing() {
     ToastAndroid.showWithGravity(
       'Permission failed!',
       ToastAndroid.SHORT,
