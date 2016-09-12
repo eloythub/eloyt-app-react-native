@@ -22,9 +22,9 @@ import logo from 'ideaStudio/app/assets/images/logo.png';
 import background from 'ideaStudio/app/assets/images/login-cover.jpg';
 
 export default class Login extends Component {
-  onLogin = data => {
+  onLogin = user => {
     this.setState({
-      user: data.credentials
+      user: user
     });
 
     Actions.home(this);
@@ -36,9 +36,9 @@ export default class Login extends Component {
     });
   }
 
-  onLoginFound = data => {
+  onLoginFound = user => {
     this.setState({
-      user: data.credentials
+      user: user
     });
 
     Actions.home(this);

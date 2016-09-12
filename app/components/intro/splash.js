@@ -20,9 +20,9 @@ export default class Main extends Component {
     super(props);
   }
 
-  onLoginFound = data => {
+  onLoginFound = user => {
     this.setState({
-      user: data.credentials
+      user: user
     });
 
     Actions.home(this);
