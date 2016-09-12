@@ -22,59 +22,9 @@ import logo from 'ideaStudio/app/assets/images/logo.png';
 import background from 'ideaStudio/app/assets/images/login-cover.jpg';
 
 export default class Login extends Component {
-  onLogin(user) {
-    this.setState({
-      user: user
-    });
-
-    Actions.home(this);
-  }
-
-  onLogout() {
-    this.setState({
-      user: null
-    });
-  }
-
-  onLoginFound(user) {
-    this.setState({
-      user: user
-    });
-
-    Actions.home(this);
-  }
-
-  onLoginNotFound() {
-    this.setState({
-      user: null
-    });
-  }
-
-  onError() {
-    ToastAndroid.showWithGravity(
-      'Something went wrong, please try again',
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
-  }
-
-  onCancel() {
-    ToastAndroid.showWithGravity(
-      'Request just canceled',
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
-  }
-
-  onPermissionsMissing() {
-    ToastAndroid.showWithGravity(
-      'Permission failed!',
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
-  }
-
   render() {
+    let base = this;
+
     return (
       <View style={style.wrapperLogo}>
         <View style={style.bgImageWrapper}>
@@ -102,13 +52,51 @@ export default class Login extends Component {
             permissions={['email', 'user_friends', 'user_photos']}
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
 
-            onLogin={this.onLogin}
-            onLogout={this.onLogout}
-            onLoginFound={this.onLoginFound}
-            onLoginNotFound={this.onLoginNotFound}
-            onError={this.onError}
-            onCancel={this.onCancel}
-            onPermissionsMissing={this.onPermissionsMissing}
+            onLogin={(user) => {
+              base.setState({
+                user: user
+              });
+
+              Actions.home(base);
+            }}
+            onLogout={() => {
+              base.setState({
+                user: null
+              });
+            }}
+            onLoginFound={(user) => {
+              base.setState({
+                user: user
+              });
+
+              Actions.home(base);
+            }}
+            onLoginNotFound={() => {
+              base.setState({
+                user: null
+              });
+            }}
+            onError={() => {
+              ToastAndroid.showWithGravity(
+                'Something went wrong, please try again',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+            }}
+            onCancel={() => {
+              ToastAndroid.showWithGravity(
+                'Request just canceled',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+            }}
+            onPermissionsMissing={() => {
+              ToastAndroid.showWithGravity(
+                'Permission failed!',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+            }}
           />
         </View>
       </View>
