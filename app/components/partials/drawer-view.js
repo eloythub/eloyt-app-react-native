@@ -5,6 +5,7 @@ import React, {
 import {
   View,
   Text,
+  Image,
   StyleSheet,
   ScrollView,
 } from 'react-native';
@@ -22,6 +23,11 @@ const style = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     backgroundColor: '#333',
+  },
+  header: {
+    height: 200,
+    width: 300,
+    backgroundColor: 'black',
   },
   footer: {
     height: 60,
@@ -54,11 +60,16 @@ const doLogOut = () => {
 export class NavigationView extends Component {
   constructor(props) {
     super(props);
+
+    
   }
 
   render() {
     return (
       <View style={style.wrapper}>
+        <View style={style.header}>
+          {/* <Image source={url: ''}/> */}
+        </View>
         <ScrollView></ScrollView>
         <View style={style.footer}>
           <View style={style.signOutWrapper}>

@@ -56,7 +56,7 @@ export default class Home extends Component {
         ref={'drawerLayout'}
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
-        renderNavigationView={() => <NavigationView /> }>
+        renderNavigationView={() => <NavigationView root={this} /> }>
         <HomeView root={this}/>
       </DrawerLayoutAndroid>
     );
