@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import {
+  FBLogin,
   FBLoginManager,
 } from 'react-native-facebook-login';
 import { Actions } from 'react-native-router-flux';
@@ -61,7 +62,8 @@ export class NavigationView extends Component {
   constructor(props) {
     super(props);
 
-    
+    console.log('is login: ', this.props.root.props;
+
   }
 
   render() {
