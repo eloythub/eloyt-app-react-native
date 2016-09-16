@@ -32,7 +32,6 @@ export const LocalStorage = {
     return new Promise(async (fulfill, reject) => {
       try {
         await AsyncStorage.removeItem(key);
-        console.log(AsyncStorage.getAllKeys());
 
         fulfill();
       } catch (error) {
