@@ -5,19 +5,19 @@ import React, {
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   ScrollView,
 } from 'react-native';
 
 import {
-  FBLogin,
   FBLoginManager,
 } from 'react-native-facebook-login';
 import { Actions } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fonts from 'ideaStudio/common/fonts';
+
+import FBPhoto from '../partials/facebook/photo'
 
 const style = StyleSheet.create({
   wrapper: {
@@ -26,9 +26,11 @@ const style = StyleSheet.create({
     backgroundColor: '#333',
   },
   header: {
-    height: 200,
     width: 300,
-    backgroundColor: 'black',
+    backgroundColor: '#555555',
+    borderBottomColor: '#454545',
+    borderBottomWidth: 1,
+    padding: 15,
   },
   footer: {
     height: 60,
@@ -61,16 +63,13 @@ const doLogOut = () => {
 export class NavigationView extends Component {
   constructor(props) {
     super(props);
-
-    console.log('is login: ', this.props.root.props;
-
   }
 
   render() {
     return (
       <View style={style.wrapper}>
         <View style={style.header}>
-          {/* <Image source={url: ''}/> */}
+          <FBPhoto width={80} />
         </View>
         <ScrollView></ScrollView>
         <View style={style.footer}>
