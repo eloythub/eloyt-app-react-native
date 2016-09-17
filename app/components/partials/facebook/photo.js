@@ -24,14 +24,15 @@ export default class FBPhoto extends Component {
 
     UsersRepo.getLoginInfo().then((data) => {
       const user = data.userData.credentials;
-      const api = `https://graph.facebook.com/v2.3/${user.userId}/picture?width=${width}&redirect=false&access_token=${user.token}`;
+      const api = `https://graph.facebook.com/v2.3/${user.userId}/picture` +
+        `?width=${width}&redirect=false&access_token=${user.token}`;
 
       fetch(api)
         .then((response) => response.json())
         .then((responseData) => {
           base.setState({
-            photo : {
-              url : responseData.data.url,
+            photo: {
+              url: responseData.data.url,
               height: responseData.data.height,
               width: responseData.data.width,
             },
@@ -57,7 +58,7 @@ export default class FBPhoto extends Component {
               width: photo.width,
               borderColor: '#aaa',
               borderWidth: 2,
-              borderRadius: 3,
+              borderRadius: 40,
             }
           }
           source={{uri: photo && photo.url}}
