@@ -1,9 +1,11 @@
+
 import React, {
   Component,
   PropTypes,
 } from 'react';
 import {
   View,
+  Text,
   StyleSheet,
   DrawerLayoutAndroid,
   ScrollView,
@@ -13,7 +15,7 @@ import { Actions } from 'react-native-router-flux';
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
 
-class HomeView extends Component {
+class SearchView extends Component {
   constructor(props) {
     super(props);
 
@@ -25,6 +27,9 @@ class HomeView extends Component {
     return (
       <View style={style.wrapperLogo}>
         <ScrollView>
+          <Text>
+            Search Page
+          </Text>
         </ScrollView>
         <View style={style.footerMenu}>
           <MenuContainer>
@@ -33,8 +38,8 @@ class HomeView extends Component {
               }} />
             <MenuItem name="record" icon="ios-camera"  onPress={() => {
               }} />
-            <MenuItem name="Search" icon="ios-search" onPress={() => {
-                Actions.search(this);
+            <MenuItem name="Home" icon="md-home" onPress={() => {
+                Actions.home(this);
               }} />
           </MenuContainer>
         </View>
@@ -43,11 +48,11 @@ class HomeView extends Component {
   }
 }
 
-HomeView.propTypes = {
+SearchView.propTypes = {
   root: PropTypes.any.isRequired
 };
 
-export default class Home extends Component {
+export default class Search extends Component {
   constructor (props) {
     super(props);
   }
@@ -59,7 +64,7 @@ export default class Home extends Component {
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => <NavigationView root={this} /> }>
-        <HomeView root={this}/>
+        <SearchView root={this}/>
       </DrawerLayoutAndroid>
     );
   }

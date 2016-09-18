@@ -5,6 +5,7 @@ import { Scene, Router, ActionConst } from 'react-native-router-flux';
 import Splash from './intro/splash';
 import Login from './authentication/login';
 import Home from './home/home';
+import Search from './home/search';
 
 export default class Root extends Component {
   render() {
@@ -27,6 +28,13 @@ export default class Root extends Component {
         <Scene
           key="home"
           component={Home}
+          type={ActionConst.REPLACE}
+          hideNavBar={true}
+          panHandlers={null}
+          />
+        <Scene
+          key="search"
+          component={Search}
           type={ActionConst.REPLACE}
           hideNavBar={true}
           panHandlers={null}

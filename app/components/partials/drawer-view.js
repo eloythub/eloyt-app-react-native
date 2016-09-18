@@ -20,6 +20,7 @@ import Fonts from 'ideaStudio/common/fonts';
 
 import FBPhoto from '../partials/facebook/photo';
 import FBInfo from '../partials/facebook/info';
+import DrawerListItem from '../partials/drawer-list-item';
 
 const style = StyleSheet.create({
   wrapper: {
@@ -34,26 +35,6 @@ const style = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 15,
     flexDirection: 'row',
-  },
-  footer: {
-    height: 60,
-    width: 300,
-  },
-  signOutWrapper: {
-    width: 125,
-    flex: 1,
-    justifyContent: 'center',
-    position: 'absolute',
-    right: 0,
-  },
-  signOut: {
-    backgroundColor: '#333',
-    height: 60,
-  },
-  signOutText: {
-    color: '#fff',
-    fontSize: 18,
-    fontFamily: Fonts.openSans,
   },
   fbInfoName: {
     color: '#eee',
@@ -77,12 +58,6 @@ const style = StyleSheet.create({
   },
 });
 
-const doLogOut = () => {
-  FBLoginManager.logout(() => {
-    Actions.login();
-  });
-};
-
 export class NavigationView extends Component {
   constructor(props) {
     super(props);
@@ -102,18 +77,25 @@ export class NavigationView extends Component {
             </View>
           </View>
         </TouchableOpacity>
-        <ScrollView></ScrollView>
-        <View style={style.footer}>
-          <View style={style.signOutWrapper}>
-            <Icon.Button
-              name="ios-exit-outline"
-              style={style.signOut}
-              onPress={doLogOut}
-              >
-              <Text style={style.signOutText}>Sign out</Text>
-            </Icon.Button>
-          </View>
-        </View>
+        <ScrollView>
+          <DrawerListItem caption="Search" icon="ios-search" onPress={() => {
+              console.log('Search');
+            }} />
+          <DrawerListItem caption="My Followers" icon="ios-people" onPress={() => {
+              console.log('My ideas');
+            }} />
+          <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
+              console.log('My ideas');
+            }} />
+          <DrawerListItem caption="Settings" icon="ios-settings" onPress={() => {
+              console.log('My ideas');
+            }} />
+          <DrawerListItem caption="Sign Out" icon="ios-exit-outline" onPress={() => {
+              FBLoginManager.logout(() => {
+                Actions.login();
+              });
+            }} />
+        </ScrollView>
       </View>
     );
   }
