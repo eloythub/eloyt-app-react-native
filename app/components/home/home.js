@@ -22,6 +22,7 @@ class HomeView extends Component {
 
   render() {
     let base = this;
+
     return (
       <View style={style.wrapperLogo}>
         <ScrollView>
@@ -32,10 +33,10 @@ class HomeView extends Component {
                 base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-camera"  onPress={() => {
-                Actions.record(this);
+                Actions.record(base);
               }} />
             <MenuItem name="Search" icon="ios-search" onPress={() => {
-                Actions.search(this);
+                Actions.search(base);
               }} />
           </MenuContainer>
         </View>

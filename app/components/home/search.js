@@ -24,6 +24,7 @@ class SearchView extends Component {
 
   render() {
     let base = this;
+
     return (
       <View style={style.wrapperLogo}>
         <ScrollView>
@@ -37,10 +38,10 @@ class SearchView extends Component {
                 base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-camera"  onPress={() => {
-                Actions.record(this);
+                Actions.record(base);
               }} />
             <MenuItem name="Home" icon="md-home" onPress={() => {
-                Actions.home(this);
+                Actions.home(base);
               }} />
           </MenuContainer>
         </View>

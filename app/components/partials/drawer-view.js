@@ -67,6 +67,8 @@ export class NavigationView extends Component {
   //     Actions.followers(this);
   //   }} />
   render() {
+    let base = this;
+
     return (
       <View style={style.wrapper}>
         <TouchableOpacity onPress={() => {
@@ -84,13 +86,13 @@ export class NavigationView extends Component {
         </TouchableOpacity>
         <ScrollView>
           <DrawerListItem caption="Search" icon="ios-search" onPress={() => {
-              Actions.search(this);
+              Actions.search(base);
             }} />
           <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
-              Actions.myVideos(this);
+              Actions.myVideos(base);
             }} />
           <DrawerListItem caption="Settings" icon="ios-settings" onPress={() => {
-              Actions.settings(this);
+              Actions.settings(base);
             }} />
           <DrawerListItem caption="Sign Out" icon="ios-exit-outline" onPress={() => {
               FBLoginManager.logout(() => {
