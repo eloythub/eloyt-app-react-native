@@ -32,6 +32,7 @@ class HomeView extends Component {
                 base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-camera"  onPress={() => {
+                Actions.record(this);
               }} />
             <MenuItem name="Search" icon="ios-search" onPress={() => {
                 Actions.search(this);

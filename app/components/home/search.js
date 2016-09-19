@@ -37,6 +37,7 @@ class SearchView extends Component {
                 base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-camera"  onPress={() => {
+                Actions.record(this);
               }} />
             <MenuItem name="Home" icon="md-home" onPress={() => {
                 Actions.home(this);

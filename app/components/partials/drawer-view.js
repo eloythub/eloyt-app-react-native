@@ -63,10 +63,15 @@ export class NavigationView extends Component {
     super(props);
   }
 
+  // <DrawerListItem caption="My Followers" icon="ios-people" onPress={() => {
+  //     Actions.followers(this);
+  //   }} />
   render() {
     return (
       <View style={style.wrapper}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+            console.log('profile');
+          }}>
           <View style={style.header}>
             <View style={style.headerPictureContainer}>
               <FBPhoto width={80} />
@@ -79,16 +84,13 @@ export class NavigationView extends Component {
         </TouchableOpacity>
         <ScrollView>
           <DrawerListItem caption="Search" icon="ios-search" onPress={() => {
-              console.log('Search');
-            }} />
-          <DrawerListItem caption="My Followers" icon="ios-people" onPress={() => {
-              console.log('My ideas');
+              Actions.search(this);
             }} />
           <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
-              console.log('My ideas');
+              Actions.myVideos(this);
             }} />
           <DrawerListItem caption="Settings" icon="ios-settings" onPress={() => {
-              console.log('My ideas');
+              Actions.settings(this);
             }} />
           <DrawerListItem caption="Sign Out" icon="ios-exit-outline" onPress={() => {
               FBLoginManager.logout(() => {
