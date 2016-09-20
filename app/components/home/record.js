@@ -96,6 +96,9 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    borderTopWidth: 2,
+    borderTopColor: '#d1d1d1',
+
   },
   readyToStartIcon: {
     fontSize: 45,
