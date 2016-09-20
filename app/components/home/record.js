@@ -50,6 +50,14 @@ export default class Record extends Component {
           defaultOnFocusComponent={true}
           type={Camera.constants.Type.front}
           >
+
+          <View style={style.flashContrainer}>
+            <TouchableOpacity>
+              <View style={style.flashView}>
+                <Icon name="ios-flash" style={style.flashIcon} />
+              </View>
+            </TouchableOpacity>
+          </View>
         </Camera>
 
         <View style={style.toolBarContainer}>
@@ -66,12 +74,11 @@ export default class Record extends Component {
 
 const style = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#ddd',
   },
   preview: {
     flex: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
     height: windowWidth,
     width: windowWidth,
   },
@@ -95,5 +102,27 @@ const style = StyleSheet.create({
     color: '#afafaf',
     marginTop: 9,
     marginLeft: 16,
+  },
+  flashContrainer: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  flashView: {
+    flex: 0,
+    backgroundColor: '#efefef',
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor: '#e9e9e9',
+    width: 40,
+    height: 40,
+  },
+  flashIcon: {
+    fontSize: 30,
+    color: '#afafaf',
+    marginTop: 3,
+    marginLeft: 11,
   },
 });
