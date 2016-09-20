@@ -13,9 +13,26 @@ import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+const windowWidth = Dimensions.get('window').width;
+
 export default class Record extends Component {
   constructor (props) {
     super(props);
+  }
+
+  capture() {
+    let base = this;
+    this.camera.capture()
+      .then((data) => {
+        console.log('capture finished', data)
+      })
+      .catch(err => {
+        console.error('error', err)
+      });
+
+    setTimeout(() => {
+      base.camera.stopCapture();
+    }, 20 * 1000);
   }
 
   render() {
@@ -27,13 +44,16 @@ export default class Record extends Component {
           }}
           style={style.preview}
           aspect={Camera.constants.Aspect.fill}
+          captureMode={Camera.constants.CaptureMode.video}
+          captureQuality={Camera.constants.CaptureQuality.high}
+          orientation={Camera.constants.Orientation.portrait}
+          defaultOnFocusComponent={true}
+          type={Camera.constants.Type.front}
           >
         </Camera>
 
         <View style={style.toolBarContainer}>
-          <TouchableOpacity onPress={() => {
-              console.log('Start Recording');
-            }}>
+          <TouchableOpacity onPress={this.capture.bind(this)}>
             <View style={style.capture}>
               <Icon name="ios-camera" style={style.readyToStartIcon} />
             </View>
@@ -43,8 +63,6 @@ export default class Record extends Component {
     );
   }
 }
-
-const windowWidth = Dimensions.get('window').width;
 
 const style = StyleSheet.create({
   container: {
@@ -65,7 +83,7 @@ const style = StyleSheet.create({
     borderColor: '#e9e9e9',
     width: 70,
     height: 70,
-    marginBottom: 20,
+    marginBottom: 50,
   },
   toolBarContainer: {
     flex: 1,
