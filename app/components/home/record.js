@@ -18,10 +18,17 @@ const windowWidth = Dimensions.get('window').width;
 export default class Record extends Component {
   constructor (props) {
     super(props);
+
+    this.state = {
+      type: true,
+      torchVisibility: false,
+      torch: false,
+    }
   }
 
   capture() {
     let base = this;
+
     this.camera.capture()
       .then((data) => {
         console.log('capture finished', data)
@@ -33,6 +40,19 @@ export default class Record extends Component {
     setTimeout(() => {
       base.camera.stopCapture();
     }, 20 * 1000);
+  }
+
+  torchMode() {
+    this.setState({
+      torch: !this.state.torch,
+    });
+  }
+
+  swapMode() {
+    this.setState({
+      torchVisibility: this.state.type,
+      type: !this.state.type,
+    });
   }
 
   render() {
@@ -48,18 +68,28 @@ export default class Record extends Component {
           captureQuality={Camera.constants.CaptureQuality.high}
           orientation={Camera.constants.Orientation.portrait}
           defaultOnFocusComponent={true}
-          type={Camera.constants.Type.front}
+          type={this.state.type ? Camera.constants.Type.front : Camera.constants.Type.back}
+          torchMode={this.state.torch ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off}
           >
-
-          <View style={style.flashContrainer}>
-            <TouchableOpacity>
-              <View style={style.flashView}>
-                <Icon name="ios-flash" style={style.flashIcon} />
+          <View style={style.torchContrainer}>
+            <TouchableOpacity onPress={this.torchMode.bind(this)}>
+            {
+              this.state.torchVisibility
+              ? <View style={style.torchView}>
+                  <Icon name="ios-flash" style={style.torchIcon} />
+                </View>
+              : null
+            }
+            </TouchableOpacity>
+          </View>
+          <View style={style.changeTypeContrainer}>
+            <TouchableOpacity onPress={this.swapMode.bind(this)}>
+              <View style={style.changeTypeView}>
+                <Icon name="ios-swap-outline" style={style.changeTypeIcon} />
               </View>
             </TouchableOpacity>
           </View>
         </Camera>
-
         <View style={style.toolBarContainer}>
           <TouchableOpacity onPress={this.capture.bind(this)}>
             <View style={style.capture}>
@@ -98,7 +128,6 @@ const style = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: 2,
     borderTopColor: '#d1d1d1',
-
   },
   readyToStartIcon: {
     fontSize: 45,
@@ -106,14 +135,14 @@ const style = StyleSheet.create({
     marginTop: 9,
     marginLeft: 16,
   },
-  flashContrainer: {
-    flex: 1,
+  torchContrainer: {
+    flex: 0,
     paddingTop: 10,
     paddingRight: 10,
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
-  flashView: {
+  torchView: {
     flex: 0,
     backgroundColor: '#efefef',
     borderRadius: 35,
@@ -122,10 +151,33 @@ const style = StyleSheet.create({
     width: 40,
     height: 40,
   },
-  flashIcon: {
+  torchIcon: {
     fontSize: 30,
     color: '#afafaf',
     marginTop: 3,
     marginLeft: 11,
+  },
+  changeTypeContrainer: {
+    flex: 2,
+    paddingBottom: 10,
+    paddingRight: 10,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  changeTypeView: {
+    flex: 0,
+    backgroundColor: '#efefef',
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor: '#e9e9e9',
+    width: 40,
+    height: 40,
+  },
+  changeTypeIcon: {
+    fontSize: 28,
+    color: '#afafaf',
+    marginTop: 4,
+    marginLeft: 6,
   },
 });
