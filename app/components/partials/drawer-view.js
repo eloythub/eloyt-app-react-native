@@ -7,7 +7,6 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -63,33 +62,29 @@ export class NavigationView extends Component {
     super(props);
   }
 
-  // <DrawerListItem caption="My Followers" icon="ios-people" onPress={() => {
-  //     Actions.followers(this);
-  //   }} />
   render() {
     let base = this;
 
     return (
       <View style={style.wrapper}>
-        <TouchableOpacity onPress={() => {
-            console.log('profile');
-          }}>
-          <View style={style.header}>
-            <View style={style.headerPictureContainer}>
-              <FBPhoto width={80} />
-            </View>
-            <View style={style.headerInfoContainer}>
-              <FBInfo data="name" viewStyle={style.headerInfoContainer} textStyle={style.fbInfoName}/>
-              <FBInfo data="email" viewStyle={style.headerInfoContainer} textStyle={style.fbInfoEmail}/>
-            </View>
+        <View style={style.header}>
+          <View style={style.headerPictureContainer}>
+            <FBPhoto width={80} />
           </View>
-        </TouchableOpacity>
+          <View style={style.headerInfoContainer}>
+            <FBInfo data="name" viewStyle={style.headerInfoContainer} textStyle={style.fbInfoName}/>
+            <FBInfo data="email" viewStyle={style.headerInfoContainer} textStyle={style.fbInfoEmail}/>
+          </View>
+        </View>
         <ScrollView>
-          <DrawerListItem caption="Search" icon="ios-search" onPress={() => {
-              Actions.search(base);
+          <DrawerListItem caption="News Feed" icon="logo-rss" onPress={() => {
+              Actions.home(base);
             }} />
           <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
               Actions.myVideos(base);
+            }} />
+          <DrawerListItem caption="Search" icon="ios-search" onPress={() => {
+              Actions.search(base);
             }} />
           <DrawerListItem caption="Settings" icon="ios-settings" onPress={() => {
               Actions.settings(base);

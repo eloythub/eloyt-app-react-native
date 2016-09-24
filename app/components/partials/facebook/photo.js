@@ -30,54 +30,47 @@ export default class FBPhoto extends Component {
       fetch(api)
         .then((response) => response.json())
         .then((responseData) => {
-          base.setState({
-            photo: {
-              url: responseData.data.url,
-              height: responseData.data.height,
-              width: responseData.data.width,
-            },
-          });
+          setTimeout(() => {
+            base.setState({
+              photo: {
+                url: responseData.data.url,
+                height: responseData.data.height,
+                width: responseData.data.width,
+              },
+            });
+          }, 3000);
         })
         .done();
     });
   }
 
   render() {
-    if(!this.state.hasOwnProperty('photo')) {
-      return this.renderLoading();
-    }
-
     let photo = this.state.photo;
 
     return (
       <View>
-        <Image
-          style={photo &&
-            {
-              height: photo.height,
-              width: photo.width,
-              borderColor: '#aaa',
-              borderWidth: 2,
-              borderRadius: 40,
-            }
-          }
-          source={{uri: photo && photo.url}}
-        />
-      </View>
-    );
-  }
-  renderLoading() {
-    return (
-      <View>
-        <Image
-          style={{
-            height: this.props.width,
-            width: this.props.width,
-            borderColor: '#aaa',
-            borderWidth: 2,
-            borderRadius: 3,
-          }}
-          source={profileAvatar} />
+        {
+          photo
+          ? <Image
+              style={{
+                  height: photo.height,
+                  width: photo.width,
+                  borderColor: '#aaa',
+                  borderWidth: 2,
+                  borderRadius: 40,
+                }}
+              source={{uri: photo.url}}
+            />
+          : <Image
+              style={{
+                height: this.props.width,
+                width: this.props.width,
+                borderColor: '#aaa',
+                borderWidth: 2,
+                borderRadius: 3,
+              }}
+              source={profileAvatar} />
+        }
       </View>
     );
   }

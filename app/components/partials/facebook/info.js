@@ -28,13 +28,15 @@ export default class FBInfo extends Component {
       fetch(api)
         .then((response) => response.json())
         .then((responseData) => {
-          base.setState({
-            info: {
-              id: user.userId,
-              name: responseData.name,
-              email: responseData.email,
-            },
-          });
+          setTimeout(() => {
+            base.setState({
+              info: {
+                id: user.userId,
+                name: responseData.name,
+                email: responseData.email,
+              },
+            });
+          }, 3000);
         })
         .done();
     });
@@ -48,7 +50,11 @@ export default class FBInfo extends Component {
 
     return (
       <View style={viewStyle}>
-        <Text style={textStyle}>{ info && info.hasOwnProperty(data) && info[data] }</Text>
+        {
+          info && info.hasOwnProperty(data)
+          ? <Text style={textStyle}>{ info[data] }</Text>
+          : <Text style={textStyle}>Loading ...</Text>
+        }
       </View>
     );
   }
