@@ -28,15 +28,13 @@ export default class FBInfo extends Component {
       fetch(api)
         .then((response) => response.json())
         .then((responseData) => {
-          setTimeout(() => {
-            base.setState({
-              info: {
-                id: user.userId,
-                name: responseData.name,
-                email: responseData.email,
-              },
-            });
-          }, 3000);
+          base.setState({
+            info: {
+              id: user.userId,
+              name: responseData.name,
+              email: responseData.email,
+            },
+          });
         })
         .done();
     });

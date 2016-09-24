@@ -30,15 +30,13 @@ export default class FBPhoto extends Component {
       fetch(api)
         .then((response) => response.json())
         .then((responseData) => {
-          setTimeout(() => {
-            base.setState({
-              photo: {
-                url: responseData.data.url,
-                height: responseData.data.height,
-                width: responseData.data.width,
-              },
-            });
-          }, 3000);
+          base.setState({
+            photo: {
+              url: responseData.data.url,
+              height: responseData.data.height,
+              width: responseData.data.width,
+            },
+          });
         })
         .done();
     });
