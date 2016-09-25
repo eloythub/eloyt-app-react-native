@@ -153,7 +153,7 @@ export default class Record extends Component {
                 <Icon name="ios-square" style={style.stopCaptureIcon} />
               </View>
             : <View style={style.capture}>
-                <Icon name="ios-camera" style={style.readyToStartIcon} />
+                <Icon name="ios-videocam" style={style.readyToStartIcon} />
               </View>
           }
           </TouchableOpacity>
