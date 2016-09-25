@@ -77,9 +77,6 @@ export class NavigationView extends Component {
           </View>
         </View>
         <ScrollView>
-          <DrawerListItem caption="News Feed" icon="logo-rss" onPress={() => {
-              Actions.home(base);
-            }} />
           <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
               Actions.myVideos(base);
             }} />
@@ -99,3 +96,12 @@ export class NavigationView extends Component {
     );
   }
 }
+
+/*
+inventory:
+
+<DrawerListItem caption="News Feed" icon="logo-rss" onPress={() => {
+    Actions.home(base);
+  }} />
+
+*/

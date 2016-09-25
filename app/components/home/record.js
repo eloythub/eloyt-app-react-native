@@ -23,23 +23,57 @@ export default class Record extends Component {
       type: true,
       torchVisibility: false,
       torch: false,
+      isRecording: false,
     }
   }
 
-  capture() {
+  startCapture() {
     let base = this;
+
+    this.setState({
+      isRecording: true,
+    });
 
     this.camera.capture()
       .then((data) => {
         console.log('capture finished', data)
+
+        this.setState({
+          isRecording: false,
+        });
       })
       .catch(err => {
         console.error('error', err)
+
+        this.setState({
+          isRecording: false,
+        });
       });
 
-    setTimeout(() => {
+    this.stopCaptureTimeout = setTimeout(() => {
+      this.setState({
+        isRecording: false,
+      });
+
       base.camera.stopCapture();
-    }, 20 * 1000);
+    }, (20 + 1) * 1000); // x second for limitaton
+  }
+
+  stopCapture() {
+    this.setState({
+      isRecording: false,
+    });
+    this.camera.stopCapture();
+  }
+
+  capture() {
+    if (this.state.isRecording) {
+        this.stopCapture();
+
+        return;
+    }
+
+    this.startCapture();
   }
 
   torchMode() {
@@ -74,7 +108,7 @@ export default class Record extends Component {
           <View style={style.torchContrainer}>
             <TouchableOpacity onPress={this.torchMode.bind(this)}>
             {
-              this.state.torchVisibility
+              !this.state.isRecording && this.state.torchVisibility
               ? <View style={style.torchView}>
                   <Icon name="ios-flash" style={style.torchIcon} />
                 </View>
@@ -84,17 +118,27 @@ export default class Record extends Component {
           </View>
           <View style={style.changeTypeContrainer}>
             <TouchableOpacity onPress={this.swapMode.bind(this)}>
-              <View style={style.changeTypeView}>
-                <Icon name="ios-swap-outline" style={style.changeTypeIcon} />
-              </View>
+              {
+                !this.state.isRecording
+                ? <View style={style.changeTypeView}>
+                    <Icon name="ios-swap-outline" style={style.changeTypeIcon} />
+                  </View>
+                : null
+              }
             </TouchableOpacity>
           </View>
         </Camera>
         <View style={style.toolBarContainer}>
           <TouchableOpacity onPress={this.capture.bind(this)}>
-            <View style={style.capture}>
-              <Icon name="ios-camera" style={style.readyToStartIcon} />
-            </View>
+            {
+              this.state.isRecording
+              ? <View style={style.stopCapture}>
+                  <Icon name="ios-square" style={style.stopCaptureIcon} />
+                </View>
+              : <View style={style.capture}>
+                  <Icon name="ios-camera" style={style.readyToStartIcon} />
+                </View>
+            }
           </TouchableOpacity>
         </View>
       </View>
@@ -122,6 +166,16 @@ const style = StyleSheet.create({
     height: 70,
     marginBottom: 50,
   },
+  stopCapture: {
+    flex: 0,
+    backgroundColor: '#efefef',
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor: '#e9e9e9',
+    width: 70,
+    height: 70,
+    marginBottom: 50,
+  },
   toolBarContainer: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -134,6 +188,12 @@ const style = StyleSheet.create({
     color: '#afafaf',
     marginTop: 9,
     marginLeft: 16,
+  },
+  stopCaptureIcon: {
+    fontSize: 35,
+    color: '#afafaf',
+    marginTop: 16,
+    marginLeft: 20,
   },
   torchContrainer: {
     flex: 0,
