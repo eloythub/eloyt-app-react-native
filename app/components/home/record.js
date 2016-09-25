@@ -5,6 +5,7 @@ import React, {
 import {
   View,
   Text,
+  StatusBar,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -13,7 +14,14 @@ import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const windowWidth = Dimensions.get('window').width;
+const showHideTransitions = [
+  'fade',
+  'slide',
+];
+
+function getValue<T>(values: Array<T>, index: number): T {
+  return values[index % values.length];
+}
 
 export default class Record extends Component {
   constructor (props) {
@@ -24,6 +32,11 @@ export default class Record extends Component {
       torchVisibility: false,
       torch: false,
       isRecording: false,
+
+      // status
+      animated: false,
+      hidden: true,
+      showHideTransition: getValue(showHideTransitions, 0),
     }
   }
 
@@ -92,6 +105,11 @@ export default class Record extends Component {
   render() {
     return (
       <View style={style.container}>
+        <StatusBar
+          hidden={this.state.hidden}
+          showHideTransition={this.state.showHideTransition}
+          animated={this.state.animated}
+        />
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -127,20 +145,20 @@ export default class Record extends Component {
               }
             </TouchableOpacity>
           </View>
-        </Camera>
-        <View style={style.toolBarContainer}>
+          <View style={style.toolBarContainer}>
           <TouchableOpacity onPress={this.capture.bind(this)}>
-            {
-              this.state.isRecording
-              ? <View style={style.stopCapture}>
-                  <Icon name="ios-square" style={style.stopCaptureIcon} />
-                </View>
-              : <View style={style.capture}>
-                  <Icon name="ios-camera" style={style.readyToStartIcon} />
-                </View>
-            }
+          {
+            this.state.isRecording
+            ? <View style={style.stopCapture}>
+                <Icon name="ios-square" style={style.stopCaptureIcon} />
+              </View>
+            : <View style={style.capture}>
+                <Icon name="ios-camera" style={style.readyToStartIcon} />
+              </View>
+          }
           </TouchableOpacity>
-        </View>
+          </View>
+        </Camera>
       </View>
     );
   }
@@ -153,14 +171,14 @@ const style = StyleSheet.create({
   },
   preview: {
     flex: 0,
-    height: windowWidth,
-    width: windowWidth,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   capture: {
     flex: 0,
-    backgroundColor: '#efefef',
+    backgroundColor: 'transparent',
     borderRadius: 35,
-    borderWidth: 2,
+    borderWidth: 5,
     borderColor: '#e9e9e9',
     width: 70,
     height: 70,
@@ -168,9 +186,9 @@ const style = StyleSheet.create({
   },
   stopCapture: {
     flex: 0,
-    backgroundColor: '#efefef',
+    backgroundColor: 'transparent',
     borderRadius: 35,
-    borderWidth: 2,
+    borderWidth: 5,
     borderColor: '#e9e9e9',
     width: 70,
     height: 70,
@@ -180,20 +198,18 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    borderTopWidth: 2,
-    borderTopColor: '#d1d1d1',
   },
   readyToStartIcon: {
     fontSize: 45,
-    color: '#afafaf',
-    marginTop: 9,
-    marginLeft: 16,
+    color: '#e9e9e9',
+    marginTop: 6,
+    marginLeft: 13,
   },
   stopCaptureIcon: {
     fontSize: 35,
-    color: '#afafaf',
-    marginTop: 16,
-    marginLeft: 20,
+    color: '#b30000',
+    marginTop: 12,
+    marginLeft: 17,
   },
   torchContrainer: {
     flex: 0,
