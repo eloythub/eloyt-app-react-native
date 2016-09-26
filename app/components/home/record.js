@@ -102,6 +102,10 @@ export default class Record extends Component {
     });
   }
 
+  backButton() {
+    Actions.pop();
+  }
+
   render() {
     return (
       <View style={style.container}>
@@ -123,7 +127,10 @@ export default class Record extends Component {
           type={this.state.type ? Camera.constants.Type.front : Camera.constants.Type.back}
           torchMode={this.state.torch ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off}
           >
-          <View style={style.torchContrainer}>
+          <View style={style.topContainer}>
+
+          </View>
+          <View style={style.toolBarContainer}>
             <TouchableOpacity onPress={this.torchMode.bind(this)}>
             {
               !this.state.isRecording && this.state.torchVisibility
@@ -134,7 +141,27 @@ export default class Record extends Component {
             }
             </TouchableOpacity>
           </View>
-          <View style={style.changeTypeContrainer}>
+          <View style={style.toolBarContainer}>
+            <TouchableOpacity onPress={this.backButton.bind(this)}>
+              {
+                !this.state.isRecording
+                ? <View style={style.backButton}>
+                    <Icon name="md-arrow-back" style={style.backButtonIcon} />
+                  </View>
+                : null
+              }
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.capture.bind(this)}>
+            {
+              this.state.isRecording
+              ? <View style={style.stopCapture}>
+                  <Icon name="ios-square" style={style.stopCaptureIcon} />
+                </View>
+              : <View style={style.capture}>
+                  <Icon name="ios-videocam" style={style.readyToStartIcon} />
+                </View>
+            }
+            </TouchableOpacity>
             <TouchableOpacity onPress={this.swapMode.bind(this)}>
               {
                 !this.state.isRecording
@@ -144,19 +171,6 @@ export default class Record extends Component {
                 : null
               }
             </TouchableOpacity>
-          </View>
-          <View style={style.toolBarContainer}>
-          <TouchableOpacity onPress={this.capture.bind(this)}>
-          {
-            this.state.isRecording
-            ? <View style={style.stopCapture}>
-                <Icon name="ios-square" style={style.stopCaptureIcon} />
-              </View>
-            : <View style={style.capture}>
-                <Icon name="ios-videocam" style={style.readyToStartIcon} />
-              </View>
-          }
-          </TouchableOpacity>
           </View>
         </Camera>
       </View>
@@ -174,6 +188,14 @@ const style = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
   },
+  topContainer: {
+    flex: 2,
+    paddingBottom: 10,
+    paddingRight: 10,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
   capture: {
     flex: 0,
     backgroundColor: 'transparent',
@@ -182,7 +204,7 @@ const style = StyleSheet.create({
     borderColor: '#e9e9e9',
     width: 70,
     height: 70,
-    marginBottom: 50,
+    marginBottom: 30,
   },
   stopCapture: {
     flex: 0,
@@ -192,12 +214,30 @@ const style = StyleSheet.create({
     borderColor: '#e9e9e9',
     width: 70,
     height: 70,
-    marginBottom: 50,
+    marginBottom: 30,
+  },
+  backButton: {
+    flex: 0,
+    backgroundColor: 'transparent',
+    borderRadius: 35,
+    borderWidth: 5,
+    borderColor: 'transparent',
+    width: 70,
+    height: 70,
+    marginBottom: 30,
+    marginRight: 20,
   },
   toolBarContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  backButtonIcon: {
+    fontSize: 45,
+    color: '#e9e9e9',
+    marginTop: 6,
+    marginLeft: 13,
   },
   readyToStartIcon: {
     fontSize: 45,
@@ -226,6 +266,7 @@ const style = StyleSheet.create({
     borderColor: '#e9e9e9',
     width: 40,
     height: 40,
+    marginBottom: 10,
   },
   torchIcon: {
     fontSize: 30,
@@ -233,27 +274,21 @@ const style = StyleSheet.create({
     marginTop: 3,
     marginLeft: 11,
   },
-  changeTypeContrainer: {
-    flex: 2,
-    paddingBottom: 10,
-    paddingRight: 10,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
   changeTypeView: {
     flex: 0,
-    backgroundColor: '#efefef',
+    backgroundColor: 'transparent',
     borderRadius: 35,
-    borderWidth: 2,
-    borderColor: '#e9e9e9',
-    width: 40,
-    height: 40,
+    borderWidth: 5,
+    borderColor: 'transparent',
+    width: 70,
+    height: 70,
+    marginBottom: 30,
+    marginLeft: 20,
   },
   changeTypeIcon: {
-    fontSize: 28,
-    color: '#afafaf',
-    marginTop: 4,
-    marginLeft: 6,
+    fontSize: 45,
+    color: '#e9e9e9',
+    marginTop: 7,
+    marginLeft: 11,
   },
 });
