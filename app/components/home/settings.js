@@ -19,6 +19,18 @@ export default class Settings extends Component {
       <View>
         <Text>
           Settings Page
+          {'\n'}
+          roling camera by :
+            |-> Front Camera (Recomended)
+            |-> Back Camera
+            |-> Last Usage
+          Video Quality
+            |-> High
+            |-> Medium
+          Remove Videos After Each Record
+            |-> No
+            |-> Yes (PHONE MEMORY)
+            |-> Yes (SD CARD) 
         </Text>
       </View>
     );
