@@ -14,6 +14,8 @@ import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import ProgressBar from 'ideaStudio/app/components/partials/progress-bar';
+
 const showHideTransitions = [
   'fade',
   'slide',
@@ -22,6 +24,8 @@ const showHideTransitions = [
 function getValue<T>(values: Array<T>, index: number): T {
   return values[index % values.length];
 }
+
+const maxLimit = 10; // 2 min = 120 sec
 
 export default class Record extends Component {
   constructor (props) {
@@ -32,6 +36,8 @@ export default class Record extends Component {
       torchVisibility: false,
       torch: false,
       isRecording: false,
+      progressbar: 0,
+      timeCounter: 0,
 
       // status
       animated: false,
@@ -45,6 +51,7 @@ export default class Record extends Component {
 
     this.setState({
       isRecording: true,
+      progressbar: 0
     });
 
     this.camera.capture()
@@ -63,19 +70,24 @@ export default class Record extends Component {
         });
       });
 
-    this.stopCaptureTimeout = setTimeout(() => {
+    this.counter = 0;
+    this.counterInterval = setInterval(() => {
+      let progress = (this.counter * 100) / maxLimit; // calculate the progress
+
       this.setState({
-        isRecording: false,
+        progressbar: progress * 10,
+        timeCounter: parseInt(this.counter * 10),
       });
 
-      base.camera.stopCapture();
-    }, (20 + 1) * 1000); // x second for limitaton
+      this.counter = this.counter + 0.01;
+    }, 100);
   }
 
   stopCapture() {
     this.setState({
       isRecording: false,
     });
+    clearInterval(this.counterInterval);
     this.camera.stopCapture();
   }
 
@@ -127,6 +139,23 @@ export default class Record extends Component {
           type={this.state.type ? Camera.constants.Type.front : Camera.constants.Type.back}
           torchMode={this.state.torch ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off}
           >
+          <ProgressBar
+            fillStyle={{
+              backgroundColor: '#b30000',
+            }}
+            backgroundStyle={{
+              backgroundColor: 'transparent',
+            }}
+            style={{
+              width: Dimensions.get('window').width,
+            }}
+            progress={this.state.progressbar}
+            />
+          <Text>
+            Progress: {this.state.progressbar}
+            {'\n'}
+            Time: {this.state.timeCounter}
+          </Text>
           <View style={style.topContainer}>
 
           </View>

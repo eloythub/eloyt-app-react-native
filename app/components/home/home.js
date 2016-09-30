@@ -13,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
 
+
 class HomeView extends Component {
   constructor(props) {
     super(props);
@@ -35,15 +36,20 @@ class HomeView extends Component {
             <MenuItem name="record" icon="ios-videocam"  onPress={() => {
                 Actions.record(base);
               }} />
-            <MenuItem name="Search" icon="ios-search" onPress={() => {
-                Actions.search(base);
-              }} />
           </MenuContainer>
         </View>
       </View>
     );
   }
 }
+
+/*
+inventory:
+
+<MenuItem name="Search" icon="ios-search" onPress={() => {
+  Actions.search(base);
+}} />
+*/
 
 HomeView.propTypes = {
   root: PropTypes.any.isRequired
