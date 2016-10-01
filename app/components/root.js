@@ -53,21 +53,21 @@ export default class Root extends Component {
         <Scene
           key="recordedPostShare"
           component={RecordedPostShare}
-          type={ActionConst.PUSH}
+          type={ActionConst.REPLACE}
           hideNavBar={true}
           panHandlers={null}
           />
         <Scene
           key="myVideos"
           component={MyVideos}
-          type={ActionConst.PUSH}
+          type={ActionConst.REPLACE}
           hideNavBar={true}
           panHandlers={null}
           />
         <Scene
           key="settings"
           component={Settings}
-          type={ActionConst.PUSH}
+          type={ActionConst.REPLACE}
           hideNavBar={true}
           panHandlers={null}
           />

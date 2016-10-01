@@ -6,12 +6,23 @@ import {
   View,
   Text,
   StyleSheet,
+  BackAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 export default class Settings extends Component {
-  constructor (props) {
-    super(props);
+  componentWillMount(){
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  componentWillUnmount(){
+    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  onBackAndroid() {
+    Actions.home(this);
+
+    return false;
   }
 
   render() {
@@ -30,7 +41,7 @@ export default class Settings extends Component {
           Remove Videos After Each Record
             |-> No
             |-> Yes (PHONE MEMORY)
-            |-> Yes (SD CARD) 
+            |-> Yes (SD CARD)
         </Text>
       </View>
     );

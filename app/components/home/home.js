@@ -15,7 +15,7 @@ import { Actions } from 'react-native-router-flux';
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
 
-let backButtonPressedOnceToExit = false;
+let backButtonPressedOnceToExit = 0;
 
 class HomeView extends Component {
   constructor(props) {
@@ -33,13 +33,13 @@ class HomeView extends Component {
   }
 
   onBackAndroid() {
-    if (backButtonPressedOnceToExit) {
+    if (backButtonPressedOnceToExit > 2) {
       BackAndroid.exitApp();
     } else {
-      backButtonPressedOnceToExit = true;
+      backButtonPressedOnceToExit++;
 
       setTimeout(() => {
-        backButtonPressedOnceToExit = false;
+        backButtonPressedOnceToExit = 0;
       }, 2000);
 
       return true;

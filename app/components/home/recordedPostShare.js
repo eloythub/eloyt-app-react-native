@@ -7,6 +7,7 @@ import {
   Text,
   StatusBar,
   StyleSheet,
+  BackAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -25,13 +26,9 @@ export default class RecordedPostShare extends Component {
   }
 
   onBackAndroid() {
-    Actions.pop(this);
+    Actions.home(this);
 
-    // return true;
-  }
-
-  backButton() {
-    Actions.pop(this);
+    return true;
   }
 
   render() {

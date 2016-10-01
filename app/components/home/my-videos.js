@@ -6,12 +6,23 @@ import {
   View,
   Text,
   StyleSheet,
+  BackAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 export default class MyVideos extends Component {
-  constructor (props) {
-    super(props);
+  componentWillMount(){
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  componentWillUnmount(){
+    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  onBackAndroid() {
+    Actions.home(this);
+
+    return true;
   }
 
   render() {

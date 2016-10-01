@@ -72,13 +72,27 @@ export default class Record extends Component {
       progressbar: 0
     });
 
+    this.recordCanceled = false;
     this.camera.capture()
       .then((data) => {
-        console.log('capture finished', data)
+        let finalCounter = base.counter * 10;
 
         this.setState({
           isRecording: false,
         });
+
+        console.log('recordCanceled:', base.recordCanceled);
+        console.log('counter:', finalCounter);
+
+        if (!base.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
+          console.log('send to post scene:', data)
+
+          Actions.recordedPostShare(base);
+
+          return;
+        }
+
+        // remove the original video base on setting's options
       })
       .catch(err => {
         console.error('error', err)
@@ -88,6 +102,11 @@ export default class Record extends Component {
         });
       });
 
+
+    this.setState({
+      isRecordPostable: false,
+    });
+
     this.counter = 0;
     this.counterInterval = setInterval(() => {
       let progress = (this.counter * 100) / maxRecordLimit; // calculate the progress
@@ -95,6 +114,12 @@ export default class Record extends Component {
       this.setState({
         progressbar: progress * 10,
       });
+
+      if (this.counter * 10 > minRecordLimit && !this.state.isRecordPostable) {
+        this.setState({
+          isRecordPostable: true,
+        });
+      }
 
       if (this.state.progressbar >= 100) {
         this.stopCapture();
@@ -115,18 +140,18 @@ export default class Record extends Component {
 
     if (this.state.isRecording) {
       this.camera.stopCapture();
+
       if (cancel) {
+        this.recordCanceled = true;
+
         return;
       }
-
-      // go to share scene
-
     }
   }
 
   capture() {
     if (this.state.isRecording) {
-        this.stopCapture(true);
+        this.stopCapture();
 
         return;
     }
@@ -206,7 +231,7 @@ export default class Record extends Component {
                   size={70}
                   width={5}
                   fill={this.state.progressbar}
-                  tintColor="#b30000"
+                  tintColor={this.state.isRecordPostable ? "green" : "#b30000"}
                   backgroundColor="#e9e9e9" >
                     {
                       (fill) => (
