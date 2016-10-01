@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import ProgressBar from 'ideaStudio/app/components/partials/progress-bar';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 const showHideTransitions = [
   'fade',
@@ -79,6 +79,12 @@ export default class Record extends Component {
         timeCounter: parseInt(this.counter * 10),
       });
 
+      if (this.state.progressbar >= 100) {
+        this.stopCapture();
+
+        return;
+      }
+
       this.counter = this.counter + 0.01;
     }, 100);
   }
@@ -87,8 +93,12 @@ export default class Record extends Component {
     this.setState({
       isRecording: false,
     });
+
     clearInterval(this.counterInterval);
-    this.camera.stopCapture();
+
+    if (this.state.isRecording) {
+      this.camera.stopCapture();
+    }
   }
 
   capture() {
@@ -115,7 +125,9 @@ export default class Record extends Component {
   }
 
   backButton() {
-    Actions.pop();
+    this.stopCapture();
+
+    Actions.home(this);
   }
 
   render() {
@@ -139,18 +151,6 @@ export default class Record extends Component {
           type={this.state.type ? Camera.constants.Type.front : Camera.constants.Type.back}
           torchMode={this.state.torch ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off}
           >
-          <ProgressBar
-            fillStyle={{
-              backgroundColor: '#b30000',
-            }}
-            backgroundStyle={{
-              backgroundColor: 'transparent',
-            }}
-            style={{
-              width: Dimensions.get('window').width,
-            }}
-            progress={this.state.progressbar}
-            />
           <Text>
             Progress: {this.state.progressbar}
             {'\n'}
@@ -183,9 +183,19 @@ export default class Record extends Component {
             <TouchableOpacity onPress={this.capture.bind(this)}>
             {
               this.state.isRecording
-              ? <View style={style.stopCapture}>
-                  <Icon name="ios-square" style={style.stopCaptureIcon} />
-                </View>
+              ? <AnimatedCircularProgress
+                  style={style.stopCapture}
+                  size={70}
+                  width={5}
+                  fill={this.state.progressbar}
+                  tintColor="#b30000"
+                  backgroundColor="#e9e9e9" >
+                    {
+                      (fill) => (
+                        <Icon name="ios-square" style={style.stopCaptureIcon} />
+                      )
+                    }
+                  </AnimatedCircularProgress>
               : <View style={style.capture}>
                   <Icon name="ios-videocam" style={style.readyToStartIcon} />
                 </View>
@@ -237,13 +247,14 @@ const style = StyleSheet.create({
   },
   stopCapture: {
     flex: 0,
-    backgroundColor: 'transparent',
-    borderRadius: 35,
-    borderWidth: 5,
-    borderColor: '#e9e9e9',
-    width: 70,
-    height: 70,
     marginBottom: 30,
+  },
+  stopCaptureIcon: {
+    position: 'absolute',
+    fontSize: 35,
+    color: '#b30000',
+    marginTop: -52,
+    marginLeft: 22,
   },
   backButton: {
     flex: 0,
@@ -273,12 +284,6 @@ const style = StyleSheet.create({
     color: '#e9e9e9',
     marginTop: 6,
     marginLeft: 13,
-  },
-  stopCaptureIcon: {
-    fontSize: 35,
-    color: '#b30000',
-    marginTop: 12,
-    marginLeft: 17,
   },
   torchContrainer: {
     flex: 0,

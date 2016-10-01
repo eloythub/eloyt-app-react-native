@@ -45,7 +45,7 @@ export default class Root extends Component {
         <Scene
           key="record"
           component={Record}
-          type={ActionConst.PUSH}
+          type={ActionConst.REPLACE}
           hideNavBar={true}
           panHandlers={null}
           />
