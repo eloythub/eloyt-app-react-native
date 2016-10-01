@@ -8,6 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
+  BackAndroid,
   TouchableOpacity,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -25,7 +26,8 @@ function getValue<T>(values: Array<T>, index: number): T {
   return values[index % values.length];
 }
 
-const maxLimit = 10; // 2 min = 120 sec
+const maxRecordLimit = 120; // 2 min = 120 sec
+const minRecordLimit = 15; // 15 sec
 
 export default class Record extends Component {
   constructor (props) {
@@ -37,13 +39,29 @@ export default class Record extends Component {
       torch: false,
       isRecording: false,
       progressbar: 0,
-      timeCounter: 0,
 
       // status
       animated: false,
       hidden: true,
       showHideTransition: getValue(showHideTransitions, 0),
     }
+    console.log('record loaded');
+  }
+
+  componentWillMount(){
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  componentWillUnmount(){
+    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  onBackAndroid() {
+    if (this.state.isRecording) {
+      this.stopCapture(true);
+    }
+
+    return true;
   }
 
   startCapture() {
@@ -72,11 +90,10 @@ export default class Record extends Component {
 
     this.counter = 0;
     this.counterInterval = setInterval(() => {
-      let progress = (this.counter * 100) / maxLimit; // calculate the progress
+      let progress = (this.counter * 100) / maxRecordLimit; // calculate the progress
 
       this.setState({
         progressbar: progress * 10,
-        timeCounter: parseInt(this.counter * 10),
       });
 
       if (this.state.progressbar >= 100) {
@@ -89,7 +106,7 @@ export default class Record extends Component {
     }, 100);
   }
 
-  stopCapture() {
+  stopCapture(cancel) {
     this.setState({
       isRecording: false,
     });
@@ -98,12 +115,18 @@ export default class Record extends Component {
 
     if (this.state.isRecording) {
       this.camera.stopCapture();
+      if (cancel) {
+        return;
+      }
+
+      // go to share scene
+
     }
   }
 
   capture() {
     if (this.state.isRecording) {
-        this.stopCapture();
+        this.stopCapture(true);
 
         return;
     }
@@ -125,7 +148,7 @@ export default class Record extends Component {
   }
 
   backButton() {
-    this.stopCapture();
+    this.stopCapture(true);
 
     Actions.home(this);
   }
@@ -151,11 +174,6 @@ export default class Record extends Component {
           type={this.state.type ? Camera.constants.Type.front : Camera.constants.Type.back}
           torchMode={this.state.torch ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off}
           >
-          <Text>
-            Progress: {this.state.progressbar}
-            {'\n'}
-            Time: {this.state.timeCounter}
-          </Text>
           <View style={style.topContainer}>
 
           </View>

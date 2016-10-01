@@ -4,15 +4,18 @@ import React, {
 } from 'react';
 import {
   View,
+  StatusBar,
   StyleSheet,
-  DrawerLayoutAndroid,
   ScrollView,
+  BackAndroid,
+  DrawerLayoutAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
 
+let backButtonPressedOnceToExit = false;
 
 class HomeView extends Component {
   constructor(props) {
@@ -21,11 +24,34 @@ class HomeView extends Component {
     this.root = props.root;
   }
 
+  componentWillMount(){
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  componentWillUnmount(){
+    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  onBackAndroid() {
+    if (backButtonPressedOnceToExit) {
+      BackAndroid.exitApp();
+    } else {
+      backButtonPressedOnceToExit = true;
+
+      setTimeout(() => {
+        backButtonPressedOnceToExit = false;
+      }, 2000);
+
+      return true;
+    }
+  }
+
   render() {
     let base = this;
 
     return (
       <View style={style.wrapperLogo}>
+        <StatusBar hidden={false} />
         <ScrollView>
         </ScrollView>
         <View style={style.footerMenu}>
