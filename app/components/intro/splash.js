@@ -12,9 +12,8 @@ import { Actions } from 'react-native-router-flux';
 import {
   FBLogin,
 } from 'react-native-facebook-login';
-import {
-  UsersRepo
-} from 'ideaStudio/common/repository';
+import UsersRepo from 'ideaStudio/common/repositories/users';
+const userRepo = new UsersRepo();
 
 import logo from 'ideaStudio/app/assets/images/logo.png';
 
@@ -24,6 +23,8 @@ export default class Main extends Component {
   }
 
   render() {
+    let base = this;
+
     return (
       <View style={style.wrapperLogo}>
         <FBLogin
@@ -34,15 +35,19 @@ export default class Main extends Component {
             }
           }
           onLoginFound={(user) => {
-            UsersRepo.doLogin('facebook', user);
-
-            Actions.home(this);
+            userRepo.doLogin('facebook', user)
+              .then((data) => {
+                console.log(data);
+                Actions.home(base);
+              }, (error) => {
+                Actions.login(base);
+              });
           }}
           onLoginNotFound={() => {
-            UsersRepo.doLogOut();
+            userRepo.doLogOut();
 
             TimerMixin.setTimeout(() => {
-              Actions.login(); // change scene to login page where user can authenticate into the app
+              Actions.login(base); // change scene to login page where user can authenticate into the app
             }, 3000);
           }}
         />

@@ -3,9 +3,8 @@ import {
   Image,
   View,
 } from 'react-native';
-import {
-  UsersRepo
-} from 'ideaStudio/common/repository';
+import UsersRepo from 'ideaStudio/common/repositories/users';
+const userRepo = new UsersRepo();
 
 import profileAvatar from 'ideaStudio/app/assets/images/profile-avatar.png';
 
@@ -22,7 +21,7 @@ export default class FBPhoto extends Component {
     let base  = this;
     const width = this.props.width;
 
-    UsersRepo.getLoginInfo().then((data) => {
+    userRepo.getLoginInfo().then((data) => {
       const user = data.userData.credentials;
       const api = `https://graph.facebook.com/v2.3/${user.userId}/picture` +
         `?width=${width}&redirect=false&access_token=${user.token}`;

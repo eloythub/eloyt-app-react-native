@@ -17,9 +17,8 @@ import {
 import { Actions } from 'react-native-router-flux';
 
 import Fonts from 'ideaStudio/common/fonts';
-import {
-  UsersRepo
-} from 'ideaStudio/common/repository';
+import UsersRepo from 'ideaStudio/common/repositories/users';
+const userRepo = new UsersRepo();
 
 import logo from 'ideaStudio/app/assets/images/logo.png';
 import background from 'ideaStudio/app/assets/images/login-cover.jpg';
@@ -56,20 +55,36 @@ export default class Login extends Component {
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
 
             onLogin={(user) => {
-              UsersRepo.doLogin('facebook', user);
-
-              Actions.home(base);
+              userRepo.doLogin('facebook', user)
+                .then((data) => {
+                  console.log(data);
+                  Actions.home(base);
+                }, (error) => {
+                  ToastAndroid.showWithGravity(
+                    error,
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  );
+                });
             }}
             onLogout={() => {
-              UsersRepo.doLogOut();
+              userRepo.doLogOut();
             }}
             onLoginFound={(user) => {
-              UsersRepo.doLogin('facebook', user);
-
-              Actions.home(base);
+              userRepo.doLogin('facebook', user)
+                .then((data) => {
+                  console.log(data);
+                  Actions.home(base);
+                }, (error) => {
+                  ToastAndroid.showWithGravity(
+                    error,
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  );
+                });
             }}
             onLoginNotFound={() => {
-              UsersRepo.doLogOut();
+              userRepo.doLogOut();
             }}
             onError={() => {
               ToastAndroid.showWithGravity(

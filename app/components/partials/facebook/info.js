@@ -5,9 +5,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import {
-  UsersRepo
-} from 'ideaStudio/common/repository';
+import UsersRepo from 'ideaStudio/common/repositories/users';
+const userRepo = new UsersRepo();
 
 export default class FBInfo extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ export default class FBInfo extends Component {
   componentWillMount() {
     let base = this;
 
-    UsersRepo.getLoginInfo().then((data) => {
+    userRepo.getLoginInfo().then((data) => {
       const user = data.userData.credentials;
       const api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
 

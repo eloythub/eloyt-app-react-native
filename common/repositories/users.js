@@ -1,12 +1,24 @@
 import { LocalStorage } from 'ideaStudio/common/localStorage';
+import ApiRepo, { RequestMethodType } from './api';
+
+const apiRepo = new ApiRepo;
 
 const accessKey = 'user_access_key';
 
 export default class UsersRepo {
   doLogin(gateway, userData) {
-    LocalStorage.save(accessKey, {
-      gateway: gateway,
-      userData: userData,
+    return new Promise(async (fulfill, reject) => {
+      LocalStorage.save(accessKey, {
+        gateway: gateway,
+        userData: userData,
+      });
+
+      apiRepo.request('/users/create-or-get', RequestMethodType.post, userData)
+        .then((data) => {
+          fulfill(data);
+        }, (error) => {
+          reject(error);
+        });
     });
   }
 
