@@ -6,11 +6,13 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "adb-remove-app": "adb shell pm uninstall com.ideastudio | exit 0",
     "android": "npm run adb-remove-app && react-native run-android",
+    "android-screen-record": "adb shell screenrecord /sdcard/demo.mp4 && adb pull /sdcard/demo.mp4",
     "android-release": "npm run adb-remove-app && react-native run-android --variant=release",
     "android-log": "react-native log-android",
     "build-android": "cd android && ./gradlew assembleRelease && cd ..",
     "ios": "react-native run-ios",
-    "es-lint": "./node_modules/.bin/eslint . -c .eslintrc"
+    "es-lint": "./node_modules/.bin/eslint . -c .eslintrc",
+    "tunnel": "./ngrok http 80"
   },
   "dependencies": {
     "promise": "^7.1.1",

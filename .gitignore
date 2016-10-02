@@ -82,3 +82,5 @@ android/.gradle/2.4/taskArtifacts*.iml
 .DS_Store
 /build
 /captures
+
+demo.mp4
