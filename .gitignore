@@ -84,3 +84,5 @@ android/.gradle/2.4/taskArtifacts*.iml
 /captures
 
 demo.mp4
+
+.vscode
