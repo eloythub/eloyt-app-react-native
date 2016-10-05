@@ -1,5 +1,5 @@
 const apiUrl = {
-  dev: 'http://73d3b182.ngrok.io',
+  dev: 'http://c5c06b3c.ngrok.io',
   production: 'api.idea-studio.eloyt.com',
 };
 

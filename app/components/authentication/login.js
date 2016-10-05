@@ -23,12 +23,67 @@ const userRepo = new UsersRepo();
 import logo from 'ideaStudio/app/assets/images/logo.png';
 import background from 'ideaStudio/app/assets/images/login-cover.jpg';
 
+import Spinner from 'react-native-loading-spinner-overlay';
+
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      waiting: false
+    };
+  }
+  doLogin(res, base) {
+    if (res.statusCode !== 200) {
+      ToastAndroid.showWithGravity(
+        'something went wrong, please try again later',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+
+      FBLoginManager.logout(() => {
+        userRepo.doLogOut();
+        Actions.refresh();
+      });
+
+      base.setState({
+        waiting: false,
+      });
+
+      return;
+    }
+
+    base.setState({
+      waiting: false,
+    });
+
+    Actions.home(base);
+  }
+
+  doLoginRevert(error, base) {
+    ToastAndroid.showWithGravity(
+      error,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+
+    FBLoginManager.logout(() => {
+      userRepo.doLogOut();
+      Actions.refresh();
+    });
+
+    base.setState({
+      waiting: false,
+    });
+  }
+
+
   render() {
     let base = this;
 
     return (
       <View style={style.wrapperLogo}>
+        <Spinner visible={this.state.waiting} />
         <View style={style.bgImageWrapper}>
           <Image source={background} style={style.bgImage} />
         </View>
@@ -55,33 +110,25 @@ export default class Login extends Component {
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
 
             onLogin={(user) => {
-              userRepo.doLogin('facebook', user)
-                .then((data) => {
-                  console.log(data);
-                  Actions.home(base);
-                }, (error) => {
-                  ToastAndroid.showWithGravity(
-                    error,
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER
-                  );
-                });
+              base.setState({
+                waiting: true,
+              });
+
+              userRepo.doLogin('facebook', user).then((res) => {
+                base.doLogin(res, base);
+              }, (error) => {
+                base.doLoginRevert(error, base);
+              });
             }}
             onLogout={() => {
               userRepo.doLogOut();
             }}
             onLoginFound={(user) => {
-              userRepo.doLogin('facebook', user)
-                .then((data) => {
-                  console.log(data);
-                  Actions.home(base);
-                }, (error) => {
-                  ToastAndroid.showWithGravity(
-                    error,
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER
-                  );
-                });
+              base.setState({
+                waiting: true,
+              });
+
+              userRepo.doLogin('facebook', user).then(base.doLogin, base.doLoginRevert);
             }}
             onLoginNotFound={() => {
               userRepo.doLogOut();
