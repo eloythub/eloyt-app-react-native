@@ -1,5 +1,5 @@
 const apiUrl = {
-  dev: 'http://22a945bc.ngrok.io',
+  dev: 'http://127.0.0.1:8090',
   production: 'api.idea-studio.eloyt.com',
 };
 
@@ -8,6 +8,7 @@ export const RequestMethodType = {
   post: 'POST',
   delete: 'DELETE',
   put: 'PUT',
+  patch: 'PATCH',
 }
 
 export default class ApiRepo {

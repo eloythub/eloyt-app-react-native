@@ -34,6 +34,14 @@ npm start
 npm run android
 ```
 
+# Reverse Access from phone to localhost api server
+```
+adb reverse tcp:8090 tcp:8090
+
+# or if u are also interested to track your connected devices on adb u can use this:
+npm run android-devices
+```
+
 # Run App on android device (Release mode)
 ```
 npm run android-release

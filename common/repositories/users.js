@@ -13,7 +13,7 @@ export default class UsersRepo {
         userData: userData,
       });
 
-      apiRepo.request('/users/create-or-get', RequestMethodType.post, userData)
+      apiRepo.request('/users/create-or-get', RequestMethodType.put, userData)
         .then((data) => {
           fulfill(data);
         }, (error) => {
