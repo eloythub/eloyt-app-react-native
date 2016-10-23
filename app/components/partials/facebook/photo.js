@@ -64,7 +64,7 @@ export default class FBPhoto extends Component {
                 width: this.props.width,
                 borderColor: '#aaa',
                 borderWidth: 2,
-                borderRadius: 3,
+                borderRadius: 40,
               }}
               source={profileAvatar} />
         }
