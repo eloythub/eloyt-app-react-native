@@ -9,7 +9,7 @@
     "android-screen-record": "adb shell screenrecord /sdcard/demo.mp4 && adb pull /sdcard/demo.mp4",
     "android-release": "npm run adb-remove-app && react-native run-android --variant=release",
     "android-log": "react-native log-android",
-    "android-devices": "adb reverse tcp:8090 tcp:8090 && watch adb devices",
+    "android-devices": "chmod +x ./adb-service && ./adb-service",
     "build-android": "cd android && ./gradlew assembleRelease && cd ..",
     "ios": "react-native run-ios",
     "es-lint": "./node_modules/.bin/eslint . -c .eslintrc",
