@@ -26,7 +26,8 @@
     "react-native-router-flux": "^3.35.0",
     "react-native-selectme": "^1.2.0",
     "react-native-vector-icons": "^2.1.0",
-    "react-timer-mixin": "^0.13.3"
+    "react-timer-mixin": "^0.13.3",
+    "undefined": "^0.1.0"
   },
   "devDependencies": {
     "eslint": "^3.4.0",
