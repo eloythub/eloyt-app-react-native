@@ -81,14 +81,14 @@ export default class Login extends Component {
         <View style={style.bgImageWrapper}>
           <Image source={background} style={style.bgImage} />
         </View>
-        <ScrollView style={style.quoteContainer}>
+        <View style={style.quoteContainer}>
           <View style={style.quoteView}>
             <Image source={logo}/>
             <Text style={style.quote}>
               INSTANT SUCCESS
             </Text>
           </View>
-        </ScrollView>
+        </View>
         <View>
           <Text style={style.desc}>
             Get ready to Explore your Ideas and passion
@@ -173,6 +173,7 @@ const style = StyleSheet.create({
     textAlign: 'center',
     marginTop: 50,
     color: '#e1e1e1',
+    backgroundColor: 'transparent',
     fontFamily: Fonts.openSans,
     fontWeight: 'bold',
   },
@@ -180,6 +181,7 @@ const style = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     color: '#fff',
+    backgroundColor: 'transparent',
     fontFamily: Fonts.openSans,
     marginBottom: 20,
   },
