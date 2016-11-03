@@ -7,8 +7,9 @@ import {
   Image,
   StyleSheet,
   ScrollView,
-  ToastAndroid
 } from 'react-native';
+
+import Toast from 'react-native-simple-toast';
 
 import {
   FBLogin,
@@ -33,13 +34,10 @@ export default class Login extends Component {
       waiting: false
     };
   }
+
   doLogin(res, base) {
     if (res.statusCode !== 200) {
-      ToastAndroid.showWithGravity(
-        'something went wrong, please try again later',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
+      Toast.show('something went wrong, please try again later', Toast.SHORT);
 
       FBLoginManager.logout(() => {
         userRepo.doLogOut();
@@ -61,11 +59,7 @@ export default class Login extends Component {
   }
 
   doLoginRevert(error, base) {
-    ToastAndroid.showWithGravity(
-      error,
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
+    Toast.show(error, Toast.SHORT);
 
     FBLoginManager.logout(() => {
       userRepo.doLogOut();
@@ -134,25 +128,13 @@ export default class Login extends Component {
               userRepo.doLogOut();
             }}
             onError={() => {
-              ToastAndroid.showWithGravity(
-                'Something went wrong, please try again',
-                ToastAndroid.SHORT,
-                ToastAndroid.CENTER
-              );
+              Toast.show('Something went wrong, please try again', Toast.SHORT);
             }}
             onCancel={() => {
-              ToastAndroid.showWithGravity(
-                'Request just canceled',
-                ToastAndroid.SHORT,
-                ToastAndroid.CENTER
-              );
+              Toast.show('Request just canceled', Toast.SHORT);
             }}
             onPermissionsMissing={() => {
-              ToastAndroid.showWithGravity(
-                'Permission failed!',
-                ToastAndroid.SHORT,
-                ToastAndroid.CENTER
-              );
+              Toast.show('Permission failed!', Toast.SHORT);
             }}
           />
         </View>

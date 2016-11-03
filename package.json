@@ -12,6 +12,7 @@
     "android-devices": "chmod +x ./adb-service && ./adb-service",
     "build-android": "cd android && ./gradlew assembleRelease && cd ..",
     "ios": "react-native run-ios",
+    "ios-log": "react-native log-ios",
     "es-lint": "./node_modules/.bin/eslint . -c .eslintrc",
     "tunnel": "./ngrok http 80"
   },
@@ -25,6 +26,7 @@
     "react-native-loading-spinner-overlay": "^0.3.0",
     "react-native-router-flux": "^3.35.0",
     "react-native-selectme": "^1.2.0",
+    "react-native-simple-toast": "0.0.5",
     "react-native-vector-icons": "^2.1.0",
     "react-timer-mixin": "^0.13.3",
     "undefined": "^0.1.0"
