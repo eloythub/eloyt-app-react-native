@@ -19,8 +19,12 @@ export default class SettingsListItem extends Component {
     super(props);
 
     this.state = props;
+  }
 
-    this.state.switchValue = props.defaultValue;
+  componentWillReceiveProps(props) {
+    this.state = props;
+
+    this.setState(this.state);
   }
 
   render() {
@@ -39,7 +43,7 @@ export default class SettingsListItem extends Component {
 
               this.props.onChange(value);
             }}
-            value={this.state.switchValue} />
+            value={this.state.defaultValue} />
         </View>
       </View>
     );

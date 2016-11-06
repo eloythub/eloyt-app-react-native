@@ -11,15 +11,18 @@ const accessKey = 'settings_access_key';
 export default class SettingsRepo {
   save(key, value) {
     return new Promise(async (fulfill, reject) => {
-      LocalStorage.save(accessKey, {
-        key: value,
-      });
+      let data  = {};
+      data[key] = value;
+
+      LocalStorage.save(accessKey, data);
 
       const userInfo = userRepo.getLoginInfo().then((userInfo) => {
-        apiRepo.request('/settings/' + userInfo._id, RequestMethodType.patch, {
-          key: value,
-        }).then((data) => {
-          fulfill(data);
+        apiRepo.request(
+          '/settings/' + userInfo._id,
+          RequestMethodType.patch,
+          data
+        ).then((res) => {
+          fulfill(res.data);
         }, reject);
       }, reject);
     });
@@ -37,10 +40,10 @@ export default class SettingsRepo {
     return new Promise(async (fulfill, reject) => {
       userRepo.getLoginInfo().then((userInfo) => {
         apiRepo.request('/settings/' + userInfo._id, RequestMethodType.get)
-          .then((data) => {
-            LocalStorage.save(accessKey, data);
+          .then((res) => {
+            LocalStorage.save(accessKey, res.data);
 
-            fulfill();
+            fulfill(res.data);
           }, reject);
       }, reject);
     });

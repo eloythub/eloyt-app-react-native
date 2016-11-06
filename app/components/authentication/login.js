@@ -126,9 +126,21 @@ export default class Login extends Component {
                 settingsRepo.cleanUp();
               }}
               onLoginFound={(user) => {
+                base.setState({
+                  waiting: true,
+                });
+
                 userRepo.doLogin('facebook', user)
                   .then((data) => {
-                    Actions.home(base);
+                    settingsRepo.loadFromServer().then(() => {
+                      base.setState({
+                        waiting: false,
+                      });
+
+                      Actions.home(base);
+                    }, (error) => {
+                      Actions.login(base);
+                    });
                   }, (error) => {
                     Actions.login(base);
                   });

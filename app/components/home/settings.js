@@ -25,6 +25,8 @@ export default class Settings extends Component {
   constructor(props) {
     super(props);
 
+    let base = this;
+
     this.state = {
       settingList: {
         'initFrontCameraByDefault': false,
@@ -32,6 +34,14 @@ export default class Settings extends Component {
         'deleteVideoAfterRecord': false,
       },
     };
+
+    setTimeout(() => {
+      settingsRepo.load().then((data) => {
+        base.setState({
+          settingList: data,
+        });
+      });
+    }, 0);
   }
 
   componentWillMount(){
@@ -40,16 +50,6 @@ export default class Settings extends Component {
 
   componentWillUnmount(){
     BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
-  componentDidMount() {
-    let base = this;
-
-    settingsRepo.load().then((data) => {
-      base.setState({
-        settingList: data,
-      });
-    });
   }
 
   updateSettingEntity(key, value) {
@@ -79,19 +79,19 @@ export default class Settings extends Component {
         <ScrollView>
           <SettingsListItem
             caption="Initial Front Camera By Default"
-            defaultValue={false}
+            defaultValue={this.state.settingList.initFrontCameraByDefault}
             onChange={(value) => {
               this.updateSettingEntity('initFrontCameraByDefault', value);
             }} />
           <SettingsListItem
             caption="High Video Quality Record"
-            defaultValue={false}
+            defaultValue={this.state.settingList.highVideoQualityRecord}
             onChange={(value) => {
               this.updateSettingEntity('highVideoQualityRecord', value);
             }} />
           <SettingsListItem
             caption="Delete Video After Record"
-            defaultValue={false}
+            defaultValue={this.state.settingList.deleteVideoAfterRecord}
             onChange={(value) => {
               this.updateSettingEntity('deleteVideoAfterRecord', value);
             }} />
