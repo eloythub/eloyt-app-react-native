@@ -21,6 +21,9 @@ import Fonts from 'ideaStudio/common/fonts';
 import UsersRepo from 'ideaStudio/common/repositories/users';
 const userRepo = new UsersRepo();
 
+import SettingsRepo from 'ideaStudio/common/repositories/settings';
+const settingsRepo = new SettingsRepo();
+
 import logo from 'ideaStudio/app/assets/images/logo.png';
 
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -32,29 +35,42 @@ export default class Login extends Component {
     this.state = {
       waiting: false
     };
+
+    settingsRepo.cleanUp();
   }
 
-  doLogin(res, base) {
-    if (res.statusCode !== 200) {
-      Toast.show('something went wrong, please try again later', Toast.SHORT);
+  rejectLogin(base) {
+    Toast.show('something went wrong, please try again later', Toast.SHORT);
 
-      FBLoginManager.logout(() => {
-        userRepo.doLogOut();
-        Actions.refresh();
-      });
+    FBLoginManager.logout(() => {
+      userRepo.doLogOut();
 
-      base.setState({
-        waiting: false,
-      });
+      settingsRepo.cleanUp();
 
-      return;
-    }
+      Actions.refresh();
+    });
 
     base.setState({
       waiting: false,
     });
+  }
 
-    Actions.home(base);
+  doLogin(res, base) {
+    if (res.statusCode !== 200) {
+      this.rejectLogin(base);
+
+      return;
+    }
+
+    settingsRepo.loadFromServer().then(() => {
+      base.setState({
+        waiting: false,
+      });
+
+      Actions.home(base);
+    }, (error) => {
+      base.rejectLogin(base);
+    });
   }
 
   doLoginRevert(error, base) {
@@ -62,6 +78,9 @@ export default class Login extends Component {
 
     FBLoginManager.logout(() => {
       userRepo.doLogOut();
+
+      settingsRepo.cleanUp();
+
       Actions.refresh();
     });
 
@@ -103,6 +122,8 @@ export default class Login extends Component {
               }}
               onLogout={() => {
                 userRepo.doLogOut();
+
+                settingsRepo.cleanUp();
               }}
               onLoginFound={(user) => {
                 userRepo.doLogin('facebook', user)
@@ -114,6 +135,8 @@ export default class Login extends Component {
               }}
               onLoginNotFound={() => {
                 userRepo.doLogOut();
+
+                settingsRepo.cleanUp();
               }}
               onError={() => {
                 Toast.show('Something went wrong, please try again', Toast.SHORT);

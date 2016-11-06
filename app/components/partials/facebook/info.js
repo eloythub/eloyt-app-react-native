@@ -20,7 +20,7 @@ export default class FBInfo extends Component {
   componentWillMount() {
     let base = this;
 
-    userRepo.getLoginInfo().then((data) => {
+    userRepo.getLoginCredential().then((data) => {
       const user = data.userData.credentials;
       const api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
 

@@ -45,7 +45,6 @@ export default class Record extends Component {
       hidden: true,
       showHideTransition: getValue(showHideTransitions, 0),
     }
-    console.log('record loaded');
   }
 
   componentWillMount(){
@@ -80,9 +79,6 @@ export default class Record extends Component {
         this.setState({
           isRecording: false,
         });
-
-        console.log('recordCanceled:', base.recordCanceled);
-        console.log('counter:', finalCounter);
 
         if (!base.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
           console.log('send to post scene:', data)

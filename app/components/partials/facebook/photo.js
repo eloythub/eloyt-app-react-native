@@ -21,7 +21,7 @@ export default class FBPhoto extends Component {
     let base  = this;
     const width = this.props.width;
 
-    userRepo.getLoginInfo().then((data) => {
+    userRepo.getLoginCredential().then((data) => {
       const user = data.userData.credentials;
       const api = `https://graph.facebook.com/v2.3/${user.userId}/picture` +
         `?width=${width}&redirect=false&access_token=${user.token}`;
