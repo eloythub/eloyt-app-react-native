@@ -25,12 +25,12 @@ const style = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#333',
+    backgroundColor: '#82848a',
   },
   header: {
     width: 300,
-    backgroundColor: '#555555',
-    borderBottomColor: '#454545',
+    backgroundColor: '#0b1724',
+    borderBottomColor: '#707070',
     borderBottomWidth: 1,
     padding: 15,
     flexDirection: 'row',
@@ -41,7 +41,7 @@ const style = StyleSheet.create({
     fontFamily: Fonts.openSans,
   },
   fbInfoEmail: {
-    color: '#aaa',
+    color: '#eee',
     fontSize: 12,
     fontFamily: Fonts.openSans,
   },
