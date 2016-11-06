@@ -1,6 +1,5 @@
 const apiUrl = {
   dev: 'http://127.0.0.1:8090',
-  production: 'api.idea-studio.eloyt.com',
 };
 
 export const RequestMethodType = {
@@ -26,9 +25,9 @@ export default class ApiRepo {
         .then((responseData) => {
           fulfill(responseData);
         })
-      .catch((error) => {
-        reject(error.message)
-      });
+        .catch((error) => {
+          reject(error.message)
+        });
     });
   }
 }

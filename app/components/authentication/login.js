@@ -22,7 +22,6 @@ import UsersRepo from 'ideaStudio/common/repositories/users';
 const userRepo = new UsersRepo();
 
 import logo from 'ideaStudio/app/assets/images/logo.png';
-import background from 'ideaStudio/app/assets/images/login-cover.jpg';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -78,65 +77,60 @@ export default class Login extends Component {
     return (
       <View style={style.wrapperLogo}>
         <Spinner visible={this.state.waiting} />
-        <View style={style.bgImageWrapper}>
-          <Image source={background} style={style.bgImage} />
-        </View>
         <View style={style.quoteContainer}>
           <View style={style.quoteView}>
             <Image source={logo}/>
-            <Text style={style.quote}>
-              INSTANT SUCCESS
-            </Text>
+            <View style={style.seperator}></View>
+            <FBLogin
+              ref={
+                (fbLogin) => {
+                  this.fbLogin = fbLogin
+                }
+              }
+              permissions={['email', 'user_friends', 'user_photos']}
+              loginBehavior={FBLoginManager.LoginBehaviors.Native}
+
+              onLogin={(user) => {
+                base.setState({
+                  waiting: true,
+                });
+
+                userRepo.doLogin('facebook', user).then((res) => {
+                  base.doLogin(res, base);
+                }, (error) => {
+                  base.doLoginRevert(error, base);
+                });
+              }}
+              onLogout={() => {
+                userRepo.doLogOut();
+              }}
+              onLoginFound={(user) => {
+                userRepo.doLogin('facebook', user)
+                  .then((data) => {
+                    Actions.home(base);
+                  }, (error) => {
+                    Actions.login(base);
+                  });
+              }}
+              onLoginNotFound={() => {
+                userRepo.doLogOut();
+              }}
+              onError={() => {
+                Toast.show('Something went wrong, please try again', Toast.SHORT);
+              }}
+              onCancel={() => {
+                Toast.show('Request just canceled', Toast.SHORT);
+              }}
+              onPermissionsMissing={() => {
+                Toast.show('Permission failed!', Toast.SHORT);
+              }}
+            />
           </View>
         </View>
         <View>
           <Text style={style.desc}>
             Get ready to Explore your Ideas and passion
           </Text>
-          <FBLogin
-            style={style.facebookLoginButton}
-            ref={
-              (fbLogin) => {
-                this.fbLogin = fbLogin
-              }
-            }
-            permissions={['email', 'user_friends', 'user_photos']}
-            loginBehavior={FBLoginManager.LoginBehaviors.Native}
-
-            onLogin={(user) => {
-              base.setState({
-                waiting: true,
-              });
-
-              userRepo.doLogin('facebook', user).then((res) => {
-                base.doLogin(res, base);
-              }, (error) => {
-                base.doLoginRevert(error, base);
-              });
-            }}
-            onLogout={() => {
-              userRepo.doLogOut();
-            }}
-            onLoginFound={(user) => {
-              base.setState({
-                waiting: true,
-              });
-
-              userRepo.doLogin('facebook', user).then(base.doLogin, base.doLoginRevert);
-            }}
-            onLoginNotFound={() => {
-              userRepo.doLogOut();
-            }}
-            onError={() => {
-              Toast.show('Something went wrong, please try again', Toast.SHORT);
-            }}
-            onCancel={() => {
-              Toast.show('Request just canceled', Toast.SHORT);
-            }}
-            onPermissionsMissing={() => {
-              Toast.show('Permission failed!', Toast.SHORT);
-            }}
-          />
         </View>
       </View>
     );
@@ -146,6 +140,7 @@ export default class Login extends Component {
 const style = StyleSheet.create({
   wrapperLogo: {
     flex: 1,
+    backgroundColor: '#0b1724',
   },
   bgImageWrapper: {
     position: 'absolute',
@@ -155,9 +150,8 @@ const style = StyleSheet.create({
     flex: 1,
     resizeMode: "stretch"
   },
-  facebookLoginButton: {
-    height: 60,
-    padding: 20,
+  seperator: {
+    marginTop: 100,
   },
   quoteContainer: {
     flex: 1,
@@ -166,7 +160,6 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    paddingTop: 50,
   },
   quote: {
     fontSize: 35,
