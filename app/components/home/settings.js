@@ -96,17 +96,6 @@ export default class Settings extends Component {
               this.updateSettingEntity('deleteVideoAfterRecord', value);
             }} />
         </ScrollView>
-        {
-          Platform.OS === 'ios'
-          ? null
-          : <View style={style.footerMenu}>
-            <MenuContainer>
-              <MenuItem name="back" icon="md-arrow-back" onPress={() => {
-                  Actions.home(this);
-                }} />
-            </MenuContainer>
-          </View>
-        }
       </View>
     );
   }

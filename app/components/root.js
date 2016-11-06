@@ -60,7 +60,7 @@ export default class Root extends Component {
         <Scene
           key="settings"
           component={Settings}
-          type={ActionConst.push}
+          type={ActionConst.PUSH_REPLACE}
           hideNavBar={false}
           panHandlers={null}
           title="Settings"
