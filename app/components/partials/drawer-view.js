@@ -88,7 +88,7 @@ export class NavigationView extends Component {
             }} />
           <DrawerListItem caption="Sign Out" icon="ios-exit-outline" onPress={() => {
               FBLoginManager.logout(() => {
-                Actions.login();
+                Actions.login(base);
               });
             }} />
         </ScrollView>

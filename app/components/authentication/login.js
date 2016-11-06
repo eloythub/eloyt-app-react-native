@@ -47,7 +47,7 @@ export default class Login extends Component {
 
       settingsRepo.cleanUp();
 
-      Actions.refresh();
+      Actions.refresh(base);
     });
 
     base.setState({
@@ -81,7 +81,7 @@ export default class Login extends Component {
 
       settingsRepo.cleanUp();
 
-      Actions.refresh();
+      Actions.refresh(base);
     });
 
     base.setState({
