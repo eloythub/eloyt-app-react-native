@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "promise": "^7.1.1",
-    "react": "15.3.1",
-    "react-native": "0.34.1",
+    "react": "15.4.1",
+    "react-native": "0.38.0",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-circular-progress": "0.0.7",
     "react-native-drawer": "^2.3.0",
@@ -27,7 +27,7 @@
     "react-native-loading-spinner-overlay": "^0.3.0",
     "react-native-router-flux": "^3.35.0",
     "react-native-simple-toast": "0.0.5",
-    "react-native-vector-icons": "^2.1.0",
+    "react-native-vector-icons": "^3.0.0",
     "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
