@@ -1,5 +1,6 @@
 const apiUrl = {
   dev: 'http://127.0.0.1:8090',
+  staging: 'http://api.eloyt.com',
 };
 
 export const RequestMethodType = {
@@ -13,7 +14,7 @@ export const RequestMethodType = {
 export default class ApiRepo {
   request(url, method, bodyData) {
     return new Promise(async (fulfill, reject) => {
-      await fetch(apiUrl.dev + url, {
+      await fetch(apiUrl.staging + url, {
         method: method,
         headers: {
           'Accept': 'application/json',
