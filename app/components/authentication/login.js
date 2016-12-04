@@ -15,6 +15,7 @@ import {
   FBLogin,
   FBLoginManager,
 } from 'react-native-facebook-login';
+import FBLoginButton from 'eloyt/app/components/partials/facebook/button';
 import { Actions } from 'react-native-router-flux';
 
 import Fonts from 'eloyt/common/fonts';
@@ -99,73 +100,72 @@ export default class Login extends Component {
         <View style={style.quoteContainer}>
           <View style={style.quoteView}>
             <Image source={logo}/>
-            <View style={style.seperator}></View>
-            <FBLogin
-              style={style.fbLogin}
-              ref={
-                (fbLogin) => {
-                  this.fbLogin = fbLogin
-                }
+          </View>
+          <FBLogin
+            buttonView={<FBLoginButton />}
+            ref={
+              (fbLogin) => {
+                this.fbLogin = fbLogin
               }
-              permissions={['email', 'user_friends', 'user_photos']}
-              loginBehavior={FBLoginManager.LoginBehaviors.Native}
+            }
+            permissions={['email', 'user_friends', 'user_photos']}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
 
-              onLogin={(user) => {
-                base.setState({
-                  waiting: true,
-                });
+            onLogin={(user) => {
+              base.setState({
+                waiting: true,
+              });
 
-                userRepo.doLogin('facebook', user).then((res) => {
-                  base.doLogin(res, base);
-                }, (error) => {
-                  base.doLoginRevert(error, base);
-                });
-              }}
-              onLogout={() => {
-                userRepo.doLogOut();
+              userRepo.doLogin('facebook', user).then((res) => {
+                base.doLogin(res, base);
+              }, (error) => {
+                base.doLoginRevert(error, base);
+              });
+            }}
+            onLogout={() => {
+              userRepo.doLogOut();
 
-                settingsRepo.cleanUp();
-              }}
-              onLoginFound={(user) => {
-                base.setState({
-                  waiting: true,
-                });
+              settingsRepo.cleanUp();
+            }}
+            onLoginFound={(user) => {
+              base.setState({
+                waiting: true,
+              });
 
-                userRepo.doLogin('facebook', user)
-                  .then((data) => {
-                    settingsRepo.loadFromServer().then(() => {
-                      base.setState({
-                        waiting: false,
-                      });
-
-                      Actions.home(base);
-                    }, (error) => {
-                      Actions.login(base);
+              userRepo.doLogin('facebook', user)
+                .then((data) => {
+                  settingsRepo.loadFromServer().then(() => {
+                    base.setState({
+                      waiting: false,
                     });
+
+                    Actions.home(base);
                   }, (error) => {
                     Actions.login(base);
                   });
-              }}
-              onLoginNotFound={() => {
-                userRepo.doLogOut();
+                }, (error) => {
+                  Actions.login(base);
+                });
+            }}
+            onLoginNotFound={() => {
+              userRepo.doLogOut();
 
-                settingsRepo.cleanUp();
-              }}
-              onError={() => {
-                Toast.show('Something went wrong, please try again', Toast.SHORT);
-              }}
-              onCancel={() => {
-                Toast.show('Request just canceled', Toast.SHORT);
-              }}
-              onPermissionsMissing={() => {
-                Toast.show('Permission failed!', Toast.SHORT);
-              }}
-            />
-          </View>
+              settingsRepo.cleanUp();
+            }}
+            onError={() => {
+              Toast.show('Something went wrong, please try again', Toast.SHORT);
+            }}
+            onCancel={() => {
+              Toast.show('Request just canceled', Toast.SHORT);
+            }}
+            onPermissionsMissing={() => {
+              Toast.show('Permission failed!', Toast.SHORT);
+            }}
+          />
         </View>
         <View>
           <Text style={style.desc}>
-            Get ready to Explore your Ideas and passion
+            Get ready to Explore your passion with others
           </Text>
         </View>
       </View>
@@ -177,24 +177,20 @@ const style = StyleSheet.create({
   wrapperLogo: {
     flex: 1,
     backgroundColor: '#000000',
-    paddingTop: 100,
+    paddingTop: 150,
   },
   bgImage: {
     flex: 1,
-    resizeMode: "stretch"
-  },
-  seperator: {
-    marginTop: 100,
+    resizeMode: "stretch",
   },
   fbLogin: {
-    height: 20,
   },
   quoteContainer: {
     flex: 1,
   },
   quoteView: {
     alignItems: 'center',
-    flex: 1,
+    paddingBottom: 100,
   },
   quote: {
     fontSize: 35,
