@@ -1,6 +1,6 @@
 
 import { AppRegistry } from 'react-native';
 
-import Root from 'ideaStudio/app/components/root';
+import Root from 'eloyt/app/components/root';
 
-AppRegistry.registerComponent('ideaStudio', () => Root);
+AppRegistry.registerComponent('eloyt', () => Root);

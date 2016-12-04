@@ -1,4 +1,4 @@
-rootProject.name = 'ideaStudio'
+rootProject.name = 'eloyt'
 
 include ':app'
 include ':react-native-camera'

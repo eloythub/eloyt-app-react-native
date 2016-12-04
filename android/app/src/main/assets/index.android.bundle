@@ -1484,13 +1484,13 @@ return Array.from(arr);
 }
 };
 })(typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : this);
-__d(0 /* ideaStudio/index.android.js */, function(global, require, module, exports) {
+__d(0 /* eloyt/index.android.js */, function(global, require, module, exports) {
 var _reactNative=require(12 /* react-native */);
 
-var _root=require(648 /* ideaStudio/app/components/root */);var _root2=babelHelpers.interopRequireDefault(_root);
+var _root=require(648 /* eloyt/app/components/root */);var _root2=babelHelpers.interopRequireDefault(_root);
 
-_reactNative.AppRegistry.registerComponent('ideaStudio',function(){return _root2.default;});
-}, "ideaStudio/index.android.js");
+_reactNative.AppRegistry.registerComponent('eloyt',function(){return _root2.default;});
+}, "eloyt/index.android.js");
 __d(12 /* react-native/Libraries/react-native/react-native.js */, function(global, require, module, exports) {
 
 
@@ -80869,7 +80869,7 @@ handleElement(debugID,element);
 
 module.exports=ReactDOMNullInputValuePropHook;
 }, "react/lib/ReactDOMNullInputValuePropHook.js");
-__d(648 /* ideaStudio/app/components/root.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+__d(648 /* eloyt/app/components/root.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 var _reactNativeRouterFlux=require(649 /* react-native-router-flux */);
 
@@ -80905,7 +80905,7 @@ type:_reactNativeRouterFlux.ActionConst.REPLACE})));
 
 
 }}]);return Root;}(_react.Component);exports.default=Root;
-}, "ideaStudio/app/components/root.js");
+}, "eloyt/app/components/root.js");
 __d(649 /* react-native-router-flux/index.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Util=exports.getInitialState=exports.TabBar=exports.Switch=exports.Scene=exports.Router=exports.Reducer=exports.NavBar=exports.Modal=exports.DefaultRenderer=exports.ActionConst=exports.Actions=undefined;var _Actions=require(650 /* ./src/Actions */);var _Actions2=babelHelpers.interopRequireDefault(_Actions);
 var _ActionConst=require(653 /* ./src/ActionConst */);var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst);
 var _DefaultRenderer=require(654 /* ./src/DefaultRenderer */);var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer);
@@ -86452,7 +86452,7 @@ selector:_react.PropTypes.func,
 statem:_react.PropTypes.any,
 unmountScenes:_react.PropTypes.bool};
 }, "react-native-router-flux/src/Switch.js");
-__d(698 /* ideaStudio/app/components/intro/splash.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+__d(698 /* eloyt/app/components/intro/splash.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 
@@ -86468,8 +86468,8 @@ var _reactNativeFacebookLogin=require(700 /* react-native-facebook-login */);
 
 
 
-var _fonts=require(702 /* ideaStudio/common/fonts */);var _fonts2=babelHelpers.interopRequireDefault(_fonts);
-var _logo=require(703 /* ideaStudio/app/assets/images/logo.png */);var _logo2=babelHelpers.interopRequireDefault(_logo);var
+var _fonts=require(702 /* eloyt/common/fonts */);var _fonts2=babelHelpers.interopRequireDefault(_fonts);
+var _logo=require(703 /* eloyt/app/assets/images/logo.png */);var _logo2=babelHelpers.interopRequireDefault(_logo);var
 
 Main=function(_Component){babelHelpers.inherits(Main,_Component);
 function Main(props){babelHelpers.classCallCheck(this,Main);var _this=babelHelpers.possibleConstructorReturn(this,(Main.__proto__||Object.getPrototypeOf(Main)).call(this,
@@ -86518,7 +86518,7 @@ backgroundColor:'#fafafa'},
 
 facebookLoginButton:{
 opacity:0}});
-}, "ideaStudio/app/components/intro/splash.js");
+}, "eloyt/app/components/intro/splash.js");
 __d(699 /* react-timer-mixin/TimerMixin.js */, function(global, require, module, exports) {
 
 
@@ -86791,14 +86791,14 @@ return result.toLowerCase();
 return resultType;
 };
 }, "itypeof/index.js");
-__d(702 /* ideaStudio/common/fonts.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d(702 /* eloyt/common/fonts.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 {
 openSans:'OpenSans',
 sourceSansPro:'SourceSansPro'};
-}, "ideaStudio/common/fonts.js");
-__d(703 /* ideaStudio/app/assets/images/logo.png */, function(global, require, module, exports) {module.exports = require(310 /* react-native/Libraries/Image/AssetRegistry */).registerAsset({"__packager_asset":true,"fileSystemLocation":"/Users/Mahan/projects/eloythub/idea-studio/app/assets/images","httpServerLocation":"/assets/app/assets/images","width":192,"height":192,"scales":[1],"files":["/Users/Mahan/projects/eloythub/idea-studio/app/assets/images/logo.png"],"hash":"2dbee51ad4e83ed91fe0ffdce01e82f3","name":"logo","type":"png"});
-}, "ideaStudio/app/assets/images/logo.png");
-__d(704 /* ideaStudio/app/components/authentication/login.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+}, "eloyt/common/fonts.js");
+__d(703 /* eloyt/app/assets/images/logo.png */, function(global, require, module, exports) {module.exports = require(310 /* react-native/Libraries/Image/AssetRegistry */).registerAsset({"__packager_asset":true,"fileSystemLocation":"/Users/Mahan/projects/eloythub/idea-studio/app/assets/images","httpServerLocation":"/assets/app/assets/images","width":192,"height":192,"scales":[1],"files":["/Users/Mahan/projects/eloythub/idea-studio/app/assets/images/logo.png"],"hash":"2dbee51ad4e83ed91fe0ffdce01e82f3","name":"logo","type":"png"});
+}, "eloyt/app/assets/images/logo.png");
+__d(704 /* eloyt/app/components/authentication/login.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactNative=require(12 /* react-native */);
@@ -86910,8 +86910,8 @@ backgroundColor:'#fafafa'},
 facebookLoginButton:{
 height:60,
 padding:20}});
-}, "ideaStudio/app/components/authentication/login.js");
-__d(705 /* ideaStudio/app/components/home/home.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+}, "eloyt/app/components/authentication/login.js");
+__d(705 /* eloyt/app/components/home/home.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactNative=require(12 /* react-native */);
@@ -86960,8 +86960,8 @@ justifyContent:'center',
 alignItems:'center',
 flex:1,
 paddingTop:-50}});
-}, "ideaStudio/app/components/home/home.js");
-__d(726 /* ideaStudio/app/components/partials/drawerView.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.navigationView=undefined;var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+}, "eloyt/app/components/home/home.js");
+__d(726 /* eloyt/app/components/partials/drawerView.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.navigationView=undefined;var _react=require(16 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 var _reactNative=require(12 /* react-native */);
 
@@ -86976,7 +86976,7 @@ var _reactNativeFacebookLogin=require(700 /* react-native-facebook-login */);
 var _reactNativeRouterFlux=require(649 /* react-native-router-flux */);
 
 var _Ionicons=require(841 /* react-native-vector-icons/Ionicons */);var _Ionicons2=babelHelpers.interopRequireDefault(_Ionicons);
-var _fonts=require(702 /* ideaStudio/common/fonts */);var _fonts2=babelHelpers.interopRequireDefault(_fonts);
+var _fonts=require(702 /* eloyt/common/fonts */);var _fonts2=babelHelpers.interopRequireDefault(_fonts);
 
 var style=_reactNative.StyleSheet.create({
 wrapper:{
@@ -87017,7 +87017,7 @@ _reactNativeRouterFlux.Actions.login();
 });
 }},
 _react2.default.createElement(_reactNative.Text,{style:style.signOutText},'Sign out')))));
-}, "ideaStudio/app/components/partials/drawerView.js");
+}, "eloyt/app/components/partials/drawerView.js");
 __d(841 /* react-native-vector-icons/Ionicons.js */, function(global, require, module, exports) {
 
 

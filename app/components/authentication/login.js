@@ -17,14 +17,14 @@ import {
 } from 'react-native-facebook-login';
 import { Actions } from 'react-native-router-flux';
 
-import Fonts from 'ideaStudio/common/fonts';
-import UsersRepo from 'ideaStudio/common/repositories/users';
+import Fonts from 'eloyt/common/fonts';
+import UsersRepo from 'eloyt/common/repositories/users';
 const userRepo = new UsersRepo();
 
-import SettingsRepo from 'ideaStudio/common/repositories/settings';
+import SettingsRepo from 'eloyt/common/repositories/settings';
 const settingsRepo = new SettingsRepo();
 
-import logo from 'ideaStudio/app/assets/images/logo.png';
+import logo from 'eloyt/app/assets/images/logo.png';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -101,6 +101,7 @@ export default class Login extends Component {
             <Image source={logo}/>
             <View style={style.seperator}></View>
             <FBLogin
+              style={style.fbLogin}
               ref={
                 (fbLogin) => {
                   this.fbLogin = fbLogin
@@ -175,11 +176,8 @@ export default class Login extends Component {
 const style = StyleSheet.create({
   wrapperLogo: {
     flex: 1,
-    backgroundColor: '#0b1724',
-  },
-  bgImageWrapper: {
-    position: 'absolute',
-    top: 0, bottom: 0, left: 0, right: 0
+    backgroundColor: '#000000',
+    paddingTop: 100,
   },
   bgImage: {
     flex: 1,
@@ -188,11 +186,13 @@ const style = StyleSheet.create({
   seperator: {
     marginTop: 100,
   },
+  fbLogin: {
+    height: 20,
+  },
   quoteContainer: {
     flex: 1,
   },
   quoteView: {
-    justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },

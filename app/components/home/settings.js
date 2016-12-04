@@ -14,11 +14,11 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
-import Fonts from 'ideaStudio/common/fonts';
+import Fonts from 'eloyt/common/fonts';
 import SettingsListItem from '../partials/settings-list-item';
-import { LocalStorage } from 'ideaStudio/common/localStorage';
+import { LocalStorage } from 'eloyt/common/localStorage';
 
-import SettingsRepo from 'ideaStudio/common/repositories/settings';
+import SettingsRepo from 'eloyt/common/repositories/settings';
 const settingsRepo = new SettingsRepo();
 
 export default class Settings extends Component {

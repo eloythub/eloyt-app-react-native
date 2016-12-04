@@ -1,4 +1,4 @@
-import { LocalStorage } from 'ideaStudio/common/localStorage';
+import { LocalStorage } from 'eloyt/common/localStorage';
 import ApiRepo, { RequestMethodType } from './api';
 
 import UsersRepo from './users';

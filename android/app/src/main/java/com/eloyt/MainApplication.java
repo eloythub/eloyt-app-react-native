@@ -1,4 +1,4 @@
-package com.ideastudio;
+package com.eloyt;
 
 import android.app.Application;
 import android.util.Log;

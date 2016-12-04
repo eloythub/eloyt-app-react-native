@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import Fonts from 'ideaStudio/common/fonts';
+import Fonts from 'eloyt/common/fonts';
 
 export default class DrawerListItem extends Component {
   constructor(props) {

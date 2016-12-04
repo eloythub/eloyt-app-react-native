@@ -53,6 +53,6 @@ npm run build-android
 ```
 
 # !Don't forget
-in order to be able to release the app u need to have some configuration in FB account for the app IdeaStudio
+in order to be able to release the app u need to have some configuration in FB account for the app eloyt
 
 Contact for more info: Mahan Hazrati<eng.mahan.hazrati@gmail.com>

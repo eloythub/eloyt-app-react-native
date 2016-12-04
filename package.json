@@ -1,10 +1,10 @@
 {
-  "name": "ideaStudio",
+  "name": "eloyt",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "adb-remove-app": "adb shell pm uninstall com.ideastudio | exit 0",
+    "adb-remove-app": "adb shell pm uninstall com.eloyt | exit 0",
     "android": "npm run adb-remove-app && react-native run-android",
     "android-screen-record": "adb shell screenrecord /sdcard/demo.mp4 && adb pull /sdcard/demo.mp4",
     "android-release": "npm run adb-remove-app && react-native run-android --variant=release",

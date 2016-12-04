@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import UsersRepo from 'ideaStudio/common/repositories/users';
+import UsersRepo from 'eloyt/common/repositories/users';
 const userRepo = new UsersRepo();
 
 export default class FBInfo extends Component {

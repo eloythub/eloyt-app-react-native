@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>Idea Studio</string>
+    <string>Eloyt</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -34,7 +34,7 @@
     <key>FacebookAppID</key>
     <string>1091320674278413</string>
     <key>FacebookDisplayName</key>
-    <string>Idea Studio</string>
+    <string>Eloyt</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>fbapi</string>

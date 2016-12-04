@@ -3,10 +3,10 @@ import {
   Image,
   View,
 } from 'react-native';
-import UsersRepo from 'ideaStudio/common/repositories/users';
+import UsersRepo from 'eloyt/common/repositories/users';
 const userRepo = new UsersRepo();
 
-import profileAvatar from 'ideaStudio/app/assets/images/profile-avatar.png';
+import profileAvatar from 'eloyt/app/assets/images/profile-avatar.png';
 
 export default class FBPhoto extends Component {
   constructor(props) {

@@ -1,4 +1,4 @@
-package com.ideastudio;
+package com.eloyt;
 
 import com.facebook.react.ReactActivity;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
@@ -12,6 +12,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "ideaStudio";
+        return "eloyt";
     }
 }

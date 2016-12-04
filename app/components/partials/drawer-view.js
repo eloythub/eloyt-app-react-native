@@ -15,7 +15,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import Fonts from 'ideaStudio/common/fonts';
+import Fonts from 'eloyt/common/fonts';
 
 import FBPhoto from '../partials/facebook/photo';
 import FBInfo from '../partials/facebook/info';
