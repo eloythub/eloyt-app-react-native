@@ -83,7 +83,7 @@ export default class Record extends Component {
         if (!base.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
           console.log('send to post scene:', data)
 
-          Actions.recordedPostShare(base);
+          Actions.recordedPostShare();
 
           return;
         }
@@ -171,7 +171,7 @@ export default class Record extends Component {
   backButton() {
     this.stopCapture(true);
 
-    Actions.home(this);
+    Actions.home();
   }
 
   render() {

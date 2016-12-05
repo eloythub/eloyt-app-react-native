@@ -26,7 +26,7 @@ export default class RecordedPostShare extends Component {
   }
 
   onBackAndroid() {
-    Actions.record(this);
+    Actions.record();
 
     return true;
   }

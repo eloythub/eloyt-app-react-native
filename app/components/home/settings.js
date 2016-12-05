@@ -21,27 +21,20 @@ import { LocalStorage } from 'eloyt/common/localStorage';
 import SettingsRepo from 'eloyt/common/repositories/settings';
 const settingsRepo = new SettingsRepo();
 
+import Spinner from 'react-native-loading-spinner-overlay';
+
 export default class Settings extends Component {
   constructor(props) {
     super(props);
 
-    let base = this;
-
     this.state = {
+      waiting: true,
       settingList: {
         'initFrontCameraByDefault': false,
         'highVideoQualityRecord': false,
         'deleteVideoAfterRecord': false,
       },
     };
-
-    setTimeout(() => {
-      settingsRepo.load().then((data) => {
-        base.setState({
-          settingList: data,
-        });
-      });
-    }, 0);
   }
 
   componentWillMount(){
@@ -52,22 +45,59 @@ export default class Settings extends Component {
     BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
   }
 
+  componentDidMount(){
+    settingsRepo.load().then((data) => {
+      if (typeof data !== 'object') {
+        return;
+      }
+
+      this.setState({
+        settingList: {
+          'initFrontCameraByDefault': data.initFrontCameraByDefault,
+          'highVideoQualityRecord': data.highVideoQualityRecord,
+          'deleteVideoAfterRecord': data.deleteVideoAfterRecord,
+        },
+      });
+    });
+    settingsRepo.loadFromServer().then((data) => {
+      this.setState({
+        waiting: false,
+        settingList: {
+          'initFrontCameraByDefault': data.initFrontCameraByDefault,
+          'highVideoQualityRecord': data.highVideoQualityRecord,
+          'deleteVideoAfterRecord': data.deleteVideoAfterRecord,
+        },
+      });
+    });
+  }
+
   updateSettingEntity(key, value) {
     const roleBackValue = this.state.settingList[key];
 
     this.state.settingList[key] = value;
 
-    this.setState([this.state.settingList]);
+    let settingList = this.state.settingList;
 
-    settingsRepo.save(key, value).then(() => {}, () => {
+    this.setState({ settingList });
+
+
+    settingsRepo.save(key, value).then(() => {
+      settingsRepo.loadFromServer().then(() => {
+        Actions.refresh();
+      });
+    }, () => {
       this.state.settingList[key] = roleBackValue;
 
-      this.setState([this.state.settingList]);
+      settingList = this.state.settingList;
+
+      this.setState({ settingList });
+
+      Actions.refresh();
     });
   }
 
   onBackAndroid() {
-    Actions.home(this);
+    Actions.home();
 
     return false;
   }
@@ -75,6 +105,7 @@ export default class Settings extends Component {
   render() {
     return (
       <View style={style.wrapperLogo}>
+        <Spinner visible={this.state.waiting} />
         <StatusBar hidden={false} />
         <ScrollView>
           <SettingsListItem

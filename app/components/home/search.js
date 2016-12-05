@@ -38,10 +38,10 @@ class SearchView extends Component {
                 base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-videocam"  onPress={() => {
-                Actions.record(base);
+                Actions.record();
               }} />
             <MenuItem name="Home" icon="md-home" onPress={() => {
-                Actions.home(base);
+                Actions.home();
               }} />
           </MenuContainer>
         </View>

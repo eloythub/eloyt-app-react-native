@@ -78,17 +78,17 @@ export class NavigationView extends Component {
         </View>
         <ScrollView>
           <DrawerListItem caption="News Feed" icon="logo-rss" onPress={() => {
-            Actions.home(base);
+            Actions.home();
           }} />
           <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
-              Actions.myVideos(base);
+              Actions.myVideos();
             }} />
           <DrawerListItem caption="Settings" icon="ios-settings" onPress={() => {
-              Actions.settings(base);
+              Actions.settings();
             }} />
           <DrawerListItem caption="Sign Out" icon="ios-exit-outline" onPress={() => {
               FBLoginManager.logout(() => {
-                Actions.login(base);
+                Actions.login();
               });
             }} />
         </ScrollView>
@@ -101,11 +101,11 @@ export class NavigationView extends Component {
 inventory:
 
 <DrawerListItem caption="News Feed" icon="logo-rss" onPress={() => {
-    Actions.home(base);
+    Actions.home();
   }} />
 
 <DrawerListItem caption="Search" icon="ios-search" onPress={() => {
-    Actions.search(base);
+    Actions.search();
   }} />
 
 */

@@ -48,7 +48,7 @@ export default class Login extends Component {
 
       settingsRepo.cleanUp();
 
-      Actions.refresh(base);
+      Actions.refresh();
     });
 
     base.setState({
@@ -68,7 +68,7 @@ export default class Login extends Component {
         waiting: false,
       });
 
-      Actions.home(base);
+      Actions.home();
     }, (error) => {
       base.rejectLogin(base);
     });
@@ -82,7 +82,7 @@ export default class Login extends Component {
 
       settingsRepo.cleanUp();
 
-      Actions.refresh(base);
+      Actions.refresh();
     });
 
     base.setState({
@@ -139,12 +139,12 @@ export default class Login extends Component {
                       waiting: false,
                     });
 
-                    Actions.home(base);
+                    Actions.home();
                   }, (error) => {
-                    Actions.login(base);
+                    Actions.login();
                   });
                 }, (error) => {
-                  Actions.login(base);
+                  Actions.login();
                 });
             }}
             onLoginNotFound={() => {

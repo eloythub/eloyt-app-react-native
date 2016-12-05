@@ -20,7 +20,7 @@ export default class MyVideos extends Component {
   }
 
   onBackAndroid() {
-    Actions.home(this);
+    Actions.home();
 
     return true;
   }

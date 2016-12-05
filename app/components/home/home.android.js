@@ -60,7 +60,7 @@ class HomeView extends Component {
                 base.root.refs.drawerLayout.openDrawer();
               }} />
             <MenuItem name="record" icon="ios-videocam"  onPress={() => {
-                Actions.record(base);
+                Actions.record();
               }} />
           </MenuContainer>
         </View>
@@ -73,7 +73,7 @@ class HomeView extends Component {
 inventory:
 
 <MenuItem name="Search" icon="ios-search" onPress={() => {
-  Actions.search(base);
+  Actions.search();
 }} />
 */
 
