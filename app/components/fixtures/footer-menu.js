@@ -14,7 +14,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const style = StyleSheet.create({
   container: {
     backgroundColor: '#eee',
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderColor: '#e8e8e8',
