@@ -7,7 +7,7 @@
     "adb-remove-app": "adb shell pm uninstall com.eloyt | exit 0",
     "android": "npm run adb-remove-app && react-native run-android",
     "android-screen-record": "adb shell screenrecord /sdcard/demo.mp4 && adb pull /sdcard/demo.mp4",
-    "android-release": "npm run adb-remove-app && react-native run-android --variant=release",
+    "android-release": "npm run adb-remove-app && react-native run-android --configuration release",
     "android-log": "react-native log-android",
     "android-devices": "chmod +x ./adb-service && ./adb-service",
     "build-android": "cd android && ./gradlew assembleRelease && cd ..",
