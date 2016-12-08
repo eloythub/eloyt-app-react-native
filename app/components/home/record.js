@@ -15,7 +15,12 @@ import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import Spinner from 'react-native-loading-spinner-overlay';
+
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+import SettingsRepo from 'eloyt/common/repositories/settings';
+const settingsRepo = new SettingsRepo();
 
 const showHideTransitions = [
   'fade',
@@ -29,6 +34,11 @@ function getValue<T>(values: Array<T>, index: number): T {
 const maxRecordLimit = 120; // 2 min = 120 sec
 const minRecordLimit = 15; // 15 sec
 
+const CameraTypes = {
+  frontCamera: false,
+  backCamera: true,
+};
+
 export default class Record extends Component {
   constructor (props) {
     super(props);
@@ -40,10 +50,21 @@ export default class Record extends Component {
       isRecording: false,
       progressbar: 0,
 
-      // status
       animated: false,
       hidden: true,
       showHideTransition: getValue(showHideTransitions, 0),
+
+      // Load Camera
+      loadCamera: false,
+
+      waiting: true,
+
+      // Camera Settings
+      settingList: {
+        'initFrontCameraByDefault': false,
+        'highVideoQualityRecord': false,
+        'deleteVideoAfterRecord': false,
+      },
     }
   }
 
@@ -53,6 +74,27 @@ export default class Record extends Component {
 
   componentWillUnmount(){
     BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  componentDidMount(){
+    settingsRepo.load().then((data) => {
+      if (typeof data !== 'object') {
+        return;
+      }
+
+      this.setState({
+        waiting: false,
+        loadCamera: true,
+        settingList: {
+          'initFrontCameraByDefault': data.initFrontCameraByDefault,
+          'highVideoQualityRecord': data.highVideoQualityRecord,
+          'deleteVideoAfterRecord': data.deleteVideoAfterRecord,
+        },
+      });
+
+      // Set the initial camera type, true means frontCamera, false means backCamera
+      this.switchCamera(data.initFrontCameraByDefault ? CameraTypes.frontCamera : CameraTypes.backCamera)
+    });
   }
 
   onBackAndroid() {
@@ -88,7 +130,7 @@ export default class Record extends Component {
           return;
         }
 
-        // remove the original video base on setting's options
+        // Remove the original video base on setting's options
       })
       .catch(err => {
         console.error('error', err)
@@ -105,7 +147,7 @@ export default class Record extends Component {
 
     this.counter = 0;
     this.counterInterval = setInterval(() => {
-      let progress = (this.counter * 100) / maxRecordLimit; // calculate the progress
+      let progress = (this.counter * 100) / maxRecordLimit; // Calculate the progress
 
       this.setState({
         progressbar: progress * 10,
@@ -161,7 +203,14 @@ export default class Record extends Component {
     });
   }
 
-  swapMode() {
+  switchCamera(type) {
+    this.setState({
+      torchVisibility: type,
+      type: !type,
+    });
+  }
+
+  toggleCamera() {
     this.setState({
       torchVisibility: this.state.type,
       type: !this.state.type,
@@ -177,6 +226,7 @@ export default class Record extends Component {
   render() {
     return (
       <View style={style.container}>
+        <Spinner visible={this.state.waiting} />
         <StatusBar
           hidden={this.state.hidden}
           showHideTransition={this.state.showHideTransition}
@@ -189,7 +239,11 @@ export default class Record extends Component {
           style={style.preview}
           aspect={Camera.constants.Aspect.fill}
           captureMode={Camera.constants.CaptureMode.video}
-          captureQuality={Camera.constants.CaptureQuality.high}
+          captureQuality={
+            this.state.settingList.highVideoQualityRecord
+              ? Camera.constants.CaptureQuality.high
+              : Camera.constants.CaptureQuality.medium
+          }
           orientation={Camera.constants.Orientation.portrait}
           defaultOnFocusComponent={true}
           type={this.state.type ? Camera.constants.Type.front : Camera.constants.Type.back}
@@ -240,7 +294,7 @@ export default class Record extends Component {
                 </View>
             }
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.swapMode.bind(this)}>
+            <TouchableOpacity onPress={this.toggleCamera.bind(this)}>
               {
                 !this.state.isRecording
                 ? <View style={style.changeTypeView}>
