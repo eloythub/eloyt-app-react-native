@@ -11,11 +11,13 @@ import {
   BackAndroid,
   TouchableOpacity,
 } from 'react-native';
+
+import Toast from 'react-native-simple-toast';
 import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import Spinner from 'react-native-loading-spinner-overlay';
+import RNFS from 'react-native-fs';
 
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
@@ -27,25 +29,29 @@ const showHideTransitions = [
   'slide',
 ];
 
-import RNFS from 'react-native-fs';
 
 function getValue<T>(values: Array<T>, index: number): T {
   return values[index % values.length];
 }
 
 const maxRecordLimit = 120; // 2 min = 120 sec
-const minRecordLimit = 15; // 15 sec
+const minRecordLimit = 1; // 15 sec
 
 const CameraTypes = {
   frontCamera: false,
   backCamera: true,
 };
 
+const defaultCaptureMode   = Camera.constants.CaptureMode.video;
+const defaultCaptureTarget = Camera.constants.CaptureTarget.disk;
+
 export default class Record extends Component {
   constructor (props) {
     super(props);
 
     this.state = {
+      captureMode: defaultCaptureMode,
+      captureTarget: defaultCaptureTarget,
       type: true,
       torchVisibility: false,
       torch: false,
@@ -106,10 +112,28 @@ export default class Record extends Component {
 
     return true;
   }
+  
+  takeSnapshotFromLastScene() {
+    return new Promise((fulfill, reject) => {
+      this.setState({
+        captureMode: Camera.constants.CaptureMode.still,
+      });
+
+      setTimeout(() => {
+        this.refs.camera.capture().then((data) => {
+          recordedVideo = data.path;
+
+          this.setState({
+            captureMode: defaultCaptureMode,
+          });
+
+          fulfill(recordedVideo);
+        }, reject);
+      },0);
+    });
+  }
 
   removeTmpFile(filePath) {
-    filePath = filePath.replace('file://', '');
-
     return RNFS.unlink(filePath);
   }
 
@@ -122,8 +146,10 @@ export default class Record extends Component {
     });
 
     this.recordCanceled = false;
-    this.camera.capture()
+    this.refs.camera.capture()
       .then((data) => {
+        recordedVideo = data.path.replace('file://', '');
+
         let finalCounter = base.counter * 10;
 
         this.setState({
@@ -132,26 +158,35 @@ export default class Record extends Component {
 
         // Go to sharing recorded video in case of meet the condition
         if (!base.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
-          console.log('send to post scene:', data)
-
-          Actions.recordedPostShare();
+          this.takeSnapshotFromLastScene()
+            .then((snapshotResource) => {
+              Actions.recordedPostShare({
+                videoFilePath: recordedVideo,
+                snapshot: snapshotResource,
+              });
+            }, () => {
+              Actions.recordedPostShare({
+                videoFilePath: recordedVideo,
+                snapshot: null,
+              });
+            })
 
           return;
         }
 
+        // Remove the original video base on setting's options
         if (this.state.settingList.deleteVideoAfterRecord) {
-          // Remove the original video base on setting's options
-          this.removeTmpFile(data.path)
+          this.removeTmpFile(recordedVideo)
             .then(() => {
-              console.log('FILE DELETED');
+              Toast.show('Recorded Piece just deleted.', Toast.SHORT);
             })
             .catch((err) => {
-              console.log(err.message);
+              Toast.show('Eloyt failed to delete the video.', Toast.SHORT);
             });
         }
       })
       .catch(err => {
-        console.error('error', err)
+        Toast.show('Something went wrong.', Toast.SHORT);
 
         this.setState({
           isRecording: false,
@@ -195,7 +230,7 @@ export default class Record extends Component {
     clearInterval(this.counterInterval);
 
     if (this.state.isRecording) {
-      this.camera.stopCapture();
+      this.refs.camera.stopCapture();
 
       if (cancel) {
         this.recordCanceled = true;
@@ -207,9 +242,9 @@ export default class Record extends Component {
 
   capture() {
     if (this.state.isRecording) {
-        this.stopCapture();
+      this.stopCapture();
 
-        return;
+      return;
     }
 
     this.startCapture();
@@ -251,13 +286,11 @@ export default class Record extends Component {
           animated={this.state.animated}
         />
         <Camera
-          ref={(cam) => {
-            this.camera = cam;
-          }}
+          ref="camera"
           style={style.preview}
           aspect={Camera.constants.Aspect.fill}
-          captureMode={Camera.constants.CaptureMode.video}
-          captureTarget={Camera.constants.CaptureTarget.disk}
+          captureMode={this.state.captureMode}
+          captureTarget={this.state.captureTarget}
           captureQuality={
             this.state.settingList.highVideoQualityRecord
               ? Camera.constants.CaptureQuality.high

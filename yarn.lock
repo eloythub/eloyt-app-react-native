@@ -3817,10 +3817,6 @@ react-native-vector-icons@^3.0.0:
     lodash "^4.0.0"
     yargs "^6.3.0"
 
-react-native-view-shot:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-1.5.1.tgz#693b1992ed16a6de3964f0d2e8ac42a3cc07dba2"
-
 react-native@0.39.0:
   version "0.39.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.39.0.tgz#fbe31a96dd84effc3a33e07853da5a30b20a7e6d"

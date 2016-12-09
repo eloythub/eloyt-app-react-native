@@ -17,7 +17,7 @@ export default class FBInfo extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let base = this;
 
     userRepo.getLoginCredential().then((data) => {

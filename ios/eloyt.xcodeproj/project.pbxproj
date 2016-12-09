@@ -42,7 +42,6 @@
 		E5EBF276F9164590BC44143A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2BFAE1124A344B59D72BBE8 /* FontAwesome.ttf */; };
 		FA7A0B4702C9473DBBE44385 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6D42C16C2449DCBE192E7C /* libRCTCamera.a */; };
 		FD0F454DCCC9411C903B6460 /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B7FD98072E495799845B72 /* libLRDRCTSimpleToast.a */; };
-		C7060476406846DFB4549D88 /* libRNViewShot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A11508758F34C13B27B7120 /* libRNViewShot.a */; };
 		7852CB511A13460183AEB334 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D692F69C5CE40E7803B22F8 /* libRNFS.a */; };
 /* End PBXBuildFile section */
 
@@ -201,8 +200,6 @@
 		C0F225971DCB535F0050A900 /* OpenSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenSans.ttf; sourceTree = "<group>"; };
 		DA6D42C16C2449DCBE192E7C /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		E2BFAE1124A344B59D72BBE8 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		65377C2E99174A23B2113189 /* RNViewShot.xcodeproj */ = {isa = PBXFileReference; name = "RNViewShot.xcodeproj"; path = "../node_modules/react-native-view-shot/ios/RNViewShot.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		4A11508758F34C13B27B7120 /* libRNViewShot.a */ = {isa = PBXFileReference; name = "libRNViewShot.a"; path = "libRNViewShot.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		A3071DC35928439D8A290713 /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1D692F69C5CE40E7803B22F8 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
@@ -238,7 +235,6 @@
 				C0F225501DCB4E360050A900 /* FBSDKLoginKit.framework in Frameworks */,
 				C0F2254E1DCB4E360050A900 /* Bolts.framework in Frameworks */,
 				FD0F454DCCC9411C903B6460 /* libLRDRCTSimpleToast.a in Frameworks */,
-				C7060476406846DFB4549D88 /* libRNViewShot.a in Frameworks */,
 				7852CB511A13460183AEB334 /* libRNFS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,7 +382,6 @@
 				77F33AD97A194BB68320A50D /* RNVectorIcons.xcodeproj */,
 				A5CCEAA9DE464A76B7670AE2 /* RCTCamera.xcodeproj */,
 				1ECB949B46B3412A92EDE822 /* LRDRCTSimpleToast.xcodeproj */,
-				65377C2E99174A23B2113189 /* RNViewShot.xcodeproj */,
 				A3071DC35928439D8A290713 /* RNFS.xcodeproj */,
 			);
 			name = Libraries;
@@ -813,7 +808,6 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -831,7 +825,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -863,7 +856,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
-					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				INFOPLIST_FILE = eloyt/Info.plist;
@@ -896,7 +888,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
-					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				INFOPLIST_FILE = eloyt/Info.plist;
@@ -957,7 +948,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
-					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -1006,7 +996,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
-					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;

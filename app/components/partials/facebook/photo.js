@@ -17,7 +17,7 @@ export default class FBPhoto extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let base  = this;
     const width = this.props.width;
 

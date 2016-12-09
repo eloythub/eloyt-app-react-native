@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Image,
+  StatusBar,
   StyleSheet,
   ScrollView,
 } from 'react-native';
@@ -41,7 +42,7 @@ export default class Login extends Component {
   }
 
   rejectLogin(base) {
-    Toast.show('something went wrong, please try again later', Toast.SHORT);
+    Toast.show('Something went wrong, please try again later.', Toast.SHORT);
 
     FBLoginManager.logout(() => {
       userRepo.doLogOut();
@@ -96,6 +97,10 @@ export default class Login extends Component {
 
     return (
       <View style={style.wrapperLogo}>
+        <StatusBar
+          backgroundColor="black"
+          barStyle="light-content"
+        />
         <Spinner visible={this.state.waiting} />
         <View style={style.quoteContainer}>
           <View style={style.quoteView}>
