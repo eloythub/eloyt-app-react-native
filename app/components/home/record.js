@@ -27,6 +27,8 @@ const showHideTransitions = [
   'slide',
 ];
 
+import RNFS from 'react-native-fs';
+
 function getValue<T>(values: Array<T>, index: number): T {
   return values[index % values.length];
 }
@@ -105,6 +107,12 @@ export default class Record extends Component {
     return true;
   }
 
+  removeTmpFile(filePath) {
+    filePath = filePath.replace('file://', '');
+
+    return RNFS.unlink(filePath);
+  }
+
   startCapture() {
     let base = this;
 
@@ -122,6 +130,7 @@ export default class Record extends Component {
           isRecording: false,
         });
 
+        // Go to sharing recorded video in case of meet the condition
         if (!base.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
           console.log('send to post scene:', data)
 
@@ -130,7 +139,16 @@ export default class Record extends Component {
           return;
         }
 
-        // Remove the original video base on setting's options
+        if (this.state.settingList.deleteVideoAfterRecord) {
+          // Remove the original video base on setting's options
+          this.removeTmpFile(data.path)
+            .then(() => {
+              console.log('FILE DELETED');
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
+        }
       })
       .catch(err => {
         console.error('error', err)
@@ -239,6 +257,7 @@ export default class Record extends Component {
           style={style.preview}
           aspect={Camera.constants.Aspect.fill}
           captureMode={Camera.constants.CaptureMode.video}
+          captureTarget={Camera.constants.CaptureTarget.disk}
           captureQuality={
             this.state.settingList.highVideoQualityRecord
               ? Camera.constants.CaptureQuality.high

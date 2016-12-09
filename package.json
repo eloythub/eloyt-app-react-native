@@ -17,6 +17,7 @@
     "tunnel": "./ngrok http 80"
   },
   "dependencies": {
+    "apisauce": "^0.7.0",
     "promise": "^7.1.1",
     "react": "15.4.1",
     "react-native": "0.39.0",
@@ -24,10 +25,12 @@
     "react-native-circular-progress": "0.0.7",
     "react-native-drawer": "^2.3.0",
     "react-native-facebook-login": "^1.4.0",
+    "react-native-fs": "^2.0.1-rc.2",
     "react-native-loading-spinner-overlay": "^0.4.1",
     "react-native-router-flux": "^3.37.0",
     "react-native-simple-toast": "0.0.5",
     "react-native-vector-icons": "^3.0.0",
+    "react-native-view-shot": "^1.5.1",
     "react-timer-mixin": "^0.13.3",
     "yarn": "^0.17.10"
   },

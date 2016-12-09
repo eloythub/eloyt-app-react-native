@@ -75,6 +75,14 @@ ansi@^0.3.0, ansi@~0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/ansi/-/ansi-0.3.1.tgz#0c42d4fb17160d5a9af1e484bace1c66922c1b21"
 
+apisauce:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/apisauce/-/apisauce-0.7.0.tgz#c1f82131a9336bd8eac80cf710ee147b8abe8294"
+  dependencies:
+    axios "^0.15.3"
+    ramda "^0.22.1"
+    ramdasauce "^1.1.1"
+
 aproba@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.0.4.tgz#2713680775e7614c8ba186c065d4e2e52d1072c0"
@@ -208,6 +216,12 @@ aws-sign2@~0.6.0:
 aws4@^1.2.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
+
+axios@^0.15.3:
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.15.3.tgz#2c9d638b2e191a08ea1d6cc988eadd6ba5bdc053"
+  dependencies:
+    follow-redirects "1.0.0"
 
 babel-code-frame@^6.16.0:
   version "6.16.0"
@@ -781,6 +795,10 @@ babylon@^6.11.0, babylon@^6.13.0, babylon@^6.14.1:
 balanced-match@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
+
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
 
 base64-js@^1.1.2:
   version "1.2.0"
@@ -2038,6 +2056,12 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
+
+follow-redirects@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37"
+  dependencies:
+    debug "^2.2.0"
 
 for-in@^0.1.5:
   version "0.1.6"
@@ -3667,6 +3691,16 @@ qs@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-4.0.0.tgz#c31d9b74ec27df75e543a86c78728ed8d4623607"
 
+ramda@^0.22.1:
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.22.1.tgz#031da0c3df417c5b33c96234757eb37033f36a0e"
+
+ramdasauce@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ramdasauce/-/ramdasauce-1.1.1.tgz#6fb278b4db19b9b51ac96f4664694691eb09d138"
+  dependencies:
+    ramda "^0.22.1"
+
 random-bytes@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/random-bytes/-/random-bytes-1.0.0.tgz#4f68a1dc0ae58bd3fb95848c30324db75d64360b"
@@ -3748,6 +3782,13 @@ react-native-facebook-login@^1.4.0:
   dependencies:
     itypeof "^1.1.2"
 
+react-native-fs:
+  version "2.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.0.1-rc.2.tgz#e7e00b1d5c48c52c4ca8cd76b4ea62440ae54082"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
+
 react-native-loading-spinner-overlay@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-0.4.1.tgz#f1ebc7df6a7f8b9d06588fb51b5554565bb3cddb"
@@ -3775,6 +3816,10 @@ react-native-vector-icons@^3.0.0:
   dependencies:
     lodash "^4.0.0"
     yargs "^6.3.0"
+
+react-native-view-shot:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-1.5.1.tgz#693b1992ed16a6de3964f0d2e8ac42a3cc07dba2"
 
 react-native@0.39.0:
   version "0.39.0"
@@ -4733,6 +4778,10 @@ user-home@^2.0.0:
   resolved "https://registry.yarnpkg.com/user-home/-/user-home-2.0.0.tgz#9c70bfd8169bc1dcbf48604e0f04b8b49cde9e9f"
   dependencies:
     os-homedir "^1.0.0"
+
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
 
 util-deprecate@^1.0.2, util-deprecate@~1.0.1, util-deprecate@1.0.2:
   version "1.0.2"
