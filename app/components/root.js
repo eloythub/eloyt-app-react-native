@@ -46,9 +46,10 @@ export default class Root extends Component {
         <Scene
           key="recordedPostShare"
           component={RecordedPostShare}
-          type={ActionConst.REPLACE}
-          hideNavBar={true}
+          type={ActionConst.PUSH}
+          hideNavBar={false}
           panHandlers={null}
+          title="Post"
           />
         <Scene
           key="myVideos"

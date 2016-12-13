@@ -112,7 +112,7 @@ export default class Record extends Component {
 
     return true;
   }
-  
+
   takeSnapshotFromLastScene() {
     return new Promise((fulfill, reject) => {
       this.setState({

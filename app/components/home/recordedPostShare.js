@@ -6,6 +6,8 @@ import {
   View,
   Text,
   Image,
+  Button,
+  TextInput,
   StatusBar,
   StyleSheet,
   ScrollView,
@@ -22,6 +24,7 @@ export default class RecordedPostShare extends Component {
     super(props);
 
     this.state = {
+      text: '',
       videoFilePath: this.props.navigationState.videoFilePath,
       backgroundSnapshot: this.props.navigationState.snapshot,
     };
@@ -47,25 +50,68 @@ export default class RecordedPostShare extends Component {
     return true;
   }
 
+  pressSendPost() {
+  }
+
   render() {
     return (
-      <View>
-        <StatusBar
-          hidden={true}
-        />
-        <Image style={style.backgroundImage} source={{uri: this.state.backgroundSnapshot}} />
+      <View style={style.wrapper}>
+        <StatusBar hidden={false} />
+        <ScrollView>
+          <View>
+            <TextInput
+              style={style.textBox}
+              multiline={true}
+              numberOfLines={4}
+              placeholder="Tell people your store..."
+              returnKeyType="done"
+              textAlignVertical="top"
+              maxLength={200}
+            />
+          </View>
+          <View>
+            <Image style={style.backgroundImage} source={{uri: this.state.backgroundSnapshot}} />
+            <Icon name="ios-videocam" style={style.playSign} />
+            <View style={style.sendButtonContainer}>
+              <Button style={style.sendButton} title="Post" onPress={this.pressSendPost.bind(this)} />
+            </View>
+          </View>
+        </ScrollView>
       </View>
     );
   }
 }
 
 const style = StyleSheet.create({
+  wrapper: {
+    marginTop: 54,
+  },
   backgroundImage: {
+    width: Dimensions.get('window').width / 2,
+    height: Dimensions.get('window').height / 2,
+    borderColor: '#aaa',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginLeft: 10,
+    marginTop: 10,
+  },
+  textBox: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    margin: 10,
+    marginBottom: 0,
+  },
+  sendButtonContainer: {
+    width: Dimensions.get('window').width / 2.7,
+    position: "absolute",
+    right: 10,
+    top: 10,
+  },
+  playSign: {
     position: 'absolute',
-    margin: 0,
-    padding: 0,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    resizeMode: 'stretch',
+    fontSize: 40,
+    color: 'white',
+    left: ((Dimensions.get('window').width / 2) / 2),
+    top: ((Dimensions.get('window').height / 2) / 2) - 10,
   },
 });
