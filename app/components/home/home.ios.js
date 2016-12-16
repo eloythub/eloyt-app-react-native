@@ -24,7 +24,11 @@ class HomeView extends Component {
   render() {
     return (
       <View style={style.wrapperLogo}>
-        <StatusBar hidden={false} />
+        <StatusBar
+          backgroundColor="black"
+          barStyle="light-content"
+          hidden={false}
+        />
         <ScrollView>
         </ScrollView>
         <View style={style.footerMenu}>

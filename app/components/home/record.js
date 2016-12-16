@@ -143,11 +143,13 @@ export default class Record extends Component {
               Actions.recordedPostShare({
                 videoFilePath: recordedVideo,
                 snapshot: snapshotResource,
+                deleteVideoAfterRecord: data.deleteVideoAfterRecord,
               });
             }, () => {
               Actions.recordedPostShare({
                 videoFilePath: recordedVideo,
                 snapshot: null,
+                deleteVideoAfterRecord: data.deleteVideoAfterRecord,
               });
             })
 

@@ -13,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
+import UploadSection from '../partials/home/upload-section';
 
 class HomeView extends Component {
   constructor(props) {
@@ -24,8 +25,15 @@ class HomeView extends Component {
   render() {
     return (
       <View style={style.wrapperLogo}>
-        <StatusBar hidden={false} />
+        <StatusBar
+          backgroundColor="black"
+          barStyle="light-content"
+          hidden={false}
+        />
         <ScrollView>
+          <UploadSection />
+
+          
         </ScrollView>
         <View style={style.footerMenu}>
           <MenuContainer>

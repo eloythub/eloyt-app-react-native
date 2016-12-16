@@ -42,6 +42,8 @@ function adb_watch () {
     adb start-server 1> /dev/null 2> /dev/null
     
     adb reverse tcp:8090 tcp:8090 1> /dev/null 2> /dev/null
+
+    npm run reverse 1> /dev/null 2> /dev/null
 }
 
 adb start-server 1> /dev/null

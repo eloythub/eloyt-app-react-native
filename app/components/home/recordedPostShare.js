@@ -23,9 +23,10 @@ export default class RecordedPostShare extends Component {
     super(props);
 
     this.state = {
-      text: '',
+      postDescription: '',
       videoFilePath: this.props.navigationState.videoFilePath,
       backgroundSnapshot: this.props.navigationState.snapshot,
+      deleteVideoAfterRecord: this.props.navigationState.deleteVideoAfterRecord,
     };
   }
 
@@ -36,12 +37,24 @@ export default class RecordedPostShare extends Component {
   }
 
   pressSendPost() {
+    Actions.pop({
+      popNum: 2,
+      refresh: {
+        videoFilePath: this.state.videoFilePath,
+        postDescription: this.state.postDescription,
+        deleteVideoAfterRecord: this.state.deleteVideoAfterRecord,
+      },
+    });
   }
 
   render() {
     return (
       <View style={style.wrapper}>
-        <StatusBar hidden={false} />
+        <StatusBar
+          backgroundColor="black"
+          barStyle="light-content"
+          hidden={false} 
+        />
         <ScrollView>
           <View>
             <TextInput
@@ -52,6 +65,9 @@ export default class RecordedPostShare extends Component {
               returnKeyType="done"
               textAlignVertical="top"
               maxLength={200}
+              underlineColorAndroid='transparent'
+              onChangeText={(postDescription) => this.setState({postDescription})}
+              value={this.state.postDescription}
             />
           </View>
           <View>
@@ -81,8 +97,8 @@ const style = StyleSheet.create({
     marginTop: 10,
   },
   textBox: {
-    borderColor: 'gray',
-    borderWidth: 1,
+    borderColor: 'grey',
+    borderBottomWidth: 1,
     margin: 10,
     marginBottom: 0,
   },

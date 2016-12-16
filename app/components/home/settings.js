@@ -91,7 +91,11 @@ export default class Settings extends Component {
     return (
       <View style={style.wrapperLogo}>
         <Spinner visible={this.state.waiting} />
-        <StatusBar hidden={false} />
+        <StatusBar
+          backgroundColor="black"
+          barStyle="light-content"
+          hidden={false}
+        />
         <ScrollView>
           <SettingsListItem
             caption="Initial Front Camera By Default"

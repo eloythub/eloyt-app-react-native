@@ -35,10 +35,15 @@ export default class Login extends Component {
     super(props);
 
     this.state = {
-      waiting: false
+      waiting: false,
+      loginButtonShow: false,
     };
 
     settingsRepo.cleanUp();
+  }
+
+  componentDidMount() {
+
   }
 
   rejectLogin() {
@@ -90,27 +95,25 @@ export default class Login extends Component {
       waiting: false,
     });
   }
-
-
+  
   render() {
     return (
       <View style={style.wrapperLogo}>
         <StatusBar
           backgroundColor="black"
           barStyle="light-content"
+          hidden={false}
         />
         <Spinner visible={this.state.waiting} />
         <View style={style.quoteContainer}>
           <View style={style.quoteView}>
-            <Image source={logo}/>
+            <Image style={style.logo} source={logo}/>
           </View>
+        </View>
+        <View>
           <FBLogin
-            buttonView={<FBLoginButton />}
-            ref={
-              (fbLogin) => {
-                this.fbLogin = fbLogin
-              }
-            }
+            buttonView={ <FBLoginButton show={this.state.loginButtonShow} /> }
+            ref="fbLogin"
             permissions={['email', 'user_friends', 'user_photos']}
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
 
@@ -140,6 +143,7 @@ export default class Login extends Component {
                   settingsRepo.loadFromServer().then(() => {
                     this.setState({
                       waiting: false,
+                      loginButtonShow: false,
                     });
 
                     Actions.home();
@@ -151,25 +155,36 @@ export default class Login extends Component {
                 });
             }}
             onLoginNotFound={() => {
+              this.setState({
+                loginButtonShow: true,
+              });
+
               userRepo.doLogOut();
 
               settingsRepo.cleanUp();
             }}
             onError={() => {
               Toast.show('Something went wrong, please try again', Toast.SHORT);
+
+              this.setState({
+                loginButtonShow: true,
+              });
             }}
             onCancel={() => {
               Toast.show('Request just canceled', Toast.SHORT);
+
+              this.setState({
+                loginButtonShow: true,
+              });
             }}
             onPermissionsMissing={() => {
               Toast.show('Permission failed!', Toast.SHORT);
+
+              this.setState({
+                loginButtonShow: true,
+              });
             }}
           />
-        </View>
-        <View>
-          <Text style={style.desc}>
-            Get ready to Explore your passion with others
-          </Text>
         </View>
       </View>
     );
@@ -182,11 +197,10 @@ const style = StyleSheet.create({
     backgroundColor: '#000000',
     paddingTop: 150,
   },
-  bgImage: {
-    flex: 1,
-    resizeMode: "stretch",
-  },
-  fbLogin: {
+  logo: {
+    width: 250,
+    height: 250,
+    resizeMode: "contain",
   },
   quoteContainer: {
     flex: 1,
@@ -203,13 +217,5 @@ const style = StyleSheet.create({
     backgroundColor: 'transparent',
     fontFamily: Fonts.openSans,
     fontWeight: 'bold',
-  },
-  desc: {
-    fontSize: 12,
-    textAlign: 'center',
-    color: '#fff',
-    backgroundColor: 'transparent',
-    fontFamily: Fonts.openSans,
-    marginBottom: 20,
   },
 });

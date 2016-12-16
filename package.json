@@ -14,7 +14,8 @@
     "ios": "react-native run-ios",
     "ios-log": "react-native log-ios",
     "es-lint": "./node_modules/.bin/eslint . -c .eslintrc",
-    "tunnel": "./ngrok http 80"
+    "tunnel": "./ngrok http 80",
+    "reverse": "adb -s 4d009706bcee407b reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
     "apisauce": "^0.7.0",
