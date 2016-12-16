@@ -93,7 +93,6 @@ const style = StyleSheet.create({
     right: 45,
     left: 0,
     height: 45,
-    backgroundColor: 'grey',
   },
 });
 

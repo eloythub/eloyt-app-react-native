@@ -40,19 +40,17 @@ class HomeView extends Component {
           barStyle="light-content"
           hidden={false}
         />
+        <UploadSection queue={this.state.uploadRequest} />
         <ScrollView>
-          <UploadSection queue={this.state.uploadRequest} />
-
-          
         </ScrollView>
         <View style={style.footerMenu}>
           <MenuContainer>
             <MenuItem name="menu" icon="ios-more" onPress={() => {
-                this.root.refs.drawerLayout.openDrawer();
-              }} />
+              this.root.refs.drawerLayout.openDrawer();
+            }} />
             <MenuItem name="record" icon="ios-videocam"  onPress={() => {
-                Actions.record();
-              }} />
+              Actions.record();
+            }} />
           </MenuContainer>
         </View>
       </View>
@@ -80,7 +78,7 @@ export default class Home extends Component {
   render() {
     return (
       <DrawerLayoutAndroid
-        ref={'drawerLayout'}
+        ref="drawerLayout"
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => <NavigationView root={this} /> }>

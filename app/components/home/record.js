@@ -95,32 +95,13 @@ export default class Record extends Component {
     });
   }
 
-  takeSnapshotFromLastScene() {
-    return new Promise((fulfill, reject) => {
-      this.setState({
-        captureMode: Camera.constants.CaptureMode.still,
-      });
-
-      setTimeout(() => {
-        this.refs.camera.capture().then((data) => {
-          recordedVideo = data.path;
-
-          this.setState({
-            captureMode: defaultCaptureMode,
-          });
-
-          fulfill(recordedVideo);
-        }, reject);
-      },0);
-    });
-  }
-
   removeTmpFile(filePath) {
     return RNFS.unlink(filePath);
   }
 
   startCapture() {
     this.setState({
+      captureMode: defaultCaptureMode,
       isRecording: true,
       progressbar: 0
     });
@@ -138,20 +119,10 @@ export default class Record extends Component {
 
         // Go to sharing recorded video in case of meet the condition
         if (!this.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
-          this.takeSnapshotFromLastScene()
-            .then((snapshotResource) => {
-              Actions.recordedPostShare({
-                videoFilePath: recordedVideo,
-                snapshot: snapshotResource,
-                deleteVideoAfterRecord: this.state.settingList.deleteVideoAfterRecord,
-              });
-            }, () => {
-              Actions.recordedPostShare({
-                videoFilePath: recordedVideo,
-                snapshot: null,
-                deleteVideoAfterRecord: this.state.settingList.deleteVideoAfterRecord,
-              });
-            })
+          Actions.recordedPostShare({
+            videoFilePath: recordedVideo,
+            deleteVideoAfterRecord: this.state.settingList.deleteVideoAfterRecord,
+          });
 
           return;
         }
