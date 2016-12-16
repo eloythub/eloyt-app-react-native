@@ -18,8 +18,6 @@ export default class FBInfo extends Component {
   }
 
   componentDidMount() {
-    let base = this;
-
     userRepo.getLoginCredential().then((data) => {
       const user = data.userData.credentials;
       const api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
@@ -27,7 +25,7 @@ export default class FBInfo extends Component {
       fetch(api)
         .then((response) => response.json())
         .then((responseData) => {
-          base.setState({
+          this.setState({
             info: {
               id: user.userId,
               name: responseData.name,

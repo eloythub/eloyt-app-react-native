@@ -7,7 +7,6 @@ import {
   Text,
   Platform,
   StyleSheet,
-  BackAndroid,
   StatusBar,
   ScrollView,
   ListView,
@@ -35,14 +34,6 @@ export default class Settings extends Component {
         'deleteVideoAfterRecord': false,
       },
     };
-  }
-
-  componentWillMount(){
-    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
-  componentWillUnmount(){
-    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
   }
 
   componentDidMount(){
@@ -94,12 +85,6 @@ export default class Settings extends Component {
 
       Actions.refresh();
     });
-  }
-
-  onBackAndroid() {
-    Actions.home();
-
-    return false;
   }
 
   render() {

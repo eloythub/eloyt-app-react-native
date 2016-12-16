@@ -18,7 +18,6 @@ export default class Root extends Component {
           key="login"
           component={Login}
           initial={true}
-          type={ActionConst.REPLACE}
           hideNavBar={true}
           panHandlers={null}
           />
@@ -32,14 +31,14 @@ export default class Root extends Component {
         <Scene
           key="search"
           component={Search}
-          type={ActionConst.REPLACE}
+          type={ActionConst.PUSH}
           hideNavBar={true}
           panHandlers={null}
           />
         <Scene
           key="record"
           component={Record}
-          type={ActionConst.REPLACE}
+          type={ActionConst.PUSH}
           hideNavBar={true}
           panHandlers={null}
           />
@@ -54,14 +53,14 @@ export default class Root extends Component {
         <Scene
           key="myVideos"
           component={MyVideos}
-          type={ActionConst.REPLACE}
+          type={ActionConst.PUSH}
           hideNavBar={true}
           panHandlers={null}
           />
         <Scene
           key="settings"
           component={Settings}
-          type={ActionConst.PUSH_REPLACE}
+          type={ActionConst.PUSH}
           hideNavBar={false}
           panHandlers={null}
           title="Settings"

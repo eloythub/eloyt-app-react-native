@@ -18,7 +18,6 @@ export default class FBPhoto extends Component {
   }
 
   componentDidMount() {
-    let base  = this;
     const width = this.props.width;
 
     userRepo.getLoginCredential().then((data) => {
@@ -29,7 +28,7 @@ export default class FBPhoto extends Component {
       fetch(api)
         .then((response) => response.json())
         .then((responseData) => {
-          base.setState({
+          this.setState({
             photo: {
               url: responseData.data.url,
               height: responseData.data.height,

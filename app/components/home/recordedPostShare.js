@@ -12,7 +12,6 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
-  BackAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -30,24 +29,10 @@ export default class RecordedPostShare extends Component {
     };
   }
 
-  componentWillMount() {
-    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
-  componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
   componentDidMount() {
     setTimeout(() => {
       RNFS.unlink(this.props.navigationState.snapshot).then(() => {}, () => {});
     }, 0);
-  }
-
-  onBackAndroid() {
-    Actions.record();
-
-    return true;
   }
 
   pressSendPost() {

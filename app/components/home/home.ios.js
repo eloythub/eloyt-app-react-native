@@ -7,7 +7,6 @@ import {
   StatusBar,
   StyleSheet,
   ScrollView,
-  BackAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -15,35 +14,11 @@ import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import Drawer from 'react-native-drawer'
 import { NavigationView } from '../partials/drawer-view';
 
-let backButtonPressedOnceToExit = 0;
-
 class HomeView extends Component {
   constructor(props) {
     super(props);
 
     this.root = props.root;
-  }
-
-  componentWillMount(){
-    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
-  componentWillUnmount(){
-    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
-  onBackAndroid() {
-    if (backButtonPressedOnceToExit > 2) {
-      BackAndroid.exitApp();
-    } else {
-      backButtonPressedOnceToExit++;
-
-      setTimeout(() => {
-        backButtonPressedOnceToExit = 0;
-      }, 2000);
-
-      return true;
-    }
   }
 
   render() {

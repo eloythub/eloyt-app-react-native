@@ -8,7 +8,6 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
-  BackAndroid,
   TouchableOpacity,
 } from 'react-native';
 
@@ -28,7 +27,6 @@ const showHideTransitions = [
   'fade',
   'slide',
 ];
-
 
 function getValue<T>(values: Array<T>, index: number): T {
   return values[index % values.length];
@@ -76,14 +74,6 @@ export default class Record extends Component {
     }
   }
 
-  componentWillMount(){
-    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
-  componentWillUnmount(){
-    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-  }
-
   componentDidMount(){
     settingsRepo.load().then((data) => {
       if (typeof data !== 'object') {
@@ -103,14 +93,6 @@ export default class Record extends Component {
       // Set the initial camera type, true means frontCamera, false means backCamera
       this.switchCamera(data.initFrontCameraByDefault ? CameraTypes.frontCamera : CameraTypes.backCamera)
     });
-  }
-
-  onBackAndroid() {
-    if (this.state.isRecording) {
-      this.stopCapture(true);
-    }
-
-    return true;
   }
 
   takeSnapshotFromLastScene() {
@@ -273,7 +255,7 @@ export default class Record extends Component {
   backButton() {
     this.stopCapture(true);
 
-    Actions.home();
+    Actions.pop();
   }
 
   render() {
