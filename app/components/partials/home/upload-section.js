@@ -17,6 +17,15 @@ import Fonts from 'eloyt/common/fonts';
 export default class UploadSection extends Component {
   constructor(props) {
     super(props);
+
+    this.state = props;
+  }
+
+
+  componentWillReceiveProps(props) {
+    const queue = props.queue;
+
+    this.setState({ queue });
   }
 
   cancelUpload() {
@@ -28,22 +37,25 @@ export default class UploadSection extends Component {
   }
 
   render() {
-    return (
-      <View style={style.uploadSectionContainer}>
-        <View style={style.progressContainer}>
+    console.log(this.state);
+    return this.state.queue
+      ? (
+        <View style={style.uploadSectionContainer}>
+          <View style={style.progressContainer}>
+          </View>
+          <View style={style.retryContainer}>
+            <TouchableOpacity onPress={this.retryUpload.bind()}>
+              <Icon name="ios-refresh-outline" style={style.icon} />
+            </TouchableOpacity>
+          </View>
+          <View style={style.removeContainer}>
+            <TouchableOpacity onPress={this.cancelUpload.bind()}>
+              <Icon name="ios-close" style={style.icon} />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={style.retryContainer}>
-          <TouchableOpacity onPress={this.retryUpload.bind()}>
-            <Icon name="ios-refresh-outline" style={style.icon} />
-          </TouchableOpacity>
-        </View>
-        <View style={style.removeContainer}>
-          <TouchableOpacity onPress={this.cancelUpload.bind()}>
-            <Icon name="ios-close" style={style.icon} />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
+      )
+      : null
   }
 }
 
@@ -86,5 +98,5 @@ const style = StyleSheet.create({
 });
 
 UploadSection.propTypes = {
-  //caption: PropTypes.string.isRequired,
+  queue: PropTypes.object,
 };

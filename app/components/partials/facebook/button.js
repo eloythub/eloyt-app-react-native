@@ -37,7 +37,7 @@ export default class FBLoginButton extends Component {
 const style = StyleSheet.create({
   wrapper: {
     backgroundColor: '#3b5998',
-    paddingTop: 15,
+    paddingTop: 18,
     paddingBottom: 20,
   },
   text: {

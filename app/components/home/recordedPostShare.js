@@ -40,9 +40,11 @@ export default class RecordedPostShare extends Component {
     Actions.pop({
       popNum: 2,
       refresh: {
-        videoFilePath: this.state.videoFilePath,
-        postDescription: this.state.postDescription,
-        deleteVideoAfterRecord: this.state.deleteVideoAfterRecord,
+        uploadData: {
+          videoFilePath: this.state.videoFilePath,
+          postDescription: this.state.postDescription,
+          deleteVideoAfterRecord: this.state.deleteVideoAfterRecord,
+        },
       },
     });
   }

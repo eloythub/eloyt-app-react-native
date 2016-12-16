@@ -42,10 +42,6 @@ export default class Login extends Component {
     settingsRepo.cleanUp();
   }
 
-  componentDidMount() {
-
-  }
-
   rejectLogin() {
     Toast.show('Something went wrong, please try again later.', Toast.SHORT);
 

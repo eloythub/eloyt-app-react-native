@@ -20,6 +20,16 @@ class HomeView extends Component {
     super(props);
 
     this.root = props.root;
+
+    this.state = {
+      uploadRequest: null,
+    };
+  }
+
+  componentWillReceiveProps(res) {
+    this.setState({
+      uploadRequest: res.root.props.navigationState.uploadData,
+    });
   }
 
   render() {
@@ -31,7 +41,7 @@ class HomeView extends Component {
           hidden={false}
         />
         <ScrollView>
-          <UploadSection />
+          <UploadSection queue={this.state.uploadRequest} />
 
           
         </ScrollView>

@@ -74,7 +74,7 @@ export default class Record extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     settingsRepo.load().then((data) => {
       if (typeof data !== 'object') {
         return;
@@ -143,13 +143,13 @@ export default class Record extends Component {
               Actions.recordedPostShare({
                 videoFilePath: recordedVideo,
                 snapshot: snapshotResource,
-                deleteVideoAfterRecord: data.deleteVideoAfterRecord,
+                deleteVideoAfterRecord: this.state.settingList.deleteVideoAfterRecord,
               });
             }, () => {
               Actions.recordedPostShare({
                 videoFilePath: recordedVideo,
                 snapshot: null,
-                deleteVideoAfterRecord: data.deleteVideoAfterRecord,
+                deleteVideoAfterRecord: this.state.settingList.deleteVideoAfterRecord,
               });
             })
 
