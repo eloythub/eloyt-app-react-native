@@ -41,7 +41,7 @@ export default class Login extends Component {
     settingsRepo.cleanUp();
   }
 
-  rejectLogin(base) {
+  rejectLogin() {
     Toast.show('Something went wrong, please try again later.', Toast.SHORT);
 
     FBLoginManager.logout(() => {
@@ -52,30 +52,30 @@ export default class Login extends Component {
       Actions.refresh();
     });
 
-    base.setState({
+    this.setState({
       waiting: false,
     });
   }
 
-  doLogin(res, base) {
+  doLogin(res) {
     if (res.statusCode !== 200) {
-      this.rejectLogin(base);
+      this.rejectLogin();
 
       return;
     }
 
     settingsRepo.loadFromServer().then(() => {
-      base.setState({
+      this.setState({
         waiting: false,
       });
 
       Actions.home();
     }, (error) => {
-      base.rejectLogin(base);
+      this.rejectLogin();
     });
   }
 
-  doLoginRevert(error, base) {
+  doLoginRevert(error) {
     Toast.show(error, Toast.SHORT);
 
     FBLoginManager.logout(() => {
@@ -86,15 +86,13 @@ export default class Login extends Component {
       Actions.refresh();
     });
 
-    base.setState({
+    this.setState({
       waiting: false,
     });
   }
 
 
   render() {
-    let base = this;
-
     return (
       <View style={style.wrapperLogo}>
         <StatusBar
@@ -117,14 +115,14 @@ export default class Login extends Component {
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
 
             onLogin={(user) => {
-              base.setState({
+              this.setState({
                 waiting: true,
               });
 
               userRepo.doLogin('facebook', user).then((res) => {
-                base.doLogin(res, base);
+                this.doLogin(res);
               }, (error) => {
-                base.doLoginRevert(error, base);
+                this.doLoginRevert(error);
               });
             }}
             onLogout={() => {
@@ -133,14 +131,14 @@ export default class Login extends Component {
               settingsRepo.cleanUp();
             }}
             onLoginFound={(user) => {
-              base.setState({
+              this.setState({
                 waiting: true,
               });
 
               userRepo.doLogin('facebook', user)
                 .then((data) => {
                   settingsRepo.loadFromServer().then(() => {
-                    base.setState({
+                    this.setState({
                       waiting: false,
                     });
 

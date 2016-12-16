@@ -63,8 +63,6 @@ export class NavigationView extends Component {
   }
 
   render() {
-    let base = this;
-
     return (
       <View style={style.wrapper}>
         <View style={style.header}>
@@ -80,9 +78,6 @@ export class NavigationView extends Component {
           <DrawerListItem caption="News Feed" icon="logo-rss" onPress={() => {
             Actions.home();
           }} />
-          <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
-              Actions.myVideos();
-            }} />
           <DrawerListItem caption="Settings" icon="ios-settings" onPress={() => {
               Actions.settings();
             }} />
@@ -99,6 +94,10 @@ export class NavigationView extends Component {
 
 /*
 inventory:
+
+ <DrawerListItem caption="My Videos" icon="ios-videocam" onPress={() => {
+   Actions.myVideos();
+ }} />
 
 <DrawerListItem caption="News Feed" icon="logo-rss" onPress={() => {
     Actions.home();

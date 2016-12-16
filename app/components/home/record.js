@@ -120,8 +120,6 @@ export default class Record extends Component {
   }
 
   startCapture() {
-    let base = this;
-
     this.setState({
       isRecording: true,
       progressbar: 0
@@ -132,14 +130,14 @@ export default class Record extends Component {
       .then((data) => {
         recordedVideo = data.path.replace('file://', '');
 
-        let finalCounter = base.counter * 10;
+        let finalCounter = this.counter * 10;
 
         this.setState({
           isRecording: false,
         });
 
         // Go to sharing recorded video in case of meet the condition
-        if (!base.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
+        if (!this.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
           this.takeSnapshotFromLastScene()
             .then((snapshotResource) => {
               Actions.recordedPostShare({

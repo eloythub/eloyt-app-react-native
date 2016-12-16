@@ -20,7 +20,7 @@ export default class DrawerListItem extends Component {
 
   render() {
     let caption = this.props.caption;
-    let icon = this.props.icon;
+    let icon    = this.props.icon;
     let onPress = this.props.onPress;
 
     return (
