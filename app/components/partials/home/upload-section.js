@@ -14,6 +14,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fonts from 'eloyt/common/fonts';
 
+import * as Progress from 'react-native-progress';
+
 export default class UploadSection extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +44,14 @@ export default class UploadSection extends Component {
       ? (
         <View style={style.uploadSectionContainer}>
           <View style={style.progressContainer}>
+            <Progress.Bar 
+              style={style.progress} 
+              indeterminate={true} 
+              progress={0.3} 
+              width={Dimensions.get('window').width - 100} 
+              height={2} 
+              color={'white'} 
+            />
           </View>
           <View style={style.retryContainer}>
             <TouchableOpacity onPress={this.retryUpload.bind()}>
@@ -93,6 +103,10 @@ const style = StyleSheet.create({
     right: 45,
     left: 0,
     height: 45,
+  },
+  progress: {
+    marginTop: 20,
+    marginLeft: 10,
   },
 });
 
