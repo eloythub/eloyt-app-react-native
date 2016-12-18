@@ -42,7 +42,11 @@ export default class UploadSection extends Component {
   componentWillReceiveProps(props) {
     const queue = props.queue;
 
-    this.setState({ queue }); // This will recieve upload object from recordedPostShare
+    this.setState({ 
+      queue, 
+      mode: modeUploadInProgress,
+      progress: 0,
+    }); // This will recieve upload object from recordedPostShare
 
     if (queue) {
       this.startUpload(queue);
@@ -63,6 +67,7 @@ export default class UploadSection extends Component {
       const data = new FormData();
 
       data.append('user_id', userInfo._id);
+      data.append('description', queue.postDescription);
       data.append('file', {
         uri: queue.videoFilePath,
         type: 'image/mp4',
@@ -92,7 +97,7 @@ export default class UploadSection extends Component {
         });
 
         setTimeout(() => {
-          this.props.success(res.response);
+          this.props.success(res.response, queue.deleteVideoAfterRecord, queue.videoFilePath);
         }, 2000); // Pause for 2 sec in order to show upload was successfull
       }, (err) => {
         // upload failed
@@ -111,7 +116,8 @@ export default class UploadSection extends Component {
   }
 
   cancelUpload() {
-    this.props.canceled();
+    console.log(this.state);
+    this.props.canceled(this.state.queue.deleteVideoAfterRecord, this.state.queue.videoFilePath);
 
     if (this.xhr) {
       this.xhr.abort();
@@ -120,9 +126,7 @@ export default class UploadSection extends Component {
   }
 
   retryUpload() {
-    if (this.state.queue) {
-      this.startUpload(this.state.queue);
-    }
+    this.componentWillReceiveProps(this.props);
   }
 
   render() {

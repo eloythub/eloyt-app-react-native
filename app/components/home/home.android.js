@@ -15,6 +15,8 @@ import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
 import UploadSection from '../partials/home/upload-section';
 
+import RNFS from 'react-native-fs';
+
 class HomeView extends Component {
   constructor(props) {
     super(props);
@@ -27,23 +29,36 @@ class HomeView extends Component {
   }
 
   componentWillReceiveProps(res) {
+    const uploadRequest = res.root.props.navigationState.cleanup ? null : res.root.props.navigationState.uploadData;
+
     this.setState({
-      uploadRequest: res.root.props.navigationState.uploadData,
+      uploadRequest,
     });
   }
 
   uploadCleanup() {
     this.setState({ uploadRequest: null });
+    Actions.refresh({
+      cleanup: true,
+    });
   }
 
-  uploadCanceled() {
-    this.uploadCleanup();
+  deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath) {
+    if (deleteVideoAfterRecord) {
+      RNFS.unlink(videoFilePath.replace('file://', ''));
+    }
   }
 
-  uploadSuccess(data) {
-    console.log('upload has been successfull', data);
-
+  uploadCanceled(deleteVideoAfterRecord, videoFilePath) {
     this.uploadCleanup();
+
+    this.deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath);
+  }
+
+  uploadSuccess(data, deleteVideoAfterRecord, videoFilePath) {
+    this.uploadCleanup();
+
+    this.deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath);
   }
 
   render() {

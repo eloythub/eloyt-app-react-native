@@ -96,7 +96,7 @@ export default class Record extends Component {
   }
 
   removeTmpFile(filePath) {
-    return RNFS.unlink(filePath);
+    return RNFS.unlink(filePath.replace('file://', ''));
   }
 
   startCapture() {

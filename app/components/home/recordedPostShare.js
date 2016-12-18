@@ -16,8 +16,6 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import RNFS from 'react-native-fs';
-
 export default class RecordedPostShare extends Component {
   constructor (props) {
     super(props);
@@ -33,6 +31,7 @@ export default class RecordedPostShare extends Component {
     Actions.pop({
       popNum: 2,
       refresh: {
+        cleanup: false,
         uploadData: {
           videoFilePath: this.state.videoFilePath,
           postDescription: this.state.postDescription,
