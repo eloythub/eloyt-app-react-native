@@ -16,6 +16,12 @@ import Fonts from 'eloyt/common/fonts';
 
 import * as Progress from 'react-native-progress';
 
+import ApiRepo from 'eloyt/common/repositories/api';
+const apiRepo = new ApiRepo();
+
+import UsersRepo from 'eloyt/common/repositories/users';
+const userRepo = new UsersRepo();
+
 const modeUploadInProgress = 0;
 const modeUploadFailed     = 1;
 const modeUploadSuccessful = 2;
@@ -27,25 +33,99 @@ export default class UploadSection extends Component {
     this.state = {
       queue: props.queue,
       mode: modeUploadInProgress,
+      progress: 0,
     };
+
+    this.xhr = null;
   }
 
   componentWillReceiveProps(props) {
     const queue = props.queue;
 
-    this.setState({ queue });
+    this.setState({ queue }); // This will recieve upload object from recordedPostShare
+
+    if (queue) {
+      this.startUpload(queue);
+    }
+  }
+
+  uploadProgress(progressEvent) {
+    const progress = progressEvent.loaded / progressEvent.total;
+
+    this.setState({
+      progress: progress,
+    });
+  }
+
+  startUpload(queue) {
+    const userInfo = userRepo.getLoginInfo().then((userInfo) => {
+      // Prepare the data to upload
+      const data = new FormData();
+
+      data.append('user_id', userInfo._id);
+      data.append('file', {
+        uri: queue.videoFilePath,
+        type: 'image/mp4',
+        name: 'file'
+      });
+
+      // Upload the data and handle the progress
+      apiRepo.postWithProgress(
+        '/stream/upload/video',
+        {
+          method: 'post',
+          body: data
+        },
+        this.uploadProgress.bind(this),
+        (xhr) => { this.xhr = xhr }
+      ).then((res) => {
+        if (res.status !== 200) {
+          is.setState({
+            mode: modeUploadFailed,
+          });
+
+          return;
+        }
+
+        this.setState({
+          mode: modeUploadSuccessful,
+        });
+
+        setTimeout(() => {
+          this.props.success(res.response);
+        }, 2000); // Pause for 2 sec in order to show upload was successfull
+      }, (err) => {
+        // upload failed
+        console.log(err);
+
+        this.setState({
+          mode: modeUploadFailed,
+        });
+      });
+    }, (err) => {
+      // fetching user has been failed
+      this.setState({
+        mode: modeUploadFailed,
+      });
+    });
   }
 
   cancelUpload() {
+    this.props.canceled();
 
+    if (this.xhr) {
+      this.xhr.abort();
+      this.xhr = null;
+    }
   }
 
   retryUpload() {
-
+    if (this.state.queue) {
+      this.startUpload(this.state.queue);
+    }
   }
 
   render() {
-    console.log(this.state);
     return this.state.queue
       ? (
         <View style={style.uploadSectionContainer}>
@@ -56,8 +136,8 @@ export default class UploadSection extends Component {
                 <View style={style.progressContainerModeInProgress}>
                   <Progress.Bar 
                     style={style.progress} 
-                    indeterminate={false} 
-                    progress={0} 
+                    indeterminate={this.state.progress === 0} 
+                    progress={this.state.progress} 
                     width={Dimensions.get('window').width - 55} 
                     height={5} 
                     color={'white'}
@@ -100,7 +180,7 @@ export default class UploadSection extends Component {
             this.state.mode === modeUploadFailed
               ?
                 <View style={style.retryContainer}>
-                  <TouchableOpacity onPress={this.retryUpload.bind()}>
+                  <TouchableOpacity onPress={this.retryUpload.bind(this)}>
                     <Icon name="ios-refresh-outline" style={style.icon} />
                   </TouchableOpacity>
                 </View>
@@ -111,7 +191,7 @@ export default class UploadSection extends Component {
             this.state.mode === modeUploadFailed || this.state.mode === modeUploadInProgress
               ?
                 <View style={style.cancelContainer}>
-                  <TouchableOpacity onPress={this.cancelUpload.bind()}>
+                  <TouchableOpacity onPress={this.cancelUpload.bind(this)}>
                     <Icon name="ios-close" style={style.icon} />
                   </TouchableOpacity>
                 </View>
@@ -195,4 +275,6 @@ const style = StyleSheet.create({
 
 UploadSection.propTypes = {
   queue: PropTypes.object,
+  canceled: PropTypes.func,
+  success: PropTypes.func,
 };

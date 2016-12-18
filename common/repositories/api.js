@@ -1,9 +1,9 @@
-import { create } from 'apisauce';
-
 const apiUrl = {
   dev: 'http://127.0.0.1:8090',
   staging: 'http://api.eloyt.com',
 };
+
+const apiUrlSelector = 'staging';
 
 export const RequestMethodType = {
   get: 'GET',
@@ -16,7 +16,7 @@ export const RequestMethodType = {
 export default class ApiRepo {
   request(url, method, bodyData) {
     return new Promise(async (fulfill, reject) => {
-      await fetch(apiUrl.staging + url, {
+      await fetch(apiUrl[apiUrlSelector] + url, {
         method: method,
         headers: {
           'Accept': 'application/json',
@@ -33,4 +33,29 @@ export default class ApiRepo {
         });
     });
   }
+
+  postWithProgress(url, opts={}, onProgress, afterSend) {
+    return new Promise((fulfill, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open(opts.method || 'get', apiUrl[apiUrlSelector] + url);
+
+        for (var k in opts.headers || {}) {
+          xhr.setRequestHeader(k, opts.headers[k]);
+        }
+
+        xhr.onload = e => fulfill(e.target);
+
+        xhr.onerror = reject;
+
+        if (xhr.upload && onProgress) {
+            xhr.upload.onprogress = onProgress; // event.loaded / event.total * 100 ; //event.lengthComputable
+        }
+
+        xhr.send(opts.body);
+
+        afterSend(xhr);
+    });
+  }
+
 }

@@ -32,6 +32,20 @@ class HomeView extends Component {
     });
   }
 
+  uploadCleanup() {
+    this.setState({ uploadRequest: null });
+  }
+
+  uploadCanceled() {
+    this.uploadCleanup();
+  }
+
+  uploadSuccess(data) {
+    console.log('upload has been successfull', data);
+
+    this.uploadCleanup();
+  }
+
   render() {
     return (
       <View style={style.wrapperLogo}>
@@ -40,7 +54,13 @@ class HomeView extends Component {
           barStyle="light-content"
           hidden={false}
         />
-        <UploadSection queue={this.state.uploadRequest} />
+
+        <UploadSection 
+          queue={this.state.uploadRequest} 
+          canceled={this.uploadCanceled.bind(this)} 
+          success={this.uploadSuccess.bind(this)} 
+        />
+
         <ScrollView>
         </ScrollView>
         <View style={style.footerMenu}>

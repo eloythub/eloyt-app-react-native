@@ -33,7 +33,7 @@ function getValue<T>(values: Array<T>, index: number): T {
 }
 
 const maxRecordLimit = 120; // 2 min = 120 sec
-const minRecordLimit = 15; // 15 sec
+const minRecordLimit = 1; // 15 sec
 
 const CameraTypes = {
   frontCamera: false,
@@ -109,7 +109,7 @@ export default class Record extends Component {
     this.recordCanceled = false;
     this.refs.camera.capture()
       .then((data) => {
-        recordedVideo = data.path.replace('file://', '');
+        recordedVideo = data.path;
 
         let finalCounter = this.counter * 10;
 
@@ -145,7 +145,6 @@ export default class Record extends Component {
           isRecording: false,
         });
       });
-
 
     this.setState({
       isRecordPostable: false,
