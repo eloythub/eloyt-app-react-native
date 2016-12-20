@@ -6,7 +6,6 @@ import Login from './authentication/login';
 import Home from './home/home';
 import Search from './home/search';
 import Record from './home/record';
-import RecordedPostShare from './home/recordedPostShare';
 import MyVideos from './home/my-videos';
 import Settings from './home/settings';
 
@@ -41,14 +40,6 @@ export default class Root extends Component {
           type={ActionConst.PUSH}
           hideNavBar={true}
           panHandlers={null}
-          />
-        <Scene
-          key="recordedPostShare"
-          component={RecordedPostShare}
-          type={ActionConst.PUSH}
-          hideNavBar={false}
-          panHandlers={null}
-          title="Post"
           />
         <Scene
           key="myVideos"

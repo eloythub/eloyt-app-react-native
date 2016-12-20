@@ -67,7 +67,6 @@ export default class UploadSection extends Component {
       const data = new FormData();
 
       data.append('user_id', userInfo._id);
-      data.append('description', queue.postDescription);
       data.append('file', {
         uri: queue.videoFilePath,
         type: 'image/mp4',

@@ -38,6 +38,7 @@ class HomeView extends Component {
 
   uploadCleanup() {
     this.setState({ uploadRequest: null });
+
     Actions.refresh({
       cleanup: true,
     });

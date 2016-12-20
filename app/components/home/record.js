@@ -119,9 +119,15 @@ export default class Record extends Component {
 
         // Go to sharing recorded video in case of meet the condition
         if (!this.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
-          Actions.recordedPostShare({
-            videoFilePath: recordedVideo,
-            deleteVideoAfterRecord: this.state.settingList.deleteVideoAfterRecord,
+          Actions.pop({
+            popNum: 1,
+            refresh: {
+              cleanup: false,
+              uploadData: {
+                videoFilePath: recordedVideo,
+                deleteVideoAfterRecord: this.state.settingList.deleteVideoAfterRecord,
+              },
+            },
           });
 
           return;
