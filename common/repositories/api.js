@@ -40,7 +40,7 @@ export default class ApiRepo {
 
         xhr.open(opts.method || 'get', apiUrl[apiUrlSelector] + url);
 
-        for (var k in opts.headers || {}) {
+        for (let k in opts.headers || {}) {
           xhr.setRequestHeader(k, opts.headers[k]);
         }
 
