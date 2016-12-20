@@ -16,8 +16,6 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import RNFS from 'react-native-fs';
-
 export default class RecordedPostShare extends Component {
   constructor (props) {
     super(props);
@@ -25,21 +23,15 @@ export default class RecordedPostShare extends Component {
     this.state = {
       postDescription: '',
       videoFilePath: this.props.navigationState.videoFilePath,
-      backgroundSnapshot: this.props.navigationState.snapshot,
       deleteVideoAfterRecord: this.props.navigationState.deleteVideoAfterRecord,
     };
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      RNFS.unlink(this.props.navigationState.snapshot).then(() => {}, () => {});
-    }, 0);
   }
 
   pressSendPost() {
     Actions.pop({
       popNum: 2,
       refresh: {
+        cleanup: false,
         uploadData: {
           videoFilePath: this.state.videoFilePath,
           postDescription: this.state.postDescription,
@@ -72,12 +64,8 @@ export default class RecordedPostShare extends Component {
               value={this.state.postDescription}
             />
           </View>
-          <View>
-            <Image style={style.backgroundImage} source={{uri: this.state.backgroundSnapshot}} />
-            <Icon name="ios-videocam" style={style.playSign} />
-            <View style={style.sendButtonContainer}>
-              <Button style={style.sendButton} title="Post" onPress={this.pressSendPost.bind(this)} />
-            </View>
+          <View style={style.sendButtonContainer}>
+            <Button title="Post" onPress={this.pressSendPost.bind(this)} />
           </View>
         </ScrollView>
       </View>
@@ -89,15 +77,6 @@ const style = StyleSheet.create({
   wrapper: {
     marginTop: 54,
   },
-  backgroundImage: {
-    width: Dimensions.get('window').width / 2,
-    height: Dimensions.get('window').height / 2,
-    borderColor: '#aaa',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginLeft: 10,
-    marginTop: 10,
-  },
   textBox: {
     borderColor: 'grey',
     borderBottomWidth: 1,
@@ -105,16 +84,10 @@ const style = StyleSheet.create({
     marginBottom: 0,
   },
   sendButtonContainer: {
-    width: Dimensions.get('window').width / 2.7,
-    position: "absolute",
-    right: 10,
-    top: 10,
-  },
-  playSign: {
-    position: 'absolute',
-    fontSize: 40,
-    color: 'white',
-    left: ((Dimensions.get('window').width / 2) / 2),
-    top: ((Dimensions.get('window').height / 2) / 2) - 10,
+    width: Dimensions.get('window').width,
+    height: 100,
+    marginTop: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
   },
 });

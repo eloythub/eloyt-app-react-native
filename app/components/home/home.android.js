@@ -15,6 +15,8 @@ import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
 import UploadSection from '../partials/home/upload-section';
 
+import RNFS from 'react-native-fs';
+
 class HomeView extends Component {
   constructor(props) {
     super(props);
@@ -27,9 +29,36 @@ class HomeView extends Component {
   }
 
   componentWillReceiveProps(res) {
+    const uploadRequest = res.root.props.navigationState.cleanup ? null : res.root.props.navigationState.uploadData;
+
     this.setState({
-      uploadRequest: res.root.props.navigationState.uploadData,
+      uploadRequest,
     });
+  }
+
+  uploadCleanup() {
+    this.setState({ uploadRequest: null });
+    Actions.refresh({
+      cleanup: true,
+    });
+  }
+
+  deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath) {
+    if (deleteVideoAfterRecord) {
+      RNFS.unlink(videoFilePath.replace('file://', ''));
+    }
+  }
+
+  uploadCanceled(deleteVideoAfterRecord, videoFilePath) {
+    this.uploadCleanup();
+
+    this.deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath);
+  }
+
+  uploadSuccess(data, deleteVideoAfterRecord, videoFilePath) {
+    this.uploadCleanup();
+
+    this.deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath);
   }
 
   render() {
@@ -40,19 +69,23 @@ class HomeView extends Component {
           barStyle="light-content"
           hidden={false}
         />
-        <ScrollView>
-          <UploadSection queue={this.state.uploadRequest} />
 
-          
+        <UploadSection 
+          queue={this.state.uploadRequest} 
+          canceled={this.uploadCanceled.bind(this)} 
+          success={this.uploadSuccess.bind(this)} 
+        />
+
+        <ScrollView>
         </ScrollView>
         <View style={style.footerMenu}>
           <MenuContainer>
             <MenuItem name="menu" icon="ios-more" onPress={() => {
-                this.root.refs.drawerLayout.openDrawer();
-              }} />
+              this.root.refs.drawerLayout.openDrawer();
+            }} />
             <MenuItem name="record" icon="ios-videocam"  onPress={() => {
-                Actions.record();
-              }} />
+              Actions.record();
+            }} />
           </MenuContainer>
         </View>
       </View>
@@ -80,7 +113,7 @@ export default class Home extends Component {
   render() {
     return (
       <DrawerLayoutAndroid
-        ref={'drawerLayout'}
+        ref="drawerLayout"
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => <NavigationView root={this} /> }>
