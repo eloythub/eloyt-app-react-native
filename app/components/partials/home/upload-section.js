@@ -103,9 +103,9 @@ export default class UploadSection extends Component {
       // Prepare the data to upload
       const data = new FormData();
 
-      data.append('user_id', userInfo._id);
-      data.append('geo_location_latitude', this.state.geoLocation.latitude);
-      data.append('geo_location_longitude', this.state.geoLocation.longitude);
+      data.append('userId', userInfo._id);
+      data.append('geoLocationLatitude', this.state.geoLocation.latitude);
+      data.append('geoLocationLongitude', this.state.geoLocation.longitude);
       data.append('file', {
         uri: queue.videoFilePath,
         type: 'image/mp4',
