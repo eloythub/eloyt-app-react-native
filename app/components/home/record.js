@@ -120,7 +120,6 @@ export default class Record extends Component {
         // Go to sharing recorded video in case of meet the condition
         if (!this.recordCanceled && finalCounter > minRecordLimit && finalCounter <= maxRecordLimit) {
           Actions.pop({
-            popNum: 1,
             refresh: {
               cleanup: false,
               uploadData: {

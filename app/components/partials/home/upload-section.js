@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import Toast from 'react-native-simple-toast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fonts from 'eloyt/common/fonts';
 
@@ -34,23 +35,58 @@ export default class UploadSection extends Component {
       queue: props.queue,
       mode: modeUploadInProgress,
       progress: 0,
+      geoLocation: null,
     };
 
     this.xhr = null;
+  }
+
+  componentDidMount() {
+    this.fetchGeoLocation();
   }
 
   componentWillReceiveProps(props) {
     const queue = props.queue;
 
     this.setState({ 
-      queue, 
+      queue,
       mode: modeUploadInProgress,
       progress: 0,
-    }); // This will recieve upload object from recordedPostShare
+    }); // This will recieve upload object from record scene
+
+    if (!this.state.geoLocation) {
+      Toast.show('In order to Upload your video, we need your GEO Location. Please enable your GPS and try again.' +
+        '\nPlease retry in case of GPS being already enaibled.', Toast.SHORT);
+
+      this.setState({
+        mode: modeUploadFailed,
+      });
+
+      this.fetchGeoLocation();
+
+      return;
+    }
 
     if (queue) {
       this.startUpload(queue);
     }
+  }
+
+  fetchGeoLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const geoLocation = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+
+        this.setState({ geoLocation });
+      },
+      (error) => {
+        Toast.show('Failed to Load Your GPS, Please Make sure Your GPS is enabled.', Toast.SHORT);
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 1000 }
+    );
   }
 
   uploadProgress(progressEvent) {
@@ -63,10 +99,13 @@ export default class UploadSection extends Component {
 
   startUpload(queue) {
     const userInfo = userRepo.getLoginInfo().then((userInfo) => {
+
       // Prepare the data to upload
       const data = new FormData();
 
       data.append('user_id', userInfo._id);
+      data.append('geo_location_latitude', this.state.geoLocation.latitude);
+      data.append('geo_location_longitude', this.state.geoLocation.longitude);
       data.append('file', {
         uri: queue.videoFilePath,
         type: 'image/mp4',
@@ -139,7 +178,7 @@ export default class UploadSection extends Component {
                 <View style={style.progressContainerModeInProgress}>
                   <Progress.Bar 
                     style={style.progress} 
-                    indeterminate={this.state.progress === 0} 
+                    indeterminate={this.state.progress === 0}
                     progress={this.state.progress} 
                     width={Dimensions.get('window').width - 55} 
                     height={5} 
