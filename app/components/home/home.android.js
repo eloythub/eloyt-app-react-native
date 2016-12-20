@@ -7,10 +7,13 @@ import {
   StatusBar,
   StyleSheet,
   ScrollView,
+  Dimensions,
   DrawerLayoutAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+
+import * as Progress from 'react-native-progress';
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
 import UploadSection from '../partials/home/upload-section';
@@ -64,21 +67,30 @@ class HomeView extends Component {
 
   render() {
     return (
-      <View style={style.wrapperLogo}>
+      <View style={style.mainContainer}>
         <StatusBar
           backgroundColor="black"
           barStyle="light-content"
           hidden={false}
         />
 
-        <UploadSection 
-          queue={this.state.uploadRequest} 
-          canceled={this.uploadCanceled.bind(this)} 
-          success={this.uploadSuccess.bind(this)} 
+        <UploadSection
+          queue={this.state.uploadRequest}
+          canceled={this.uploadCanceled.bind(this)}
+          success={this.uploadSuccess.bind(this)}
+        />
+
+        <Progress.Bar
+          style={style.loadingProgress}
+          indeterminate={true}
+          width={Dimensions.get('window').width}
+          height={2}
+          color="#545454"
         />
 
         <ScrollView>
         </ScrollView>
+
         <View style={style.footerMenu}>
           <MenuContainer>
             <MenuItem name="menu" icon="ios-more" onPress={() => {
@@ -125,10 +137,17 @@ export default class Home extends Component {
 }
 
 const style = StyleSheet.create({
-  wrapperLogo: {
+  mainContainer: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
   },
   footerMenu: {
     backgroundColor: '#000',
+  },
+  loadingProgress: {
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 0,
+    position: 'absolute',
   },
 });

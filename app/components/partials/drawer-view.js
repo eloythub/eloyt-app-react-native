@@ -79,13 +79,13 @@ export class NavigationView extends Component {
             Actions.home();
           }} />
           <DrawerListItem caption="Settings" icon="ios-settings" onPress={() => {
-              Actions.settings();
-            }} />
+            Actions.settings();
+          }} />
           <DrawerListItem caption="Sign Out" icon="ios-exit-outline" onPress={() => {
-              FBLoginManager.logout(() => {
-                Actions.login();
-              });
-            }} />
+            FBLoginManager.logout(() => {
+              Actions.login();
+            });
+          }} />
         </ScrollView>
       </View>
     );
