@@ -18,22 +18,16 @@ export default class FBInfo extends Component {
   }
 
   componentDidMount() {
-    userRepo.getLoginCredential().then((data) => {
-      const user = data.userData.credentials;
-      const api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
-
-      fetch(api)
-        .then((response) => response.json())
-        .then((responseData) => {
-          this.setState({
-            info: {
-              id: user.userId,
-              name: responseData.name,
-              email: responseData.email,
-            },
-          });
-        })
-        .done();
+    userRepo.getLoginInfo().then((data) => {
+      this.setState({
+        info: {
+          id: data._id,
+          name: data.name,
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+        },
+      });
     });
   }
 

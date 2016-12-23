@@ -28,6 +28,7 @@ class HomeView extends Component {
 
     this.state = {
       uploadRequest: null,
+      progressBarWaiting: false,
     };
   }
 
@@ -75,28 +76,32 @@ class HomeView extends Component {
         />
 
         <UploadSection
+          style={style.uploadSection}
           queue={this.state.uploadRequest}
           canceled={this.uploadCanceled.bind(this)}
           success={this.uploadSuccess.bind(this)}
         />
 
-        <Progress.Bar
-          style={style.loadingProgress}
-          indeterminate={true}
-          width={Dimensions.get('window').width}
-          height={2}
-          color="#545454"
-        />
+        {
+          this.state.progressBarWaiting
+            ? <Progress.Bar
+                style={style.loadingProgress}
+                indeterminate={true}
+                width={Dimensions.get('window').width}
+                height={2}
+                color="#545454"
+              />
+            : null
+        }
 
-        <ScrollView>
-        </ScrollView>
+        <ScrollView></ScrollView>
 
         <View style={style.footerMenu}>
           <MenuContainer>
             <MenuItem name="menu" icon="ios-more" onPress={() => {
               this.root.refs.drawerLayout.openDrawer();
             }} />
-            <MenuItem name="record" icon="ios-videocam"  onPress={() => {
+            <MenuItem name="record" icon="ios-videocam" onPress={() => {
               Actions.record();
             }} />
           </MenuContainer>
@@ -148,6 +153,9 @@ const style = StyleSheet.create({
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 0,
+    position: 'absolute',
+  },
+  uploadSection: {
     position: 'absolute',
   },
 });

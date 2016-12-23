@@ -3,7 +3,7 @@ const apiUrl = {
   staging: 'http://api.eloyt.com',
 };
 
-const apiUrlSelector = 'staging';
+const apiUrlSelector = 'dev';
 
 export const RequestMethodType = {
   get: 'GET',
@@ -16,7 +16,7 @@ export const RequestMethodType = {
 export default class ApiRepo {
   request(url, method, bodyData) {
     return new Promise(async (fulfill, reject) => {
-      await fetch(apiUrl[apiUrlSelector] + url, {
+      await fetch(this.url(url), {
         method: method,
         headers: {
           'Accept': 'application/json',
@@ -38,7 +38,7 @@ export default class ApiRepo {
     return new Promise((fulfill, reject) => {
         const xhr = new XMLHttpRequest();
 
-        xhr.open(opts.method || 'get', apiUrl[apiUrlSelector] + url);
+        xhr.open(opts.method || 'get', this.url(url));
 
         for (let k in opts.headers || {}) {
           xhr.setRequestHeader(k, opts.headers[k]);
@@ -58,4 +58,11 @@ export default class ApiRepo {
     });
   }
 
+  url(url) {
+    return apiUrl[apiUrlSelector] + url
+  }
+
+  resourceStreamUrl(userId, resourceType, resourceId) {
+    return this.url(`/stream/${userId}/${resourceType}/${resourceId}`);
+  }
 }
