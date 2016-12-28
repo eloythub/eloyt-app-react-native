@@ -13,16 +13,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#eee',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderColor: '#e8e8e8',
-    borderTopWidth: 1,
+    backgroundColor: 'white',
   },
   menuItemContainer: {
-    height: 40,
-    width: 50,
-    backgroundColor: '#eee',
+    height: 50,
+    width: 60,
     alignItems: 'center',
   },
 });
@@ -55,7 +52,7 @@ export class MenuItem extends Component {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
         <View style={style.menuItemContainer}>
-          <Icon name={this.props.icon} size={40} />
+          <Icon name={this.props.icon} size={50} />
         </View>
       </TouchableOpacity>
     );

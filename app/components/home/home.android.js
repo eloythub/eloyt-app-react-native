@@ -20,6 +20,10 @@ import UploadSection from '../partials/home/upload-section';
 
 import RNFS from 'react-native-fs';
 
+import SwipeCards from 'react-native-swipe-cards';
+import Card from '../partials/home/card';
+import NoMoreCards from '../partials/home/no-more-cards';
+
 class HomeView extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +33,7 @@ class HomeView extends Component {
     this.state = {
       uploadRequest: null,
       progressBarWaiting: false,
+      cards: [],
     };
   }
 
@@ -66,6 +71,14 @@ class HomeView extends Component {
     this.deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath);
   }
 
+  handleYup (card) {
+    console.log(`Yup for ${card.text}`)
+  }
+
+  handleNope (card) {
+    console.log(`Nope for ${card.text}`)
+  }
+
   render() {
     return (
       <View style={style.mainContainer}>
@@ -94,9 +107,23 @@ class HomeView extends Component {
             : null
         }
 
-        <ScrollView></ScrollView>
+        <SwipeCards
+          style={style.swipeCards}
+          cards={this.state.cards}
 
-        <View style={style.footerMenu}>
+          renderCard={(cardData) => <Card {...cardData} />}
+          renderNoMoreCards={() => <NoMoreCards onRefresh={() => {}} />}
+
+          handleYup={this.handleYup}
+          handleNope={this.handleNope}
+
+          yupText="Like"
+          noText="Dislike"
+
+          containerStyle={style.swipeCardsContainer}
+        />
+
+        <View>
           <MenuContainer>
             <MenuItem name="menu" icon="ios-more" onPress={() => {
               this.root.refs.drawerLayout.openDrawer();
@@ -146,9 +173,6 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  footerMenu: {
-    backgroundColor: '#000',
-  },
   loadingProgress: {
     borderColor: 'transparent',
     borderWidth: 0,
@@ -156,6 +180,17 @@ const style = StyleSheet.create({
     position: 'absolute',
   },
   uploadSection: {
+    top: 0,
     position: 'absolute',
+  },
+  swipeCards: {
+    top: 0,
+    position: 'absolute',
+  },
+  swipeCardsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
 });
