@@ -23,21 +23,32 @@ export default class NoMoreCards extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = props;
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(props) {
+    this.setState(props);
+  }
+
+  renderThereIsNoContent() {
+    return (
+        <View>
+          <TouchableOpacity onPress={this.state.onRefresh}>
+            <Text style={style.refreshText}><Icon style={style.refreshIcon} name="ios-refresh-outline" /></Text>
+          </TouchableOpacity>
+        </View>
+      );
   }
 
   render() {
     return (
       <View style={style.cardContainer}>
         <Image style={style.logo} source={logo} />
-        <Text style={style.text}>There is no one around you at the moment</Text>
-        <TouchableOpacity onPress={this.props.onRefresh}>
-          <Text style={style.refreshText}><Icon style={style.refreshIcon} name="ios-refresh-outline" /> Check Again</Text>
-        </TouchableOpacity>
+        {
+          !this.state.inProgress 
+            ? this.renderThereIsNoContent()
+            : <Text style={style.refreshText}>Loading</Text>
+        }
       </View>
     )
   }
@@ -63,17 +74,18 @@ const style = StyleSheet.create({
     backgroundColor: '#000',
     color: '#fff',
     fontSize: 20,
-    paddingRight: 10,
-    paddingLeft: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
     paddingTop: 5,
     paddingBottom: 5,
     borderRadius: 3,
   },
   refreshIcon: {
-    fontSize: 20,
+    fontSize: 40,
   },
 });
 
 NoMoreCards.propTypes = {
   onRefresh: PropTypes.func,
+  inProgress: PropTypes.bool,
 };

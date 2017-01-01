@@ -39,10 +39,8 @@ export default class Card extends Component {
 const style = StyleSheet.create({
   cardContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 300,
-    height: 300,
+    width: Dimensions.get('window').width,
+    backgroundColor: 'red',
   },
 });
 

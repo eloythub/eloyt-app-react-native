@@ -20,7 +20,7 @@
   "dependencies": {
     "promise": "^7.1.1",
     "react": "15.4.1",
-    "react-native": "0.39.0",
+    "react-native": "^0.39",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-circular-progress": "0.0.7",
     "react-native-drawer": "^2.3.0",

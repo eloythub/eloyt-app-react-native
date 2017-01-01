@@ -34,7 +34,12 @@ class HomeView extends Component {
       uploadRequest: null,
       progressBarWaiting: false,
       cards: [],
+      outOfCards: true
     };
+  }
+
+  componentDidMount() {
+    this.fetchVideos();
   }
 
   componentWillReceiveProps(res) {
@@ -72,11 +77,34 @@ class HomeView extends Component {
   }
 
   handleYup (card) {
-    console.log(`Yup for ${card.text}`)
+    console.log(`Yup for ${card}`)
   }
 
   handleNope (card) {
-    console.log(`Nope for ${card.text}`)
+    console.log(`Nope for ${card}`)
+  }
+
+  fetchVideos () {
+    this.setState({
+      cards: [],
+      progressBarWaiting: true,
+    });
+
+    console.log(`list:`, this.state.cards);
+
+    setTimeout(() => {
+      this.setState({
+        cards: [
+          {
+            _id: 1,
+          },
+          {
+            _id: 2,
+          },
+        ],
+        progressBarWaiting: false,
+      });
+    }, 2000);
   }
 
   render() {
@@ -108,11 +136,12 @@ class HomeView extends Component {
         }
 
         <SwipeCards
+          loop={false}
           style={style.swipeCards}
           cards={this.state.cards}
 
           renderCard={(cardData) => <Card {...cardData} />}
-          renderNoMoreCards={() => <NoMoreCards onRefresh={() => {}} />}
+          renderNoMoreCards={() => <NoMoreCards inProgress={this.state.progressBarWaiting} onRefresh={this.fetchVideos.bind(this)} />}
 
           handleYup={this.handleYup}
           handleNope={this.handleNope}
@@ -177,7 +206,6 @@ const style = StyleSheet.create({
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 0,
-    position: 'absolute',
   },
   uploadSection: {
     top: 0,
