@@ -66,6 +66,7 @@
       <string>OpenSans_bold.ttf</string>
       <string>OpenSans_italic.ttf</string>
       <string>OpenSans.ttf</string>
+      <string>SimpleLineIcons.ttf</string>
     </array>
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>

@@ -16,21 +16,160 @@ import Fonts from 'eloyt/common/fonts';
 
 import * as Progress from 'react-native-progress';
 
+import Video from 'react-native-video';
+
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
 export default class Card extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      key: this.generateKey(),
+      videoLoaded: false,
+      currentDuration: 0,
+      playingStatus: false,
+      repeat: false,
     };
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(props) {
+    this.setState({
+      playingStatus: !props.pauseVideoPlayer,
+      repeat: false,
+    });
+  }
+
+  generateKey() {
+    return Math.floor(Math.random() * 100000000) + 1;
+  }
+
+  onVideoLoaded() {
+    this.setState({
+      videoLoaded: true,
+    });
+  }
+
+  pressPlayButton() {
+    this.setState({
+      playingStatus: true,
+    });
+  }
+
+  pressPauseButton() {
+    this.setState({
+      playingStatus: false,
+    });
+  }
+
+  onVideoProgress(progressProperties) {
+    if (progressProperties.playableDuration === 0) {
+      return;
+    }
+
+    let progress = ((progressProperties.currentTime * 100) / progressProperties.playableDuration) || 0;
+
+    this.setState({
+      currentDuration: progress,
+      repeat: true,
+    });
+  }
+
+  onVideoStart(progressProperties) {
+    console.log('Video Started', this.state.key);
+
+    this.setState({
+      currentDuration: 0,
+      playingStatus: true,
+      repeat: false,
+    });
+  }
+
+  onVideoEnd() {
+    console.log('Video ended', this.state.key);
+
+    this.setState({
+      currentDuration: 100,
+      playingStatus: false,
+      repeat: false,
+      key: this.generateKey(),
+    });
+  }
+
+  renderPlayButton() {
+    return (
+      <TouchableOpacity onPress={this.pressPlayButton.bind(this)}>
+        <AnimatedCircularProgress
+          style={style.durationProgress}
+          size={70}
+          width={4}
+          fill={this.state.currentDuration}
+          tintColor="green"
+          backgroundColor="#e9e9e9" >
+            {
+              (fill) => (
+                <Icon name="ios-play" style={style.playIcon} />
+              )
+            }
+        </AnimatedCircularProgress>
+      </TouchableOpacity>
+    );
+  }
+
+  renderPauseButton() {
+    return (
+      <TouchableOpacity onPress={this.pressPauseButton.bind(this)}>
+        <AnimatedCircularProgress
+          style={style.durationProgress}
+          size={70}
+          width={4}
+          fill={this.state.currentDuration}
+          tintColor="green"
+          backgroundColor="#e9e9e9" >
+            {
+              (fill) => (
+                <Icon name="ios-pause" style={style.pauseIcon} />
+              )
+            }
+        </AnimatedCircularProgress>
+      </TouchableOpacity>
+    );
   }
 
   render() {
     return (
       <View style={style.cardContainer}>
-        <Text>test</Text>
+        <View style={style.videoContainer}>
+          <Video 
+            key={this.state.key}
+            source={{uri: "http://api.eloyt.com/stream/5868eafc90747c00142f1fae/video/58690e2690747c00142f1fb2?id=" + this.props._id}}
+            ref={(ref) => {
+              this.player = ref
+            }}
+            rate={1.0}
+            volume={1.0}
+            muted={false}
+            paused={!this.state.playingStatus}
+            resizeMode="cover"
+            repeat={this.state.repeat}
+            playInBackground={false}       // Audio continues to play when app entering background.
+            playWhenInactive={false}       // [iOS] Video continues to play when control or notification center are shown.
+            progressUpdateInterval={250.0} // [iOS] Interval to fire onProgress (default to ~250ms)
+            onLoad={this.onVideoLoaded.bind(this)}      // Callback when video loads
+            onProgress={this.onVideoProgress.bind(this)}      // Callback every ~250ms with currentTime
+            onLoadStart={this.onVideoStart.bind(this)}
+            onEnd={this.onVideoEnd.bind(this)}
+            // onError={this.videoError}      // Callback when video cannot be loaded
+            style={style.video} />
+
+          <View style={style.playPauseContainer}>
+            {
+              this.state.playingStatus
+              ? this.renderPauseButton()
+              : this.renderPlayButton()
+            }
+          </View>
+        </View>
       </View>
     )
   }
@@ -40,10 +179,45 @@ const style = StyleSheet.create({
   cardContainer: {
     flex: 1,
     width: Dimensions.get('window').width,
-    backgroundColor: 'red',
+  },
+  videoContainer: {
+    flex: 1,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#e8e8e8',
+    backgroundColor: '#f5f5f5',
+    margin: 5,
+    marginBottom: 10,
+  },
+  video: {
+    flex: 1,
+    margin: 3,
+  },
+  playPauseContainer: {
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    bottom: 40,
+    left: (Dimensions.get('window').width - 16) / 2 - (70 / 2)
+  },
+  playIcon: {
+    fontSize: 50,
+    position: 'absolute',
+    color: '#e9e9e9',
+    marginTop: 10,
+    marginLeft: 26,
+  },
+  pauseIcon: {
+    fontSize: 50,
+    position: 'absolute',
+    color: '#e9e9e9',
+    marginTop: 10,
+    marginLeft: 23,
+  },
+  durationProgress: {
+    flex: 0,
   },
 });
 
 Card.propTypes = {
-  // queue: PropTypes.object,
+  pauseVideoPlayer: PropTypes.bool,
 };

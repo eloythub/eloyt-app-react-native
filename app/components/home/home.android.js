@@ -34,7 +34,8 @@ class HomeView extends Component {
       uploadRequest: null,
       progressBarWaiting: false,
       cards: [],
-      outOfCards: true
+      outOfCards: true,
+      pauseVideoPlayer: false,
     };
   }
 
@@ -76,12 +77,16 @@ class HomeView extends Component {
     this.deleteVideoAfterRecord(deleteVideoAfterRecord, videoFilePath);
   }
 
+  doPauseVideo() {
+    this.setState({
+      pauseVideoPlayer: true,
+    });
+  }
+
   handleYup (card) {
-    console.log(`Yup for ${card}`)
   }
 
   handleNope (card) {
-    console.log(`Nope for ${card}`)
   }
 
   fetchVideos () {
@@ -89,8 +94,6 @@ class HomeView extends Component {
       cards: [],
       progressBarWaiting: true,
     });
-
-    console.log(`list:`, this.state.cards);
 
     setTimeout(() => {
       this.setState({
@@ -140,11 +143,11 @@ class HomeView extends Component {
           style={style.swipeCards}
           cards={this.state.cards}
 
-          renderCard={(cardData) => <Card {...cardData} />}
+          renderCard={(cardData) => <Card {...cardData} pauseVideoPlayer={this.state.pauseVideoPlayer} />}
           renderNoMoreCards={() => <NoMoreCards inProgress={this.state.progressBarWaiting} onRefresh={this.fetchVideos.bind(this)} />}
 
-          handleYup={this.handleYup}
-          handleNope={this.handleNope}
+          handleYup={this.handleYup.bind(this)}
+          handleNope={this.handleNope.bind(this)}
 
           yupText="Like"
           noText="Dislike"
@@ -155,9 +158,15 @@ class HomeView extends Component {
         <View>
           <MenuContainer>
             <MenuItem name="menu" icon="ios-more" onPress={() => {
+              this.doPauseVideo();
+
               this.root.refs.drawerLayout.openDrawer();
             }} />
             <MenuItem name="record" icon="ios-videocam" onPress={() => {
+              this.setState({
+                pauseVideoPlayer: true,
+              });
+
               Actions.record();
             }} />
           </MenuContainer>

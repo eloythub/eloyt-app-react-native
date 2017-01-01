@@ -139,7 +139,7 @@ export default class UploadSection extends Component {
         }, 2000); // Pause for 2 sec in order to show upload was successfull
       }, (err) => {
         // upload failed
-        console.log(err);
+        // console.log(err);
 
         this.setState({
           mode: modeUploadFailed,
@@ -154,7 +154,6 @@ export default class UploadSection extends Component {
   }
 
   cancelUpload() {
-    console.log(this.state);
     this.props.canceled(this.state.queue.deleteVideoAfterRecord, this.state.queue.videoFilePath);
 
     if (this.xhr) {
