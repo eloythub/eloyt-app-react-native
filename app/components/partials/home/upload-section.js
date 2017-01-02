@@ -55,8 +55,8 @@ export default class UploadSection extends Component {
     }); // This will recieve upload object from record scene
 
     if (!this.state.geoLocation) {
-      Toast.show('In order to Upload your video, we need your GEO Location. Please enable your GPS and try again.' +
-        '\nPlease retry in case of GPS being already enaibled.', Toast.SHORT);
+      // Toast.show('In order to Upload your video, we need your GEO Location. Please enable your GPS and try again.' +
+      //   '\nPlease retry in case of GPS being already enaibled.', Toast.SHORT);
 
       this.setState({
         mode: modeUploadFailed,

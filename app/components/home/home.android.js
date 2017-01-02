@@ -100,14 +100,22 @@ class HomeView extends Component {
         cards: [
           {
             _id: 1,
-          },
-          {
-            _id: 2,
+            resourcePath: 'http://api.eloyt.com/stream/5868eafc90747c00142f1fae/video/58690e2690747c00142f1fb2',
+            user: {
+              _id: 1,
+              avatarUrl: 'http://api.eloyt.com/stream/5868eafc90747c00142f1fae/avatar/5868eafc90747c00142f1faf',
+              firstName: 'Mahan',
+            },
+            statistics: {
+              countThumbsUp: 239,
+              countThumbsDown: 30,
+              countViews: 478,
+            },
           },
         ],
         progressBarWaiting: false,
       });
-    }, 2000);
+    }, 500);
   }
 
   render() {

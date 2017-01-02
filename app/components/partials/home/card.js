@@ -20,6 +20,9 @@ import Video from 'react-native-video';
 
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
+import UserInfo from './card/user-info';
+import Statistics from './card/statistics';
+
 export default class Card extends Component {
   constructor(props) {
     super(props);
@@ -29,14 +32,12 @@ export default class Card extends Component {
       videoLoaded: false,
       currentDuration: 0,
       playingStatus: false,
-      repeat: false,
     };
   }
 
   componentWillReceiveProps(props) {
     this.setState({
       playingStatus: !props.pauseVideoPlayer,
-      repeat: false,
     });
   }
 
@@ -71,27 +72,20 @@ export default class Card extends Component {
 
     this.setState({
       currentDuration: progress,
-      repeat: true,
     });
   }
 
   onVideoStart(progressProperties) {
-    console.log('Video Started', this.state.key);
-
     this.setState({
       currentDuration: 0,
       playingStatus: true,
-      repeat: false,
     });
   }
 
   onVideoEnd() {
-    console.log('Video ended', this.state.key);
-
     this.setState({
       currentDuration: 100,
       playingStatus: false,
-      repeat: false,
       key: this.generateKey(),
     });
   }
@@ -142,7 +136,7 @@ export default class Card extends Component {
         <View style={style.videoContainer}>
           <Video 
             key={this.state.key}
-            source={{uri: "http://api.eloyt.com/stream/5868eafc90747c00142f1fae/video/58690e2690747c00142f1fb2?id=" + this.props._id}}
+            source={{uri: this.props.resourcePath}}
             ref={(ref) => {
               this.player = ref
             }}
@@ -161,7 +155,8 @@ export default class Card extends Component {
             onEnd={this.onVideoEnd.bind(this)}
             // onError={this.videoError}      // Callback when video cannot be loaded
             style={style.video} />
-
+          <UserInfo {...this.props.user} />
+          <Statistics {...this.props.statistics} />
           <View style={style.playPauseContainer}>
             {
               this.state.playingStatus
@@ -220,4 +215,7 @@ const style = StyleSheet.create({
 
 Card.propTypes = {
   pauseVideoPlayer: PropTypes.bool,
+  resourcePath: PropTypes.string,
+  user: PropTypes.object,
+  statistics: PropTypes.object,
 };
