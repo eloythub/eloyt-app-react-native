@@ -3,7 +3,7 @@ const apiUrl = {
   staging: 'http://api.eloyt.com',
 };
 
-const apiUrlSelector = 'staging';
+const apiUrlSelector = 'dev';
 
 export const RequestMethodType = {
   get: 'GET',

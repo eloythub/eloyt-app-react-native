@@ -99,10 +99,10 @@ class HomeView extends Component {
       this.setState({
         cards: [
           {
-            _id: 1,
-            resourcePath: 'http://api.eloyt.com/stream/5868eafc90747c00142f1fae/video/58690e2690747c00142f1fb2',
+            id: 1,
+            resourceUrl: 'http://api.eloyt.com/stream/5868eafc90747c00142f1fae/video/58690e2690747c00142f1fb2',
             user: {
-              _id: 1,
+              id: 1,
               avatarUrl: 'http://api.eloyt.com/stream/5868eafc90747c00142f1fae/avatar/5868eafc90747c00142f1faf',
               firstName: 'Mahan',
             },

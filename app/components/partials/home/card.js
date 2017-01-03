@@ -136,7 +136,7 @@ export default class Card extends Component {
         <View style={style.videoContainer}>
           <Video 
             key={this.state.key}
-            source={{uri: this.props.resourcePath}}
+            source={{uri: this.props.resourceUrl}}
             ref={(ref) => {
               this.player = ref
             }}
@@ -215,7 +215,7 @@ const style = StyleSheet.create({
 
 Card.propTypes = {
   pauseVideoPlayer: PropTypes.bool,
-  resourcePath: PropTypes.string,
+  resourceUrl: PropTypes.string,
   user: PropTypes.object,
   statistics: PropTypes.object,
 };
