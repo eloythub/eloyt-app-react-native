@@ -15,6 +15,9 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fonts from 'eloyt/common/fonts';
 
+import ApiRepo from 'eloyt/common/repositories/api';
+const apiRepo = new ApiRepo;
+
 export default class UserInfo extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +36,7 @@ export default class UserInfo extends Component {
   render() {
     return (
       <View style={style.mainContainer}>
-        <Image style={style.avatar} source={{uri: this.state.avatarUrl}} />
+        <Image style={style.avatar} source={{uri: apiRepo.url(this.state.avatarUri)}} />
         <Text style={style.firstName}>{this.state.firstName}</Text>
         <Text style={style.date}>Few Seconds Ago</Text>
         <View style={style.moreContainer}>

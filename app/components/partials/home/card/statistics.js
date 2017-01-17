@@ -26,24 +26,20 @@ export default class Statistics extends Component {
     this.setState(props);
   }
 
-  onPressMore() {
-
-  }
-
   render() {
     return (
       <View style={style.mainContainer}>
         <View style={style.thumbsUpContainer}>
           <Icon name="md-thumbs-up" style={style.thumbsUpIcon}/>
-          <Text style={style.thumbsUp}>{this.state.countThumbsUp}</Text>
+          <Text style={style.thumbsUp}>{this.state.count.thumbsUp}</Text>
         </View>
         <View style={style.thumbsDownContainer}>
           <Icon name="md-thumbs-down" style={style.thumbsDownIcon}/>
-          <Text style={style.thumbsDown}>{this.state.countThumbsDown}</Text>
+          <Text style={style.thumbsDown}>{this.state.count.thumbsDown}</Text>
         </View>
         <View style={style.viewsContainer}>
           <Icon name="md-eye" style={style.viewsIcon}/>
-          <Text style={style.views}>{this.state.countViews}</Text>
+          <Text style={style.views}>{this.state.count.views}</Text>
         </View>
       </View>
     )
@@ -126,7 +122,9 @@ const style = StyleSheet.create({
 });
 
 Statistics.propTypes = {
-  countThumbsUp: PropTypes.number,
-  countThumbsDown: PropTypes.number,
-  countViews: PropTypes.number,
+  count: PropTypes.shape({
+    thumbsUpCount: PropTypes.number,
+    thumbsDownCount: PropTypes.number,
+    viewsCount: PropTypes.number,
+  }),
 };

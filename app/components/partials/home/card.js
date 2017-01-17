@@ -23,6 +23,9 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import UserInfo from './card/user-info';
 import Statistics from './card/statistics';
 
+import ApiRepo from 'eloyt/common/repositories/api';
+const apiRepo = new ApiRepo;
+
 export default class Card extends Component {
   constructor(props) {
     super(props);
@@ -136,7 +139,7 @@ export default class Card extends Component {
         <View style={style.videoContainer}>
           <Video 
             key={this.state.key}
-            source={{uri: this.props.resourceUrl}}
+            source={{uri: apiRepo.url(this.props.resourceUri)}}
             ref={(ref) => {
               this.player = ref
             }}

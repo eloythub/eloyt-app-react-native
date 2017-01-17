@@ -12,7 +12,13 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import UsersRepo from 'eloyt/common/repositories/users';
+const userRepo = new UsersRepo();
 
+import StreamRepo from 'eloyt/common/repositories/stream';
+const streamRepo = new StreamRepo();
+
+import Toast from 'react-native-simple-toast';
 import * as Progress from 'react-native-progress';
 import { MenuContainer, MenuItem } from '../fixtures/footer-menu';
 import { NavigationView } from '../partials/drawer-view';
@@ -95,27 +101,27 @@ class HomeView extends Component {
       progressBarWaiting: true,
     });
 
-    setTimeout(() => {
+    userRepo.getLoginInfo().then((userInfo) => {
+      streamRepo.fetchProducedResources(userInfo._id, 20)
+        .then((response) => {
+          this.setState({
+            cards: response.data,
+            progressBarWaiting: false,
+          });
+        }, (error) => {
+          Toast.show('Something went wrong, please retry again..', Toast.SHORT);
+
+          this.setState({
+            progressBarWaiting: false,
+          });
+        })
+    }, (err) => {
+      Toast.show('Something went wrong, please retry again..', Toast.SHORT);
+
       this.setState({
-        cards: [
-          {
-            id: 1,
-            resourceUrl: 'http://api.eloyt.com/stream/5868eafc90747c00142f1fae/video/58690e2690747c00142f1fb2',
-            user: {
-              id: 1,
-              avatarUrl: 'http://api.eloyt.com/stream/5868eafc90747c00142f1fae/avatar/5868eafc90747c00142f1faf',
-              firstName: 'Mahan',
-            },
-            statistics: {
-              countThumbsUp: 239,
-              countThumbsDown: 30,
-              countViews: 478,
-            },
-          },
-        ],
         progressBarWaiting: false,
       });
-    }, 500);
+    });
   }
 
   render() {
