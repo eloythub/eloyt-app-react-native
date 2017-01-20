@@ -11,7 +11,7 @@ export const RequestMethodType = {
   delete: 'DELETE',
   put: 'PUT',
   patch: 'PATCH',
-}
+};
 
 export default class ApiRepo {
   request(url, method, bodyData) {
