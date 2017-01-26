@@ -1,9 +1,10 @@
 const apiUrl = {
   dev: 'http://127.0.0.1:8090',
-  staging: 'http://api.eloyt.com',
+  staging: 'https://staging.api.eloyt.com',
+  prod: 'https://api.eloyt.com',
 };
 
-const apiUrlSelector = 'staging';
+const apiUrlSelector = 'prod';
 
 export const RequestMethodType = {
   get: 'GET',

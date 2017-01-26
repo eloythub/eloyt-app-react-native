@@ -133,12 +133,13 @@ class HomeView extends Component {
           hidden={false}
         />
 
-        <UploadSection
-          style={style.uploadSection}
-          queue={this.state.uploadRequest}
-          canceled={this.uploadCanceled.bind(this)}
-          success={this.uploadSuccess.bind(this)}
-        />
+        <View style={style.uploadSection}>
+          <UploadSection
+            queue={this.state.uploadRequest}
+            canceled={this.uploadCanceled.bind(this)}
+            success={this.uploadSuccess.bind(this)}
+          />
+        </View>
 
         {
           this.state.progressBarWaiting
@@ -232,11 +233,11 @@ const style = StyleSheet.create({
   },
   uploadSection: {
     top: 0,
-    position: 'absolute',
+    flex: 0,
   },
   swipeCards: {
     top: 0,
-    position: 'absolute',
+    flex: 0,
   },
   swipeCardsContainer: {
     flex: 1,
