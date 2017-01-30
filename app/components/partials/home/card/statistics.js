@@ -65,7 +65,7 @@ const style = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   thumbsUpIcon: {
-    color: '#98FB98',
+    color: 'white',
     fontSize: 20,
     marginLeft: 9,
     marginTop: 2,
@@ -75,7 +75,7 @@ const style = StyleSheet.create({
     fontSize: 20,
     position: 'absolute',
     left: 32,
-    top: 0,
+    top: -3,
   },
   thumbsDownContainer: {
     position: 'absolute',
@@ -86,17 +86,17 @@ const style = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   thumbsDownIcon: {
-    color: '#DC143C',
+    color: 'white',
     fontSize: 20,
     marginLeft: 9,
-    marginTop: 6,
+    marginTop: 4,
   },
   thumbsDown: {
     fontSize: 20,
     color: 'white',
     position: 'absolute',
     left: 32,
-    top: 0,
+    top: -3,
   },
   viewsContainer: {
     position: 'absolute',

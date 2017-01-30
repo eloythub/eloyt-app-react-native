@@ -6,6 +6,7 @@ import React, {
 import {
   View,
   Text,
+  Image,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -81,7 +82,7 @@ export default class Card extends Component {
   onVideoStart(progressProperties) {
     this.setState({
       currentDuration: 0,
-      playingStatus: true,
+      playingStatus: false,
     });
   }
 
@@ -120,6 +121,8 @@ export default class Card extends Component {
           style={style.durationProgress}
           size={70}
           width={4}
+          tension={50}
+          friction={100}
           fill={this.state.currentDuration}
           tintColor="green"
           backgroundColor="#e9e9e9" >
@@ -137,7 +140,10 @@ export default class Card extends Component {
     return (
       <View style={style.cardContainer}>
         <View style={style.videoContainer}>
-          <Video 
+          <Image
+            style={!this.state.playingStatus ? style.thumbnailStop : style.thumbnailPlaying}
+            source={{uri: apiRepo.url(this.props.resourceThumbnailUri)}}/>
+          <Video
             key={this.state.key}
             source={{uri: apiRepo.url(this.props.resourceUri)}}
             ref={(ref) => {
@@ -157,7 +163,7 @@ export default class Card extends Component {
             onLoadStart={this.onVideoStart.bind(this)}
             onEnd={this.onVideoEnd.bind(this)}
             // onError={this.videoError}      // Callback when video cannot be loaded
-            style={style.video} />
+            style={!this.state.playingStatus ? style.videoStop : style.videoPlaying} />
           <UserInfo {...this.props.user} />
           <Statistics {...this.props.statistics} />
           <View style={style.playPauseContainer}>
@@ -177,6 +183,7 @@ const style = StyleSheet.create({
   cardContainer: {
     flex: 1,
     width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   videoContainer: {
     flex: 1,
@@ -187,9 +194,25 @@ const style = StyleSheet.create({
     margin: 5,
     marginBottom: 10,
   },
-  video: {
+  videoPlaying: {
     flex: 1,
-    margin: 3,
+    marginLeft: 3,
+    marginRight: 3,
+    marginBottom: 3,
+    marginTop: 3,
+  },
+  videoStop: {
+    flex: 0,
+  },
+  thumbnailPlaying: {
+    flex: 0,
+  },
+  thumbnailStop: {
+    flex: 1,
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
+    marginBottom: 3,
   },
   playPauseContainer: {
     position: 'absolute',
